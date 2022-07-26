@@ -29,13 +29,18 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export const JobsTable = () => {
+export const TeamsSatusTable = () => {
   const state = React.useContext(SideBarContext);
   const teamState = React.useContext(TeamContext);
 
   const onClickDetails = (event: any, team: string) => {
     state.setSideBarIndex(1);
-    teamState.setExpandedForTeam(team);
+    teamState.setExpandedForTeam(
+      team,
+      teamState.expanded !== undefined && teamState.expanded[team] !== undefined
+        ? !teamState.expanded[team]
+        : true
+    );
   };
 
   return (

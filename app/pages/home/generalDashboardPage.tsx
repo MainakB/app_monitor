@@ -11,7 +11,7 @@ import {
   GeneralDashboardWidgetsLayout,
   GeneralDashboardChartsLayout,
 } from "~/layout/DashboardLayouts";
-import { JobsTable } from "~/components/HomeDashboardWidgets";
+import { TeamsSatusTable } from "~/components/HomeDashboardWidgets";
 
 const data = {
   miniwidgets: [
@@ -70,7 +70,7 @@ export const GeneralDashboardPage = () => {
     <StyledDashboardWrapper>
       <GeneralDashboardWidgetsLayout data={data.miniwidgets} />
       <GeneralDashboardChartsLayout data={data.chartWidgets} />
-      <JobsTable />
+      <TeamsSatusTable />
     </StyledDashboardWrapper>
   );
 };

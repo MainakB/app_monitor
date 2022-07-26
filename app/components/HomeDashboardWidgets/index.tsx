@@ -1,2 +1,2 @@
 export * from "./MiniChartWidget";
-export * from "./JobsTable";
+export * from "./TeamsSatusTable";

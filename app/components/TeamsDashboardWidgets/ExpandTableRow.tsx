@@ -32,8 +32,12 @@ export const ExpandableTableRow = ({
   const teamState = React.useContext(TeamContext);
 
   const setExpanded = (event: any, team: string) => {
-    teamState.setExpandedForTeam(team);
-    console.log("test", teamState);
+    teamState.setExpandedForTeam(
+      team,
+      teamState.expanded !== undefined && teamState.expanded[team] !== undefined
+        ? !teamState.expanded[team]
+        : true
+    );
   };
 
   return (

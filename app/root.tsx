@@ -19,20 +19,25 @@ export const meta: MetaFunction = () => ({
 
 export default function App() {
   const setSideBarIndex = (value: number) => {
+    console.log("testststst", state);
     setState({ ...state, sideBarIndex: value });
   };
 
-  const setExpandedForTeam = (team: string) => {
-    setIsExpandedState({
-      ...isExpandedState,
-      expanded: {
-        ...isExpandedState.expanded,
-        [team as string]:
-          (isExpandedState as any)[team] !== undefined
-            ? !(isExpandedState as any)[team]
-            : true,
-      },
-    });
+  const setExpandedForTeam = (team?: string, value?: boolean) => {
+    let updatedState = null;
+    if (!team) {
+      updatedState = {
+        expanded: {},
+      };
+    } else {
+      updatedState = {
+        expanded: {
+          ...isExpandedState.expanded,
+          [team as string]: value,
+        },
+      };
+    }
+    setIsExpandedState({ ...isExpandedState, ...updatedState });
   };
 
   const initState = {
@@ -48,7 +53,9 @@ export default function App() {
   const [state, setState] = React.useState(initState);
   const [isExpandedState, setIsExpandedState] = React.useState(initTeamsState);
 
-  React.useEffect(() => {}, [state, isExpandedState]);
+  React.useEffect(() => {
+    console.log("effect", isExpandedState);
+  }, [state, isExpandedState]);
 
   return (
     <DocumentLayout>

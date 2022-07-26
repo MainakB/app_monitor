@@ -1,3 +1,4 @@
+import * as React from "react";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -10,6 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { ExpandableTableRow } from "./ExpandTableRow";
 import { TeamDetails } from "./TeamDetails";
+import { TeamContext } from "~/context";
 
 function createData(
   name: string,
@@ -30,6 +32,12 @@ const rows = [
 ];
 
 export const TeamsTable = () => {
+  const teamState = React.useContext(TeamContext);
+
+  React.useEffect(() => {
+    return () => teamState.setExpandedForTeam();
+  }, []);
+
   return (
     <StyledWrapperBox>
       <StyledTableBox>Status By Teams (Last 7 days)</StyledTableBox>

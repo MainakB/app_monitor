@@ -33,15 +33,19 @@ const rows = [
 ];
 
 const headers = [
-  "Team Name",
-  "Jobs Count",
-  "Pipelines Count",
-  "Total Success Rate",
-  "Pipeline Success Rate",
-  "Tenants Run",
-  "Avg. Build Duration(s)",
+  "NAME",
+  "IS PIPELINE",
+  "STATUS",
+  "DURATION",
+  "TEAM",
+  "REPOSITORY",
+  "TEST COUNT",
+  "TEST TYPE",
+  "TEST BROWSERS",
+  "TEST TENANT",
+  "EXECUTION DATE",
 ];
-export const TeamsTable = () => {
+export const JobsTable = () => {
   const teamState = React.useContext(TeamContext);
 
   React.useEffect(() => {
@@ -50,17 +54,21 @@ export const TeamsTable = () => {
 
   return (
     <StyledWrapperBox>
-      <StyledTableBox>Status By Teams (Last 7 days)</StyledTableBox>
+      <StyledTableBox>STATUS BY JOBS (LAST 7 DAYS)</StyledTableBox>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHeaderCaret
             headers={headers}
             hasCaret={true}
-            caretKey="teams-landing-blank-caret"
+            caretKey="jobs-landing-blank-caret"
             hasSpareEndCoulmn={true}
           />
           <TableBody>
             {rows.map((row) => (
+              // <TableRow
+              //   key={row.name}
+              //   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              // >
               <ExpandableTableRow
                 key={row.name}
                 teamName={row.name}
@@ -69,7 +77,7 @@ export const TeamsTable = () => {
                     <TeamDetails
                       widget={{
                         teamName: row.name,
-                        name: "TEST CASES TRENDS (LAST 7 DAYS)",
+                        name: "Test Cases Trends (Last 7 days)",
                         jobsCount: row.calories,
                         pipelineCount: row.calories,
                         testCount: row.calories,
@@ -84,6 +92,9 @@ export const TeamsTable = () => {
                 <TableCell align="right">{row.calories}</TableCell>
                 <TableCell align="right">{row.fat}</TableCell>
                 <TableCell align="right">{row.carbs}</TableCell>
+                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>

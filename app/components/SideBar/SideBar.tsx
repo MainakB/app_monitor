@@ -9,6 +9,7 @@ import Divider from "@mui/material/Divider";
 import Home from "@mui/icons-material/Home";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
 
 import { SideBarContext } from "~/context";
 
@@ -70,10 +71,15 @@ export const SideBar = () => {
           index: 1,
           icon: <GroupsOutlinedIcon />,
         };
+      case "Jobs Dashboard":
+        return {
+          index: 2,
+          icon: <GroupsOutlinedIcon />,
+        };
       default:
         return {
           index: 0,
-          icon: <Home />,
+          icon: <Filter1OutlinedIcon />,
         };
     }
   };
@@ -105,6 +111,7 @@ export const SideBar = () => {
       <List component="nav" aria-label="main mailbox folders">
         {getLeftNav(state.sideBarIndex, "Home", "HOME")}
         {getLeftNav(state.sideBarIndex, "Teams Dashboard", "TEAMS")}
+        {getLeftNav(state.sideBarIndex, "Jobs Dashboard", "JOBS")}
       </List>
       {/* <Divider /> */}
     </BoxStyled>

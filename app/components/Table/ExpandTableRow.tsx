@@ -42,7 +42,10 @@ export const ExpandableTableRow = ({
 
   return (
     <>
-      <TableRow {...otherProps}>
+      <TableRow
+        {...otherProps}
+        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      >
         <TableCell padding="checkbox">
           <IconButton onClick={(event: any) => setExpanded(event, teamName)}>
             {teamState &&

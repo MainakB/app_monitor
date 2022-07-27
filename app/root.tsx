@@ -1,5 +1,7 @@
 import React from "react";
 import type { MetaFunction } from "@remix-run/node";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import type {} from "@mui/x-date-pickers/themeAugmentation";
 import { Outlet } from "@remix-run/react";
 import "@fontsource/roboto/300.css";
@@ -24,7 +26,7 @@ import { SideBarContext, TeamContext } from "~/context";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Varis | Papyrus",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -40,9 +42,10 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 export default function App() {
   const setSideBarIndex = (value: number) => {
-    console.log("testststst", state);
     setState({ ...state, sideBarIndex: value });
   };
 
@@ -76,23 +79,23 @@ export default function App() {
   const [state, setState] = React.useState(initState);
   const [isExpandedState, setIsExpandedState] = React.useState(initTeamsState);
 
-  React.useEffect(() => {
-    console.log("effect", isExpandedState);
-  }, [state, isExpandedState]);
+  React.useEffect(() => {}, [state, isExpandedState]);
 
   return (
     <ThemeProvider theme={theme}>
-      <DocumentLayout>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <SideBarContext.Provider value={state}>
-            <TeamContext.Provider value={isExpandedState}>
-              <NavMenuLayout>
-                <Outlet />
-              </NavMenuLayout>
-            </TeamContext.Provider>
-          </SideBarContext.Provider>
-        </LocalizationProvider>
-      </DocumentLayout>
+      <QueryClientProvider client={queryClient}>
+        <DocumentLayout>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <SideBarContext.Provider value={state}>
+              <TeamContext.Provider value={isExpandedState}>
+                <NavMenuLayout>
+                  <Outlet />
+                </NavMenuLayout>
+              </TeamContext.Provider>
+            </SideBarContext.Provider>
+          </LocalizationProvider>
+        </DocumentLayout>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

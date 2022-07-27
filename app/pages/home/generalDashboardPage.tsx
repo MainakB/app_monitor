@@ -1,9 +1,5 @@
-import React from "react";
-import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
-import InsightsOutlinedIcon from "@mui/icons-material/InsightsOutlined";
-import CodeOffOutlinedIcon from "@mui/icons-material/CodeOffOutlined";
-import EngineeringOutlinedIcon from "@mui/icons-material/EngineeringOutlined";
-
+import * as React from "react";
+import type { TeamsOverview } from "~/services/teams";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 
@@ -12,8 +8,10 @@ import {
   GeneralDashboardChartsLayout,
 } from "~/layout/DashboardLayouts";
 import { TeamsSatusTable } from "~/components/HomeDashboardWidgets";
+import { useFetchLandingTeamOverviewTable } from "~/hooks";
+import { Spinner } from "../spinner";
 
-const data = {
+const configdata = {
   miniwidgets: [
     {
       name: "Teams",
@@ -65,12 +63,25 @@ const data = {
     },
   ],
 };
+
+// getTeamsOverview
+
 export const GeneralDashboardPage = () => {
-  return (
+  const [teamOverviewData, setTeamOverviewData] = React.useState<
+    TeamsOverview[] | null
+  >(null);
+
+  const { isLoading, isError, error } = useFetchLandingTeamOverviewTable({
+    setData: setTeamOverviewData,
+  });
+
+  return isLoading ? (
+    <Spinner show={isLoading} />
+  ) : (
     <StyledDashboardWrapper>
-      <GeneralDashboardWidgetsLayout data={data.miniwidgets} />
-      <GeneralDashboardChartsLayout data={data.chartWidgets} />
-      <TeamsSatusTable />
+      <GeneralDashboardWidgetsLayout data={configdata.miniwidgets} />
+      <GeneralDashboardChartsLayout data={configdata.chartWidgets} />
+      <TeamsSatusTable data={teamOverviewData} />
     </StyledDashboardWrapper>
   );
 };

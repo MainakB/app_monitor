@@ -13,6 +13,22 @@ interface Props extends React.HTMLAttributes<Element> {
   //   title?: string;
   // any props that come into the component
 }
+export function ErrorBoundary(props: any) {
+  console.error(props.error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {/* add the UI you want your users to see */}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export const DocumentLayout = ({ children }: Props) => (
   <html lang="en">

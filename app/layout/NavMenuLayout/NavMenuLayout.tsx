@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import type { ReactNode } from "react";
 import { Stack } from "@mui/material";
 
@@ -12,6 +13,8 @@ interface INavMenuLayoutProps extends React.HTMLAttributes<Element> {
 }
 
 export const NavMenuLayout = ({ children, ...props }: INavMenuLayoutProps) => {
+  // const spinnerState = useContext(SpinnerContext);
+
   return (
     <div>
       <NavBar />

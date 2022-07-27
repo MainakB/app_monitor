@@ -19,13 +19,10 @@ export const TableHeaderCaret = ({
     <TableHead>
       <TableRow>
         {[
-          ...headers.map((header: string, index: number) =>
-            !index && hasCaret ? (
-              <TableCell key={caretKey}></TableCell>
-            ) : (
-              <TableCell key={header}>{header}</TableCell>
-            )
-          ),
+          hasCaret ? <TableCell key={caretKey}></TableCell> : null,
+          ...headers.map((header: string, index: number) => (
+            <TableCell key={header}>{header}</TableCell>
+          )),
           hasSpareEndCoulmn ? (
             <TableCell key={`${caretKey}-spare-end-col`}></TableCell>
           ) : null,

@@ -13,6 +13,7 @@ import Paper from "@mui/material/Paper";
 import { TeamDetails } from "./TeamDetails";
 import { TeamContext } from "~/context";
 import { TableHeaderCaret, ExpandableTableRow } from "~/components/Table";
+import { LANDING_PAGE_JOBS_TABLE_HEADERS } from "~/data/constants";
 
 function createData(
   name: string,
@@ -32,20 +33,25 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-const headers = [
-  "NAME",
-  "IS PIPELINE",
-  "STATUS",
-  "DURATION",
-  "TEAM",
-  "REPOSITORY",
-  "TEST COUNT",
-  "TEST TYPE",
-  "TEST BROWSERS",
-  "TEST TENANT",
-  "EXECUTION DATE",
-];
-export const JobsTable = () => {
+// const headers = [
+//   "NAME",
+//   "IS PIPELINE",
+//   "STATUS",
+//   "DURATION",
+//   "TEAM",
+//   "REPOSITORY",
+//   "TEST COUNT",
+//   "TEST TYPE",
+//   "TEST BROWSERS",
+//   "TEST TENANT",
+//   "EXECUTION DATE",
+// ];
+
+interface IJobsTableProps {
+  title?: string;
+}
+
+export const JobsTable = (props: IJobsTableProps) => {
   const teamState = React.useContext(TeamContext);
 
   React.useEffect(() => {
@@ -54,11 +60,12 @@ export const JobsTable = () => {
 
   return (
     <StyledWrapperBox>
-      <StyledTableBox>STATUS BY JOBS (LAST 7 DAYS)</StyledTableBox>
+      {/* <StyledTableBox>STATUS BY JOBS (LAST 7 DAYS)</StyledTableBox> */}
+      {props.title ? <StyledTableBox>{props.title}</StyledTableBox> : null}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHeaderCaret
-            headers={headers}
+            headers={LANDING_PAGE_JOBS_TABLE_HEADERS}
             hasCaret={true}
             caretKey="jobs-landing-blank-caret"
             hasSpareEndCoulmn={true}
@@ -98,6 +105,7 @@ export const JobsTable = () => {
                 <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">
                   <StyledButton size="small">Details</StyledButton>
                 </TableCell>
@@ -115,6 +123,7 @@ const StyledWrapperBox = styled(Box)(({ theme }) => ({
   boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
   padding: "20px",
   margin: "20px",
+  flex: 4,
 }));
 
 const StyledTableBox = styled(Box)(({ theme }) => ({

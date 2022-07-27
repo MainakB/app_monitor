@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import { JobsDashboard } from "~/pages/jobs";
+
 import { TeamModalLayout } from "~/layout/TeamModalLayout";
 
 const style = {
@@ -22,7 +25,21 @@ interface ITeamDetailsModalProps {
   setOpen: Function;
 }
 export const TeamDetailsModal = (props: ITeamDetailsModalProps) => {
+  const [modalNavIndex, setModalNavIndex] = useState(0);
   const handleClose = () => props.setOpen(false);
+
+  const getView = (value: number) => {
+    switch (value) {
+      case 0:
+        return <div>Home</div>;
+      case 1:
+        return <JobsDashboard />;
+      case 2:
+        return <div>cASEE 1</div>;
+      default:
+        return <div>Default</div>;
+    }
+  };
 
   return (
     <Modal
@@ -32,20 +49,12 @@ export const TeamDetailsModal = (props: ITeamDetailsModalProps) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <TeamModalLayout team={props.team}>
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-            posuere venenatis vehicula. Fusce pulvinar nunc eu mi consequat
-            aliquet. Donec ipsum tortor, rhoncus ut leo a, pretium tincidunt
-            diam. Quisque fringilla quam aliquam sem viverra varius. Nunc sit
-            amet nibh at ante finibus rhoncus. Phasellus vehicula, erat at
-            rhoncus tincidunt, mi ipsum venenatis ligula, ac tincidunt risus
-            libero non elit. Nullam ac nibh ac elit mattis accumsan. Donec
-            interdum dui at metus tristique tristique. Cras accumsan laoreet
-            odio nec porttitor. Maecenas eleifend lacus quis sodales porttitor.
-            Nunc ultricies accumsan consectetur. Sed eget egestas elit. Integer
-            nec tellus odio. In hac habitasse platea dictumst.
-          </div>
+        <TeamModalLayout
+          team={props.team}
+          modalNavIndex={modalNavIndex}
+          setModalNavIndex={setModalNavIndex}
+        >
+          {getView(modalNavIndex)}
         </TeamModalLayout>
       </Box>
     </Modal>

@@ -13,6 +13,7 @@ import Paper from "@mui/material/Paper";
 import { TeamDetails } from "./TeamDetails";
 import { TeamContext } from "~/context";
 import { TableHeaderCaret, ExpandableTableRow } from "~/components/Table";
+import { LANDING_PAGE_TEAMS_TABLE_HEADERS } from "~/data/constants";
 
 function createData(
   name: string,
@@ -32,18 +33,19 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-const headers = [
-  "Team Name",
-  "Jobs Count",
-  "Pipelines Count",
-  "Total Success Rate",
-  "Pipeline Success Rate",
-  "Tenants Run",
-  "Avg. Build Duration(s)",
-];
+// const headers = [
+//   "Team Name",
+//   "Jobs Count",
+//   "Pipelines Count",
+//   "Total Success Rate",
+//   "Pipeline Success Rate",
+//   "Tenants Run",
+//   "Avg. Build Duration(s)",
+// ];
 
 interface ITeamTableProps {
   setOpenTeamDetailsModal: Function;
+  title?: string;
 }
 export const TeamsTable = (props: ITeamTableProps) => {
   const teamState = React.useContext(TeamContext);
@@ -53,17 +55,16 @@ export const TeamsTable = (props: ITeamTableProps) => {
   }, []);
 
   const teamDetailsClickHandler = (team: string) => {
-    console.log("ABCDEFGH ABCDEFGH", team);
     props.setOpenTeamDetailsModal([true, team]);
   };
 
   return (
     <StyledWrapperBox>
-      <StyledTableBox>Status By Teams (Last 7 days)</StyledTableBox>
+      {props.title ? <StyledTableBox>{props.title}</StyledTableBox> : null}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHeaderCaret
-            headers={headers}
+            headers={LANDING_PAGE_TEAMS_TABLE_HEADERS}
             hasCaret={true}
             caretKey="teams-landing-blank-caret"
             hasSpareEndCoulmn={true}
@@ -95,6 +96,7 @@ export const TeamsTable = (props: ITeamTableProps) => {
                 <TableCell align="right">{row.carbs}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">
                   <StyledButton
                     onClick={() => teamDetailsClickHandler(row.name)}
@@ -117,6 +119,7 @@ const StyledWrapperBox = styled(Box)(({ theme }) => ({
   boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
   padding: "20px",
   margin: "20px",
+  flex: 4,
 }));
 
 const StyledTableBox = styled(Box)(({ theme }) => ({

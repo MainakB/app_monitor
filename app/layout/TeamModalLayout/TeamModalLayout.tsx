@@ -9,6 +9,8 @@ import { DateRangeText } from "~/components/Time";
 
 interface ITeamModalLayoutProps extends React.HTMLAttributes<Element> {
   children: ReactNode;
+  setModalNavIndex: Function;
+  modalNavIndex: number;
   team: string;
 }
 export const TeamModalLayout = ({
@@ -25,7 +27,10 @@ export const TeamModalLayout = ({
       </StyledModalHeaderWrapper>
       <Divider sx={{ color: "#999", opacity: "65%" }} />
       <StyledModalBodyWrapper direction="row">
-        <TeamModalSideBar />
+        <TeamModalSideBar
+          modalNavIndex={props.modalNavIndex}
+          setModalNavIndex={props.setModalNavIndex}
+        />
         {children}
       </StyledModalBodyWrapper>
     </StyledModalWrapper>

@@ -12,8 +12,6 @@ import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 
-import { SideBarContext } from "~/context";
-
 const BoxStyled = styled(Box)(({ theme }) => ({
   display: "none",
   borderRight: "0.5px solid #dcdbdb",
@@ -37,16 +35,15 @@ const StyledListItemText = styled(ListItemText)(({ theme }) => ({
   fontWeight: "bold",
 }));
 
-// interface ISideBarProps extends React.HTMLAttributes<Element> {
-//   //   title?: string;
-//   // any props that come into the component
-// }
+interface ITeamModalSideBarProps extends React.HTMLAttributes<Element> {
+  setModalNavIndex: Function;
+  modalNavIndex: number;
+  // any props that come into the component
+}
 
-export const TeamModalSideBar = () => {
-  const state = React.useContext(SideBarContext);
-
+export const TeamModalSideBar = (props: ITeamModalSideBarProps) => {
   const handleListItemClick = (index: number) => {
-    state.setSideBarIndex(index);
+    props.setModalNavIndex(index);
   };
 
   const leftNavListProps = (title: string) => {
@@ -56,19 +53,14 @@ export const TeamModalSideBar = () => {
           index: 0,
           icon: <Home />,
         };
-      case "Teams Dashboard":
-        return {
-          index: 1,
-          icon: <GroupsOutlinedIcon />,
-        };
       case "Jobs":
         return {
-          index: 2,
+          index: 1,
           icon: <EngineeringIcon />,
         };
       case "Code Coverage":
         return {
-          index: 3,
+          index: 2,
           icon: <IntegrationInstructionsIcon />,
         };
       default:
@@ -102,11 +94,11 @@ export const TeamModalSideBar = () => {
   return (
     <BoxStyled>
       <List component="nav" aria-label="main mailbox folders">
-        {getLeftNav(state.sideBarIndex, "Home")}
+        {getLeftNav(props.modalNavIndex, "Home")}
 
-        {getLeftNav(state.sideBarIndex, "Jobs")}
+        {getLeftNav(props.modalNavIndex, "Jobs")}
 
-        {getLeftNav(state.sideBarIndex, "Code Coverage")}
+        {getLeftNav(props.modalNavIndex, "Code Coverage")}
       </List>
     </BoxStyled>
   );

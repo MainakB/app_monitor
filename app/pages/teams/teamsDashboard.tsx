@@ -2,7 +2,11 @@ import React from "react";
 
 import { TeamsTable } from "~/components/TeamsDashboardWidgets";
 import { TeamDetailsModal } from "./teamDetailsModal";
-export const TeamsDashboard = () => {
+
+interface ITeamsDashboardProps {
+  title?: string;
+}
+export const TeamsDashboard = (props: ITeamsDashboardProps) => {
   const [openTeamDetailsModal, setOpenTeamDetailsModal] = React.useState([
     false,
     "",
@@ -17,7 +21,10 @@ export const TeamsDashboard = () => {
           setOpen={setOpenTeamDetailsModal}
         />
       ) : null}
-      <TeamsTable setOpenTeamDetailsModal={setOpenTeamDetailsModal} />
+      <TeamsTable
+        title={props.title}
+        setOpenTeamDetailsModal={setOpenTeamDetailsModal}
+      />
     </>
   );
 };

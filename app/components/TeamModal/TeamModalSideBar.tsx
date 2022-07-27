@@ -7,7 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Home from "@mui/icons-material/Home";
-import DraftsIcon from "@mui/icons-material/Drafts";
+import IntegrationInstructionsIcon from "@mui/icons-material/IntegrationInstructions";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
 import EngineeringIcon from "@mui/icons-material/Engineering";
@@ -19,26 +19,21 @@ const BoxStyled = styled(Box)(({ theme }) => ({
   borderRight: "0.5px solid #dcdbdb",
   marginTop: "20px",
   width: "100%",
-  maxWidth: "300px",
+  maxWidth: "400px",
   bgcolor: "background.paper",
   [theme.breakpoints.up("sm")]: {
+    marginTop: "0px",
     display: "flex",
-    flex: 1.5,
     flexDirection: "column",
   },
 }));
 
-const StyledLabels = styled(Typography)(({ theme }) => ({
-  paragraph: true,
-  color: "#999",
-  fontSize: "13px",
-  fontWeight: "bold",
-  margin: "15px 0px 5px 5px",
+const StyledListItemIcon = styled(ListItemIcon)(({ theme }) => ({
+  minWidth: "46px",
 }));
 
 const StyledListItemText = styled(ListItemText)(({ theme }) => ({
   color: "#999",
-  fontSize: "12px",
   fontWeight: "bold",
 }));
 
@@ -47,16 +42,10 @@ const StyledListItemText = styled(ListItemText)(({ theme }) => ({
 //   // any props that come into the component
 // }
 
-export const SideBar = () => {
+export const TeamModalSideBar = () => {
   const state = React.useContext(SideBarContext);
-  // const [indexLocal, setIndexLocal] = React.useState(state.sideBarIndex);
 
-  const handleListItemClick = (
-    event: React.MouseEventHandler<HTMLDivElement>,
-    index: number
-  ) => {
-    // setIndexLocal(index);
-
+  const handleListItemClick = (index: number) => {
     state.setSideBarIndex(index);
   };
 
@@ -72,10 +61,15 @@ export const SideBar = () => {
           index: 1,
           icon: <GroupsOutlinedIcon />,
         };
-      case "Jobs Dashboard":
+      case "Jobs":
         return {
           index: 2,
           icon: <EngineeringIcon />,
+        };
+      case "Code Coverage":
+        return {
+          index: 3,
+          icon: <IntegrationInstructionsIcon />,
         };
       default:
         return {
@@ -85,24 +79,22 @@ export const SideBar = () => {
     }
   };
 
-  const getLeftNav = (
-    indexLocalvalue: number,
-    title: string,
-    parentLabel?: string
-  ) => {
+  const getLeftNav = (indexLocalvalue: number, title: string) => {
     const propsRetrieved = leftNavListProps(title);
     return (
       <>
-        {parentLabel ? <StyledLabels>{parentLabel}</StyledLabels> : null}
         <ListItemButton
+          // dense={true}
           selected={indexLocalvalue === propsRetrieved.index}
-          onClick={(event: any) =>
-            handleListItemClick(event, propsRetrieved.index)
-          }
+          onClick={() => handleListItemClick(propsRetrieved.index)}
         >
-          <ListItemIcon>{propsRetrieved.icon}</ListItemIcon>
-          <StyledListItemText primary={title} />
+          <StyledListItemIcon>{propsRetrieved.icon}</StyledListItemIcon>
+          <StyledListItemText
+            primaryTypographyProps={{ fontSize: "16px" }}
+            primary={title}
+          />
         </ListItemButton>
+        <Divider sx={{ color: "#999", opacity: "45%" }} />
       </>
     );
   };
@@ -110,9 +102,11 @@ export const SideBar = () => {
   return (
     <BoxStyled>
       <List component="nav" aria-label="main mailbox folders">
-        {getLeftNav(state.sideBarIndex, "Home", "HOME")}
-        {getLeftNav(state.sideBarIndex, "Teams Dashboard", "TEAMS")}
-        {getLeftNav(state.sideBarIndex, "Jobs Dashboard", "JOBS")}
+        {getLeftNav(state.sideBarIndex, "Home")}
+
+        {getLeftNav(state.sideBarIndex, "Jobs")}
+
+        {getLeftNav(state.sideBarIndex, "Code Coverage")}
       </List>
     </BoxStyled>
   );

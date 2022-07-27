@@ -13,11 +13,6 @@ interface IMiniTeamDetailsWidgetProps {
     jobsCount: number;
     pipelineCount: number;
     testCount: number;
-    // footerIcon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-    //   muiName: string;
-    // };
-    // change: number;
-    // changeType: string;
   };
 }
 

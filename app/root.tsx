@@ -1,10 +1,21 @@
 import React from "react";
 import type { MetaFunction } from "@remix-run/node";
+import type {} from "@mui/x-date-pickers/themeAugmentation";
 import { Outlet } from "@remix-run/react";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+// date-fns
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+// or for Day.js
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// or for Luxon
+import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
+// or for Moment.js
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import { DocumentLayout } from "~/layout/DocumentLayout";
 import { NavMenuLayout } from "~/layout/NavMenuLayout";
@@ -15,6 +26,18 @@ export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "New Remix App",
   viewport: "width=device-width,initial-scale=1",
+});
+
+const theme = createTheme({
+  components: {
+    MuiDatePicker: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "red",
+        },
+      },
+    },
+  },
 });
 
 export default function App() {
@@ -58,14 +81,18 @@ export default function App() {
   }, [state, isExpandedState]);
 
   return (
-    <DocumentLayout>
-      <SideBarContext.Provider value={state}>
-        <TeamContext.Provider value={isExpandedState}>
-          <NavMenuLayout>
-            <Outlet />
-          </NavMenuLayout>
-        </TeamContext.Provider>
-      </SideBarContext.Provider>
-    </DocumentLayout>
+    <ThemeProvider theme={theme}>
+      <DocumentLayout>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <SideBarContext.Provider value={state}>
+            <TeamContext.Provider value={isExpandedState}>
+              <NavMenuLayout>
+                <Outlet />
+              </NavMenuLayout>
+            </TeamContext.Provider>
+          </SideBarContext.Provider>
+        </LocalizationProvider>
+      </DocumentLayout>
+    </ThemeProvider>
   );
 }

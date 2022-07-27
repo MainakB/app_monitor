@@ -41,12 +41,21 @@ const headers = [
   "Tenants Run",
   "Avg. Build Duration(s)",
 ];
-export const TeamsTable = () => {
+
+interface ITeamTableProps {
+  setOpenTeamDetailsModal: Function;
+}
+export const TeamsTable = (props: ITeamTableProps) => {
   const teamState = React.useContext(TeamContext);
 
   React.useEffect(() => {
     return () => teamState.setExpandedForTeam();
   }, []);
+
+  const teamDetailsClickHandler = (team: string) => {
+    console.log("ABCDEFGH ABCDEFGH", team);
+    props.setOpenTeamDetailsModal([true, team]);
+  };
 
   return (
     <StyledWrapperBox>
@@ -86,9 +95,13 @@ export const TeamsTable = () => {
                 <TableCell align="right">{row.carbs}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
                 <TableCell align="right">
-                  <StyledButton size="small">Details</StyledButton>
+                  <StyledButton
+                    onClick={() => teamDetailsClickHandler(row.name)}
+                    size="small"
+                  >
+                    Details
+                  </StyledButton>
                 </TableCell>
               </ExpandableTableRow>
             ))}
@@ -114,5 +127,5 @@ const StyledTableBox = styled(Box)(({ theme }) => ({
 
 const StyledButton = styled(Button)(({ theme }) => ({
   fontWeight: 400,
-  fontSize: "10px",
+  fontSize: "12px",
 }));

@@ -12,7 +12,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TeamContext } from "~/context";
 import type { TeamsOverview } from "~/services/teams";
-import { TableHeaderCaret } from "~/components/Table";
+import {
+  TableHeaderCaret,
+  TableBodySetter,
+  TableFooterWrapper,
+} from "~/components/Table";
 import { FONT_COLORS, LANDING_PAGE_HOME_TABLE_HEADERS } from "~/data/constants";
 
 // function createData(
@@ -40,6 +44,9 @@ export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
   let navigate = useNavigate();
   const teamState = React.useContext(TeamContext);
 
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
   const onClickDetails = (event: any, team: string) => {
     event.preventDefault();
     teamState.setExpandedForTeam(
@@ -51,18 +58,97 @@ export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
     navigate("/teams", { replace: false });
   };
 
+  const returnParams = (row: any) => {
+    return row["team_name"];
+  };
+
+  const staticPtableParam = {
+    value: "",
+    type: "text",
+  };
+
+  const tableBodyDataParam = {
+    rowsPerPage,
+    rows: props.data,
+    page,
+    keyOrder: [
+      {
+        ...staticPtableParam,
+        value: "team_name",
+      },
+      {
+        ...staticPtableParam,
+        value: "total_jobs_count",
+      },
+      {
+        ...staticPtableParam,
+        value: "pipeline_jobs_count",
+      },
+      {
+        ...staticPtableParam,
+        value: "non_pipeline_jobs_count",
+      },
+      {
+        ...staticPtableParam,
+        value: "pipeline_success_rate",
+      },
+      {
+        ...staticPtableParam,
+        value: "non_pipeline_success_rate",
+      },
+      {
+        ...staticPtableParam,
+        value: "tenants_run",
+      },
+      {
+        ...staticPtableParam,
+        value: "avg_duration",
+      },
+      {
+        ...staticPtableParam,
+        value: "pipeline_avg_duration",
+      },
+      {
+        ...staticPtableParam,
+        value: "nonpipeline_avg_duration",
+      },
+      {
+        ...staticPtableParam,
+        value: "Details",
+        type: "button",
+        onClickHandler: onClickDetails,
+        fnArgs: returnParams,
+      },
+    ],
+    keyValue: "team_name",
+  };
+
+  const tableFooterDataParam = {
+    rowsPerPage,
+    rows: props.data,
+    page,
+    colspan:
+      ((LANDING_PAGE_HOME_TABLE_HEADERS &&
+        LANDING_PAGE_HOME_TABLE_HEADERS.length) ||
+        3) + 1,
+    setPage,
+    setRowsPerPage,
+  };
+
   return (
     <StyledWrapperBox>
       <StyledTableBox>Status By Teams (Last 7 days)</StyledTableBox>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHeaderCaret
             headers={LANDING_PAGE_HOME_TABLE_HEADERS}
             hasCaret={false}
             caretKey="teams-landing-dash-blank-caret"
             hasSpareEndCoulmn={true}
           />
-          <TableBody>
+          <TableBodySetter args={tableBodyDataParam} />
+          <TableFooterWrapper args={tableFooterDataParam} />
+          {/* <TableBody>
             {props.data && props.data.length
               ? props.data.map((row) => (
                   <TableRow
@@ -106,7 +192,7 @@ export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
                   </TableRow>
                 ))
               : null}
-          </TableBody>
+          </TableBody> */}
         </Table>
       </TableContainer>
     </StyledWrapperBox>

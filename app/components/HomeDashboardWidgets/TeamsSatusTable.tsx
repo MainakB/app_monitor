@@ -33,10 +33,10 @@ import { FONT_COLORS, LANDING_PAGE_HOME_TABLE_HEADERS } from "~/data/constants";
 //   createData("Gingerbread", 356, 16.0, 49, 3.9),
 // ];
 
-interface ITeamsSatusTableProps {
+interface ITeamsStatusTableProps {
   data: TeamsOverview[] | null;
 }
-export const TeamsSatusTable = (props: ITeamsSatusTableProps) => {
+export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
   let navigate = useNavigate();
   const teamState = React.useContext(TeamContext);
 

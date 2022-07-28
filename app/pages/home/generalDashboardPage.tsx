@@ -7,8 +7,8 @@ import {
   GeneralDashboardWidgetsLayout,
   GeneralDashboardChartsLayout,
 } from "~/layout/DashboardLayouts";
-import { TeamsSatusTable } from "~/components/HomeDashboardWidgets";
-import { useFetchLandingTeamOverviewTable } from "~/hooks";
+import { TeamsStatusTable } from "~/components/HomeDashboardWidgets";
+
 import { Spinner } from "../spinner";
 
 const configdata = {
@@ -70,24 +70,20 @@ const configdata = {
   ],
 };
 
-// getTeamsOverview
+interface IGeneralDashboardPageProps {
+  tableData: TeamsOverview[];
+}
 
-export const GeneralDashboardPage = () => {
-  const [teamOverviewData, setTeamOverviewData] = React.useState<
-    TeamsOverview[] | null
-  >(null);
-
-  const { isLoading, isError, error } = useFetchLandingTeamOverviewTable({
-    setData: setTeamOverviewData,
-  });
-
-  return isLoading ? (
-    <Spinner show={isLoading} />
+export const GeneralDashboardPage = ({
+  tableData,
+}: IGeneralDashboardPageProps) => {
+  return tableData === undefined ? (
+    <Spinner show={tableData === undefined} />
   ) : (
     <StyledDashboardWrapper>
       <GeneralDashboardWidgetsLayout data={configdata.miniwidgets} />
       <GeneralDashboardChartsLayout data={configdata.chartWidgets} />
-      <TeamsSatusTable data={teamOverviewData} />
+      <TeamsStatusTable data={tableData} />
     </StyledDashboardWrapper>
   );
 };

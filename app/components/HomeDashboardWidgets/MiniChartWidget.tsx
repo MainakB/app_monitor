@@ -81,7 +81,7 @@ const StyledCounter = styled(Typography)(({ theme }) => ({
 }));
 
 const StyledFooterText = styled(Typography)(({ theme }) => ({
-  width: "max-conten",
+  width: "max-content",
   fontSize: "14px",
   padding: "5px",
   textDecoration: "none",
@@ -89,6 +89,8 @@ const StyledFooterText = styled(Typography)(({ theme }) => ({
   opacity: "80%",
   "&:hover": {
     opacity: "100%",
+    paddingBottom: "0px",
+    borderBottom: "1px solid gray",
   },
   // borderBottom: "1px solid gray",
 }));

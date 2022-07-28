@@ -39,7 +39,7 @@ export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
     return row["team_name"];
   };
 
-  const staticPtableParam = {
+  const staticTableParam = {
     value: "",
     type: "text",
   };
@@ -50,47 +50,47 @@ export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
     page,
     keyOrder: [
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "team_name",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "total_jobs_count",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "pipeline_jobs_count",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "non_pipeline_jobs_count",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "pipeline_success_rate",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "non_pipeline_success_rate",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "tenants_run",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "avg_duration",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "pipeline_avg_duration",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "nonpipeline_avg_duration",
       },
       {
-        ...staticPtableParam,
+        ...staticTableParam,
         value: "Details",
         type: "button",
         onClickHandler: onClickDetails,

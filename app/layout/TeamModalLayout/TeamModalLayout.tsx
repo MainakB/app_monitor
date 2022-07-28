@@ -6,6 +6,7 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import { TeamModalSideBar } from "~/components/TeamModal";
 import { DateRangeText } from "~/components/Time";
+import { FONT_COLORS } from "~/data/constants";
 
 interface ITeamModalLayoutProps extends React.HTMLAttributes<Element> {
   children: ReactNode;
@@ -49,7 +50,7 @@ const StyledModalHeaderWrapper = styled(Box)(({ theme }) => ({
 }));
 
 const StyledModalTitleWrapper = styled(Typography)(({ theme }) => ({
-  color: "#999",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));
 
 const StyledModalBodyWrapper = styled(Stack)(({ theme }) => ({

@@ -70,29 +70,3 @@ export const ExpandableTableRow = ({
     </>
   );
 };
-
-//   return (
-//     <>
-//       <TableRow {...otherProps}>
-//         <TableCell padding="checkbox">
-//           <IconButton
-//             onClick={(event: any) => setExapndedForTeam(event, teamName)}
-//           >
-//             {isExpanded[teamName] ? (
-//               <KeyboardArrowUpOutlinedIcon />
-//             ) : (
-//               <KeyboardArrowDownOutlinedIcon />
-//             )}
-//           </IconButton>
-//         </TableCell>
-//         {children}
-//       </TableRow>
-//       {isExpanded[teamName] && (
-//         <TableRow>
-//           <TableCell padding="checkbox" />
-//           {expandComponent}
-//         </TableRow>
-//       )}
-//     </>
-//   );
-// };

@@ -7,6 +7,7 @@ import type { SvgIconTypeMap } from "@mui/material/SvgIcon";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { FONT_COLORS } from "~/data/constants";
 
 interface IMiniWidgetProps {
   widget: {
@@ -64,14 +65,14 @@ const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
 }));
 
-const StyledTitle = styled(Typography)((props) => ({
-  fontWeight: 600,
+const StyledTitle = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
   fontSize: "14px",
-  color: "#999",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));
 
-const StyledCounter = styled(Typography)((props) => ({
-  fontWeight: 300,
+const StyledCounter = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightLight,
   fontSize: "28px",
 }));
 
@@ -81,14 +82,15 @@ const StyledFooterText = styled(Typography)((props) => ({
   borderBottom: "1px solid gray",
 }));
 
-const StyledPercentage = styled(Box)((props) => ({
+const StyledPercentage = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   fontSize: "14px",
+  fontWeight: theme.typography.fontWeightBold,
   "&.positive": {
-    color: "green",
+    color: theme.palette.success.main,
   },
   "&.negative": {
-    color: "red",
+    color: theme.palette.error.main,
   },
 }));

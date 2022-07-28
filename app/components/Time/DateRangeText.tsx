@@ -63,8 +63,7 @@ const StyleddButtonWrapper = styled(Box)(({ theme }) => ({
 }));
 
 const StyledTypographyWrapper = styled(Typography)(({ theme }) => ({
-  color: "#999",
-  
+  // color: "#999",
 }));
 
 const StyledTypography = styled("span")(({ theme }) => ({

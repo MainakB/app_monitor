@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { StackedAreaChart } from "~/components/Charts";
 import { MiniChartWidget } from "~/components/HomeDashboardWidgets";
+import { FONT_COLORS } from "~/data/constants";
 
 interface IMiniWidgetProps {
   name: string;
@@ -78,8 +79,8 @@ const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
 }));
 
-const StyledTitle = styled(Typography)((props) => ({
-  fontWeight: 600,
+const StyledTitle = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
   fontSize: "14px",
-  color: "#999",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));

@@ -10,28 +10,32 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+import type { TeamsOverview } from "~/services/teams";
 import { TeamDetails } from "./TeamDetails";
 import { TeamContext } from "~/context";
 import { TableHeaderCaret, ExpandableTableRow } from "~/components/Table";
-import { LANDING_PAGE_TEAMS_TABLE_HEADERS } from "~/data/constants";
+import {
+  FONT_COLORS,
+  LANDING_PAGE_TEAMS_TABLE_HEADERS,
+} from "~/data/constants";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
+// function createData(
+//   name: string,
+//   calories: number,
+//   fat: number,
+//   carbs: number,
+//   protein: number
+// ) {
+//   return { name, calories, fat, carbs, protein };
+// }
 
-const rows = [
-  createData("Team1", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+// const rows = [
+//   createData("Team1", 159, 6.0, 24, 4.0),
+//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+//   createData("Eclair", 262, 16.0, 24, 6.0),
+//   createData("Cupcake", 305, 3.7, 67, 4.3),
+//   createData("Gingerbread", 356, 16.0, 49, 3.9),
+// ];
 
 // const headers = [
 //   "Team Name",
@@ -45,6 +49,7 @@ const rows = [
 
 interface ITeamTableProps {
   setOpenTeamDetailsModal: Function;
+  tableData: TeamsOverview[];
   title?: string;
 }
 export const TeamsTable = (props: ITeamTableProps) => {
@@ -70,36 +75,45 @@ export const TeamsTable = (props: ITeamTableProps) => {
             hasSpareEndCoulmn={true}
           />
           <TableBody>
-            {rows.map((row) => (
+            {props.tableData.map((row) => (
               <ExpandableTableRow
-                key={row.name}
-                teamName={row.name}
+                key={row.team_name}
+                teamName={row.team_name}
                 expandComponent={
                   <TableCell colSpan={9}>
                     <TeamDetails
                       widget={{
-                        teamName: row.name,
+                        teamName: row.team_name,
                         name: "TEST CASES TRENDS (LAST 7 DAYS)",
-                        jobsCount: row.calories,
-                        pipelineCount: row.calories,
-                        testCount: row.calories,
+                        jobsCount: row.total_jobs_count,
+                        pipelineCount: row.pipeline_jobs_count,
+                        testCount: row.non_pipeline_jobs_count,
                       }}
                     />
                   </TableCell>
                 }
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.team_name}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{row.total_jobs_count}</TableCell>
+                <TableCell align="right">{row.pipeline_jobs_count}</TableCell>
+                <TableCell align="right">
+                  {row.non_pipeline_jobs_count}
+                </TableCell>
+                <TableCell align="right">{row.pipeline_success_rate}</TableCell>
+                <TableCell align="right">
+                  {row.non_pipeline_success_rate}
+                </TableCell>
+                <TableCell align="right">{row.tenants_run}</TableCell>
+                <TableCell align="right">{row.avg_duration}</TableCell>
+                <TableCell align="right">{row.pipeline_avg_duration}</TableCell>
+                <TableCell align="right">
+                  {row.nonpipeline_avg_duration}
+                </TableCell>
                 <TableCell align="right">
                   <StyledButton
-                    onClick={() => teamDetailsClickHandler(row.name)}
+                    onClick={() => teamDetailsClickHandler(row.team_name)}
                     size="small"
                   >
                     Details
@@ -123,12 +137,12 @@ const StyledWrapperBox = styled(Box)(({ theme }) => ({
 }));
 
 const StyledTableBox = styled(Box)(({ theme }) => ({
-  fontWeight: 600,
-  color: "gray",
+  fontWeight: theme.typography.fontWeightMedium,
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
   marginBottom: "15px",
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  fontWeight: 400,
-  fontSize: "12px",
+  fontWeight: theme.typography.fontWeightMedium,
+  fontSize: "10px",
 }));

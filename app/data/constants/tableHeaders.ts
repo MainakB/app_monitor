@@ -13,12 +13,15 @@ export const LANDING_PAGE_HOME_TABLE_HEADERS = [
 
 export const LANDING_PAGE_TEAMS_TABLE_HEADERS = [
   "TEAM NAME",
-  "Jobs Count",
-  "Pipelines Count",
-  "Total Success Rate",
-  "Pipeline Success Rate",
-  "Tenants Run",
-  "Avg. Build Duration(s)",
+  "TOTAL JOBS",
+  "PIPELINE JOBS",
+  "NON PIPELINE JOBS",
+  "PIPELINE SUCCESS RATE",
+  "NON PIPELINE SUCCESS RATE",
+  "ENVIRONMENTS RUN",
+  "AVERAGE DURATION",
+  "PIPELINE AVERAGE DURATION",
+  "NON PIPELINE AVERAGE DURATION",
 ];
 
 export const LANDING_PAGE_JOBS_TABLE_HEADERS = [

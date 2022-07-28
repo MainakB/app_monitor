@@ -13,7 +13,7 @@ import Paper from "@mui/material/Paper";
 import { TeamDetails } from "./TeamDetails";
 import { TeamContext } from "~/context";
 import { TableHeaderCaret, ExpandableTableRow } from "~/components/Table";
-import { LANDING_PAGE_JOBS_TABLE_HEADERS } from "~/data/constants";
+import { FONT_COLORS, LANDING_PAGE_JOBS_TABLE_HEADERS } from "~/data/constants";
 
 function createData(
   name: string,
@@ -72,10 +72,6 @@ export const JobsTable = (props: IJobsTableProps) => {
           />
           <TableBody>
             {rows.map((row) => (
-              // <TableRow
-              //   key={row.name}
-              //   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              // >
               <ExpandableTableRow
                 key={row.name}
                 teamName={row.name}
@@ -123,16 +119,19 @@ const StyledWrapperBox = styled(Box)(({ theme }) => ({
   boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
   padding: "20px",
   margin: "20px",
-  flex: 4,
+  display: "flex",
+  flexDirection: "column",
+
+  // flex: 4,
 }));
 
 const StyledTableBox = styled(Box)(({ theme }) => ({
-  fontWeight: 600,
-  color: "gray",
+  fontWeight: theme.typography.fontWeightMedium,
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
   marginBottom: "15px",
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  fontWeight: 400,
+  fontWeight: theme.typography.fontWeightMedium,
   fontSize: "10px",
 }));

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "@remix-run/react";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -9,10 +10,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { SideBarContext, TeamContext } from "~/context";
+import { TeamContext } from "~/context";
 import type { TeamsOverview } from "~/services/teams";
 import { TableHeaderCaret } from "~/components/Table";
-import { LANDING_PAGE_HOME_TABLE_HEADERS } from "~/data/constants";
+import { FONT_COLORS, LANDING_PAGE_HOME_TABLE_HEADERS } from "~/data/constants";
 
 // function createData(
 //   name: string,
@@ -36,17 +37,18 @@ interface ITeamsSatusTableProps {
   data: TeamsOverview[] | null;
 }
 export const TeamsSatusTable = (props: ITeamsSatusTableProps) => {
-  const state = React.useContext(SideBarContext);
+  let navigate = useNavigate();
   const teamState = React.useContext(TeamContext);
 
   const onClickDetails = (event: any, team: string) => {
-    state.setSideBarIndex(1);
+    event.preventDefault();
     teamState.setExpandedForTeam(
       team,
       teamState.expanded !== undefined && teamState.expanded[team] !== undefined
         ? !teamState.expanded[team]
         : true
     );
+    navigate("/teams", { replace: false });
   };
 
   return (
@@ -119,12 +121,12 @@ const StyledWrapperBox = styled(Box)(({ theme }) => ({
 }));
 
 const StyledTableBox = styled(Box)(({ theme }) => ({
-  fontWeight: 600,
-  color: "gray",
+  fontWeight: theme.typography.fontWeightMedium,
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
   marginBottom: "15px",
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  fontWeight: 400,
+  fontWeight: theme.typography.fontWeightMedium,
   fontSize: "10px",
 }));

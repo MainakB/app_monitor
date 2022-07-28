@@ -19,6 +19,7 @@ const configdata = {
       footerText: "Show all teams",
       change: 2,
       changeType: "number",
+      pathName: "/teams",
       // footerIcon: GroupsOutlinedIcon,
     },
     {
@@ -27,6 +28,7 @@ const configdata = {
       footerText: "Show all pipelines",
       change: 20,
       changeType: "number",
+      pathName: "/jobs",
       // footerIcon: InsightsOutlinedIcon,
     },
     {
@@ -35,6 +37,7 @@ const configdata = {
       footerText: "Show all jobs",
       change: 25,
       changeType: "percent",
+      pathName: "/jobs",
       // footerIcon: CodeOffOutlinedIcon,
     },
     {
@@ -43,6 +46,7 @@ const configdata = {
       footerText: "View details",
       change: -25,
       changeType: "percent",
+      pathName: "/jobs",
       // footerIcon: EngineeringOutlinedIcon,
     },
   ],
@@ -51,6 +55,7 @@ const configdata = {
       name: "Teams",
       count: 54,
       footerText: "Show all teams",
+      pathName: "/teams",
 
       // footerIcon: GroupsOutlinedIcon,
     },
@@ -58,6 +63,7 @@ const configdata = {
       name: "Jobs Trends",
       count: 54,
       footerText: "Show all pipelines",
+      pathName: "/jobs",
 
       // footerIcon: InsightsOutlinedIcon,
     },

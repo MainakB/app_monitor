@@ -7,6 +7,7 @@ interface IMiniWidgetProps {
   name: string;
   count: string | number;
   footerText: string;
+  pathName: string;
   // footerIcon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
   //   muiName: string;
   // };

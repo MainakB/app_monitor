@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { Link } from "@remix-run/react";
+
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import type { OverridableComponent } from "@mui/material/OverridableComponent";
@@ -14,6 +15,7 @@ interface IMiniWidgetProps {
     name: string;
     count: string | number;
     footerText: string;
+    pathName: string;
     // footerIcon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
     //   muiName: string;
     // };
@@ -28,7 +30,9 @@ export const MiniChartWidget = ({ widget }: IMiniWidgetProps) => {
       <StyledBoxContentWrapper>
         <StyledTitle>{widget.name}</StyledTitle>
         <StyledCounter>{widget.count}</StyledCounter>
-        <StyledFooterText>{widget.footerText}</StyledFooterText>
+        <StyledFooterText component={Link} to={`${widget.pathName}`}>
+          {widget.footerText}
+        </StyledFooterText>
       </StyledBoxContentWrapper>
       <StyledBoxContentWrapper>
         <StyledPercentage
@@ -50,9 +54,9 @@ export const MiniChartWidget = ({ widget }: IMiniWidgetProps) => {
 
 const StyledMiniWidgetWrapperBox = styled(Box)(({ theme }) => ({
   display: "flex",
-  justifyContent: "space-evenly",
+  justifyContent: "space-around",
   flex: 1,
-  padding: "10px",
+  padding: "5px",
   // -webkit-box-shadow: "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
   boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
   borderRadius: "10px",
@@ -67,25 +71,32 @@ const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
 
 const StyledTitle = styled(Typography)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightMedium,
-  fontSize: "14px",
+  fontSize: "18px",
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));
 
 const StyledCounter = styled(Typography)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightLight,
-  fontSize: "28px",
+  fontSize: "60px",
 }));
 
-const StyledFooterText = styled(Typography)((props) => ({
+const StyledFooterText = styled(Typography)(({ theme }) => ({
   width: "max-conten",
-  fontSize: "12px",
-  borderBottom: "1px solid gray",
+  fontSize: "14px",
+  padding: "5px",
+  textDecoration: "none",
+  color: theme.palette.text.primary,
+  opacity: "80%",
+  "&:hover": {
+    opacity: "100%",
+  },
+  // borderBottom: "1px solid gray",
 }));
 
 const StyledPercentage = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  fontSize: "14px",
+  fontSize: "16px",
   fontWeight: theme.typography.fontWeightBold,
   "&.positive": {
     color: theme.palette.success.main,

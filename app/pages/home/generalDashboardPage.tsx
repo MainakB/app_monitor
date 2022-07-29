@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { TeamsOverview } from "~/services/teams";
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import Box from "@mui/material/Box";
 
 import {

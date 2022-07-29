@@ -3,3 +3,4 @@ export * from "./tableHeaders";
 export * from "./endpoints";
 export * from "./queryDefaults";
 export * from "./fontColors";
+export * from "./propKeys";

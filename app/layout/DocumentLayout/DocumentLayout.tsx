@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { useTransition } from "@remix-run/react";
+import { Spinner } from "~/pages/spinner";
 
 import {
   Links,
@@ -30,17 +32,28 @@ export function ErrorBoundary(props: any) {
   );
 }
 
-export const DocumentLayout = ({ children }: Props) => (
-  <html lang="en">
-    <head>
-      <Meta />
-      <Links />
-    </head>
-    <body>
-      {children}
-      <ScrollRestoration />
-      <Scripts />
-      {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
-    </body>
-  </html>
-);
+export const DocumentLayout = ({ children }: Props) => {
+  const { state } = useTransition();
+
+  return (
+    <html lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {(state === "loading" || state === "submitting") && (
+          <Spinner
+            show={state === "loading"}
+            backdropInvisible={true}
+            size="regular"
+          />
+        )}
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+        {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
+      </body>
+    </html>
+  );
+};

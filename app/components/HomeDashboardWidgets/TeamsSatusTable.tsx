@@ -47,6 +47,7 @@ export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
   const tableBodyDataParam = {
     rowsPerPage,
     rows: props.data,
+    hasCaret: false,
     page,
     keyOrder: [
       {

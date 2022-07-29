@@ -22,18 +22,28 @@ import { UseQueryDefaults } from "~/data/constants";
 // };
 
 interface IUseFetchTeamstrendsLandingPageProps {
+  payload: {
+    team: string;
+    start_date: Date;
+    end_date: Date;
+  };
   setTeamsTrendsData: React.Dispatch<
-    React.SetStateAction<TeamsTrendsOverview[] | []>
+    React.SetStateAction<TeamsTrendsOverview[] | null>
   >;
 }
 
 export const useFetchTeamsTrendsLandingPage = (
   props: IUseFetchTeamstrendsLandingPageProps
 ) => {
-  return useQuery([`qry_dash_teams_ovw`], getTeamsTrendsOverview, {
-    ...UseQueryDefaults,
+  return useQuery(
+    [`qry_dash_teams_ovw`, props.payload],
+    getTeamsTrendsOverview,
+    {
+      ...UseQueryDefaults,
 
-    // enabled: !!props?.data?.tenant_list?.length,
-    onSuccess: (data: TeamsTrendsOverview[]) => props.setTeamsTrendsData(data),
-  });
+      enabled: !!props?.payload?.team,
+      onSuccess: (data: TeamsTrendsOverview[]) =>
+        props.setTeamsTrendsData(data),
+    }
+  );
 };

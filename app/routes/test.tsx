@@ -5,11 +5,11 @@ import { getTeamsTrendsOverview } from "~/services/teams";
 export const loader = () => {
   console.log("loader called");
 
-  return getTeamsTrendsOverview();
+  // return getTeamsTrendsOverview();
 };
 
 export default function Test() {
   const data: TeamsTrendsOverview[] = useLoaderData();
 
-  return <>{JSON.stringify(data)}</>;
+  return <></>;
 }

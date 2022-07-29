@@ -17,8 +17,15 @@ import { CHARTCOLORS } from "~/data/constants/colors";
 interface ItrendLineChartProps {
   data: any[] | null;
   legendsList: string[];
+  dataKeyYAxes: string;
+  formatterUnit: string;
 }
-export const TrendLineChart = ({ data, legendsList }: ItrendLineChartProps) => {
+export const TrendLineChart = ({
+  data,
+  legendsList,
+  dataKeyYAxes,
+  formatterUnit,
+}: ItrendLineChartProps) => {
   let dataToUse;
   const [hide, setHide] = useState<string[]>([]);
   const isBuildUnAvailable = !data || !data.length;
@@ -59,7 +66,7 @@ export const TrendLineChart = ({ data, legendsList }: ItrendLineChartProps) => {
           >
             <CartesianGrid strokeDasharray="2 2" />
             <XAxis
-              dataKey="created_date"
+              dataKey={dataKeyYAxes}
               tickFormatter={formatXAxis}
               tick={{ fontSize: 12 }}
             />
@@ -83,7 +90,7 @@ export const TrendLineChart = ({ data, legendsList }: ItrendLineChartProps) => {
                 fontSize: "0.8em",
               }}
               formatter={(value: string | number, name: string, props: any) =>
-                `${value}%`
+                `${value}${formatterUnit || ""}`
               }
             />
             <Legend
@@ -101,8 +108,8 @@ export const TrendLineChart = ({ data, legendsList }: ItrendLineChartProps) => {
                   connectNulls
                   isAnimationActive={false}
                   type="monotone"
-                  dot={{ fill: CHARTCOLORS[idx] }}
-                  stroke={CHARTCOLORS[idx]}
+                  dot={{ fill: (CHARTCOLORS as any)[id] }}
+                  stroke={(CHARTCOLORS as any)[id]}
                   key={`line_${id}`}
                   dataKey={`${id}`}
                   activeDot={{ r: 1 }}

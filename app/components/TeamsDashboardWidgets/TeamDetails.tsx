@@ -29,7 +29,7 @@ export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
     },
   });
 
-  const getLegendsList = (dataValue: typeof teamsTrendsData) => {
+  const getLegendsList = () => {
     return ["pipeline_success_rate", "non_pipeline_success_rate"];
   };
 
@@ -46,7 +46,9 @@ export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
           <StyledTitle>LAST 7 DAYS TEAM TREND - {props.teamName}</StyledTitle>
           <TrendLineChart
             data={dataValue}
-            legendsList={getLegendsList(dataValue)}
+            legendsList={getLegendsList()}
+            dataKeyYAxes="created_date"
+            formatterUnit="%"
           />
         </StyledBoxContentWrapper>
         <Divider orientation="vertical" flexItem />

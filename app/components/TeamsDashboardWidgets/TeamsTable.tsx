@@ -13,8 +13,8 @@ import {
   TableBodySetter,
   TableFooterWrapper,
 } from "~/components/Table";
+import { FONT_COLORS } from "~/data/constants/colors";
 import {
-  FONT_COLORS,
   LANDING_PAGE_TEAMS_TABLE_HEADERS,
   TEAM_LANDING_TRENDS_KEY,
   TEAMS_LANDING_CONTEXT_KEY,

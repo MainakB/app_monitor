@@ -12,7 +12,7 @@ import Home from "@mui/icons-material/Home";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
 import EngineeringIcon from "@mui/icons-material/Engineering";
-import { FONT_COLORS } from "~/data/constants";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 const BoxStyled = styled(Box)(({ theme }) => ({
   display: "none",

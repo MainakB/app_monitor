@@ -12,7 +12,8 @@ import {
   TableBodySetter,
   TableFooterWrapper,
 } from "~/components/Table";
-import { FONT_COLORS, LANDING_PAGE_HOME_TABLE_HEADERS } from "~/data/constants";
+import { FONT_COLORS } from "~/data/constants/colors";
+import { LANDING_PAGE_HOME_TABLE_HEADERS } from "~/data/constants";
 
 interface ITeamsStatusTableProps {
   data: TeamsOverview[] | null;

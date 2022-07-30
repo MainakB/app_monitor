@@ -8,7 +8,7 @@ import type { SvgIconTypeMap } from "@mui/material/SvgIcon";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { FONT_COLORS } from "~/data/constants";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 interface IMiniWidgetProps {
   widget: {

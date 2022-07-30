@@ -3,10 +3,13 @@ import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import { StackedAreaChart, TrendLineChart } from "~/components/Charts";
+import { SideStackedBar, TrendLineChart } from "~/components/Charts";
 import { useFetchTeamsTrendsLandingPage } from "~/hooks/teams";
-import { FONT_COLORS } from "~/data/constants";
-import type { TeamsTrendsOverview } from "~/services/teams";
+import { FONT_COLORS } from "~/data/constants/colors";
+import type {
+  TeamsTrendsOverview,
+  TeamsTenantsSummary,
+} from "~/services/teams";
 import { Spinner } from "~/pages/spinner";
 
 interface IMiniTeamDetailsWidgetProps {
@@ -15,10 +18,17 @@ interface IMiniTeamDetailsWidgetProps {
   endDate: Date;
 }
 
+type ITeamsDashOvrvwSummaryCharts = {
+  teamTrendsOvw: TeamsTrendsOverview[] | null;
+  teamTenantsSumry: TeamsTenantsSummary[] | null;
+};
+
 export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
-  const [teamsTrendsData, setTeamsTrendsData] = React.useState<
-    TeamsTrendsOverview[] | null
-  >(null);
+  const [teamsTrendsData, setTeamsTrendsData] =
+    React.useState<ITeamsDashOvrvwSummaryCharts>({
+      teamTrendsOvw: null,
+      teamTenantsSumry: null,
+    });
 
   const { isLoading, isError, error } = useFetchTeamsTrendsLandingPage({
     setTeamsTrendsData,
@@ -48,16 +58,21 @@ export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
         <StyledBoxContentWrapper>
           <StyledTitle>LAST 7 DAYS TEAM TREND - {props.teamName}</StyledTitle>
           <TrendLineChart
-            data={dataValue}
+            data={dataValue?.teamTrendsOvw}
             legendsList={getLegendsList()}
-            dataKeyYAxes="created_date"
+            dataKeyXAxes="created_date"
             formatterUnit="%"
           />
         </StyledBoxContentWrapper>
-        <Divider sx={{ margin: "2px" }} orientation="vertical" flexItem />
+        <Divider sx={{ margin: "3px" }} orientation="vertical" flexItem />
         <StyledBoxContentWrapper>
-          <StyledTitle>Trends Jobs and Pipelines</StyledTitle>
-          <StackedAreaChart />
+          <StyledTitle>LAST 7 DAYS TENANTS RUN SUMMARY</StyledTitle>
+          <SideStackedBar
+            data={dataValue?.teamTenantsSumry}
+            legendsList={getLegendsList()}
+            dataKeyXAxes="tenant_name"
+            formatterUnit="%"
+          />
         </StyledBoxContentWrapper>
       </StyledWrapperBox>
     );

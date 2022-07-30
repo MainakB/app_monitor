@@ -17,13 +17,13 @@ import { CHARTCOLORS } from "~/data/constants/colors";
 interface ItrendLineChartProps {
   data: any[] | null;
   legendsList: string[] | object;
-  dataKeyYAxes: string;
+  dataKeyXAxes: string;
   formatterUnit: string;
 }
 export const TrendLineChart = ({
   data,
   legendsList,
-  dataKeyYAxes,
+  dataKeyXAxes,
   formatterUnit,
 }: ItrendLineChartProps) => {
   let dataToUse;
@@ -55,7 +55,7 @@ export const TrendLineChart = ({
 
   return (
     <div style={{ width: "100%" }}>
-      {data ? (
+      {dataToUse ? (
         <ResponsiveContainer width="100%" height={200}>
           <LineChart
             width={500}
@@ -70,7 +70,7 @@ export const TrendLineChart = ({
           >
             <CartesianGrid strokeDasharray="2 2" />
             <XAxis
-              dataKey={dataKeyYAxes}
+              dataKey={dataKeyXAxes}
               tickFormatter={formatXAxis}
               tick={{ fontSize: 12 }}
             />

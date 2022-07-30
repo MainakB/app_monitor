@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { StackedAreaChart } from "~/components/Charts";
 import { MiniChartWidget } from "~/components/HomeDashboardWidgets";
-import { FONT_COLORS } from "~/data/constants";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 interface IMiniWidgetProps {
   name: string;

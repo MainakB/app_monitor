@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import { TeamModalSideBar } from "~/components/TeamModal";
 import { DateRangeText } from "~/components/Time";
-import { FONT_COLORS } from "~/data/constants";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 interface ITeamModalLayoutProps extends React.HTMLAttributes<Element> {
   children: ReactNode;

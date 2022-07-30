@@ -1,1 +1,1 @@
-export * from './useFetchTeamsTrendsLandingPage'
+export * from "./useFetchTeamsTrendsLandingPage";

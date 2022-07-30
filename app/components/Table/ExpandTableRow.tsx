@@ -90,7 +90,7 @@ import { useGetContext } from "~/hooks/contexts";
 
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
-import { FONT_COLORS } from "~/data";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 interface IExpandableTableRow extends React.HTMLAttributes<Element> {
   children: React.ReactNode;

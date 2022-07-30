@@ -21,7 +21,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import { DocumentLayout } from "~/layout/DocumentLayout";
 import { NavMenuLayout } from "~/layout/NavMenuLayout";
-import { FONT_COLORS } from "~/data/constants";
+import { FONT_COLORS } from "~/data/constants/colors";
 import { TeamContext } from "~/context";
 
 export const meta: MetaFunction = () => ({

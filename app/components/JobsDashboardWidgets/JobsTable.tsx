@@ -13,7 +13,8 @@ import Paper from "@mui/material/Paper";
 import { TeamDetails } from "./TeamDetails";
 import { TeamContext } from "~/context";
 import { TableHeaderCaret, ExpandableTableRow } from "~/components/Table";
-import { FONT_COLORS, LANDING_PAGE_JOBS_TABLE_HEADERS } from "~/data/constants";
+import { FONT_COLORS } from "~/data/constants/colors";
+import { LANDING_PAGE_JOBS_TABLE_HEADERS } from "~/data/constants";
 
 function createData(
   name: string,
@@ -74,7 +75,9 @@ export const JobsTable = (props: IJobsTableProps) => {
             {rows.map((row) => (
               <ExpandableTableRow
                 key={row.name}
-                teamName={row.name}
+                keyValue={row.name}
+                expandKey="abcd"
+                stateContext="abcd"
                 expandComponent={
                   <TableCell colSpan={9}>
                     <TeamDetails

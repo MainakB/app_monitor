@@ -5,7 +5,7 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 
 import { StackedAreaChart } from "~/components/Charts";
-import { FONT_COLORS } from "~/data/constants";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 interface IMiniTeamDetailsWidgetProps {
   widget: {

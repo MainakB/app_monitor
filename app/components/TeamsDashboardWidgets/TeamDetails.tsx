@@ -54,7 +54,7 @@ export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
             formatterUnit="%"
           />
         </StyledBoxContentWrapper>
-        <Divider orientation="vertical" flexItem />
+        <Divider sx={{ margin: "2px" }} orientation="vertical" flexItem />
         <StyledBoxContentWrapper>
           <StyledTitle>Trends Jobs and Pipelines</StyledTitle>
           <StackedAreaChart />
@@ -72,7 +72,7 @@ const StyledWrapperBox = styled(Box)(({ theme }) => ({
   // flex: 6,
   // padding: "20px",
   // gap: "20px",
-
+  boxShadow: "1px 4px 10px 1px rgba(201, 201, 201, 0.47)",
   [theme.breakpoints.up("md")]: {
     display: "flex",
     // padding: "20px",

@@ -90,6 +90,7 @@ import { useGetContext } from "~/hooks/contexts";
 
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+import { FONT_COLORS } from "~/data";
 
 interface IExpandableTableRow extends React.HTMLAttributes<Element> {
   children: React.ReactNode;
@@ -143,11 +144,16 @@ export const ExpandableTableRow = ({
       {state &&
         state.expanded !== undefined &&
         (state.expanded as any)[keyValue] && (
-          <TableRow>
-            <TableCell padding="checkbox" />
+          <StyledTableRowWrapper>
+            {/* <TableCell padding="checkbox" /> */}
             {expandComponent}
-          </TableRow>
+          </StyledTableRowWrapper>
         )}
     </>
   );
 };
+
+const StyledTableRowWrapper = styled(TableRow)(({ theme }) => ({
+  borderBottom: `1px solid ${FONT_COLORS.BORDERS_SEPERATORS}`,
+  boxShadow: "5px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+}));

@@ -14,7 +14,6 @@ import {
 import { formatXAxis } from "~/lib";
 import { CHARTCOLORS } from "~/data/constants/colors";
 
-
 interface ItrendLineChartProps {
   data: any[] | null;
   legendsList: string[] | object;
@@ -73,7 +72,7 @@ export const SideStackedBar = ({
         <CartesianGrid strokeDasharray="2 2" />
         <XAxis
           dataKey={dataKeyXAxes}
-          tickFormatter={formatXAxis}
+          //   tickFormatter={formatXAxis}
           tick={{ fontSize: 12 }}
         />
         <YAxis domain={[0, 100]} tickLine={false} tick={{ fontSize: 12 }}>

@@ -56,7 +56,7 @@ export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
     ) : (
       <StyledWrapperBox>
         <StyledBoxContentWrapper>
-          <StyledTitle>LAST 7 DAYS TEAM TREND - {props.teamName}</StyledTitle>
+          <StyledTitle>TEAM TREND</StyledTitle>
           <TrendLineChart
             data={dataValue?.teamTrendsOvw}
             legendsList={getLegendsList()}
@@ -66,7 +66,7 @@ export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
         </StyledBoxContentWrapper>
         <Divider sx={{ margin: "3px" }} orientation="vertical" flexItem />
         <StyledBoxContentWrapper>
-          <StyledTitle>LAST 7 DAYS TENANTS RUN SUMMARY</StyledTitle>
+          <StyledTitle>TENANTS RUN SUMMARY</StyledTitle>
           <SideStackedBar
             data={dataValue?.teamTenantsSumry}
             legendsList={getLegendsList()}

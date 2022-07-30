@@ -10,6 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
   Label,
+  LabelList,
 } from "recharts";
 import { formatXAxis } from "~/lib";
 import { CHARTCOLORS } from "~/data/constants/colors";
@@ -53,7 +54,28 @@ export const SideStackedBar = ({
   if (!isBuildUnAvailable) {
     dataToUse = data;
   }
-  //   dataToUse = null;
+
+  const renderCustomizedLabel = (props: any) => {
+    const { x, y, width, height, value, fill } = props;
+    const radius = 10;
+    console.log("Value123", props);
+    return (
+      <g>
+        <circle cx={x + width / 2} cy={y - radius} r={radius} fill={fill} />
+        <text
+          x={x + width / 2}
+          y={y - radius}
+          font-size="0.8em"
+          fill="#fff"
+          textAnchor="middle"
+          dominantBaseline="middle"
+        >
+          {value}
+          {/* {value.split(" ")[1]} */}
+        </text>
+      </g>
+    );
+  };
 
   return dataToUse ? (
     <ResponsiveContainer width="100%" height="100%">
@@ -63,7 +85,7 @@ export const SideStackedBar = ({
         data={dataToUse}
         barGap={0}
         margin={{
-          top: 5,
+          top: 25,
           right: 30,
           left: 20,
           bottom: 5,
@@ -106,19 +128,40 @@ export const SideStackedBar = ({
             padding: "5px 0px 5px 50px",
           }}
         />
-        {/* <Bar dataKey="pv" fill="#8884d8" />
-          <Bar dataKey="uv" fill="#82ca9d" /> */}
+
         {["All", ...legendKeys].map((id: string, idx: number) => {
           return (
             <Bar
               name={Array.isArray(legendsList) ? id : (legendsList as any)[id]}
+              radius={[5, 5, 0, 0]}
               isAnimationActive={false}
               type="monotone"
               fill={(CHARTCOLORS as any)[id]}
               key={`line_${id}`}
-              dataKey={`${id}`}
+              dataKey={id}
               hide={hide.includes(id)}
-            />
+            >
+              {id !== "All" ? (
+                <LabelList
+                  position="center"
+                  dataKey={
+                    id === "pipeline_success_rate"
+                      ? "pipeline_count"
+                      : "non_pipeline_count"
+                  }
+                  content={({ x, y, width, height, value }) =>
+                    renderCustomizedLabel({
+                      x,
+                      y,
+                      width,
+                      height,
+                      value,
+                      fill: (CHARTCOLORS as any)[id],
+                    })
+                  }
+                />
+              ) : null}
+            </Bar>
           );
         })}
       </BarChart>

@@ -193,9 +193,7 @@ export const SideStackedBar = ({
         })}
       </BarChart>
     </ResponsiveContainer>
-  ) : (
-    <div>hello</div>
-  );
+  ) : null;
 };
 
 const StyledTypographyWrapperHeader = styled(Typography)(({ theme }) => ({

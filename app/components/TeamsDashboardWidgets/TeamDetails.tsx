@@ -30,7 +30,10 @@ export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
   });
 
   const getLegendsList = () => {
-    return ["pipeline_success_rate", "non_pipeline_success_rate"];
+    return {
+      pipeline_success_rate: "Pipeline",
+      non_pipeline_success_rate: "Non Pipeline",
+    };
   };
 
   const getView = (

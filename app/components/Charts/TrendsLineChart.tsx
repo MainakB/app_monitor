@@ -16,7 +16,7 @@ import { CHARTCOLORS } from "~/data/constants/colors";
 
 interface ItrendLineChartProps {
   data: any[] | null;
-  legendsList: string[];
+  legendsList: string[] | object;
   dataKeyYAxes: string;
   formatterUnit: string;
 }
@@ -44,6 +44,10 @@ export const TrendLineChart = ({
 
     setHide(value);
   };
+
+  const legendKeys = Array.isArray(legendsList)
+    ? legendsList
+    : Object.keys(legendsList);
 
   if (!isBuildUnAvailable) {
     dataToUse = data;
@@ -96,15 +100,18 @@ export const TrendLineChart = ({
             <Legend
               iconType="circle"
               iconSize={10}
-              onClick={handleLegendsClick(legendsList)}
+              onClick={handleLegendsClick(legendKeys)}
               wrapperStyle={{
                 padding: "5px 0px 5px 50px",
               }}
             />
 
-            {["All", ...legendsList].map((id: string, idx: number) => {
+            {["All", ...legendKeys].map((id: string, idx: number) => {
               return (
                 <Line
+                  name={
+                    Array.isArray(legendsList) ? id : (legendsList as any)[id]
+                  }
                   connectNulls
                   isAnimationActive={false}
                   type="monotone"

@@ -41,7 +41,6 @@ export const TeamsTable = (props: ITeamTableProps) => {
   };
 
   const returnParams = (row: any) => {
-    console.log("11->", row["team_name"]);
     return row["team_name"];
   };
 
@@ -123,35 +122,18 @@ export const TeamsTable = (props: ITeamTableProps) => {
   };
 
   return (
-    <StyledWrapperBox>
-      {props.title ? <StyledTableBox>{props.title}</StyledTableBox> : null}
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <TableHeaderCaret
-            headers={LANDING_PAGE_TEAMS_TABLE_HEADERS}
-            hasCaret={true}
-            caretKey="teams-landing-dash-blank-caret"
-            hasSpareEndCoulmn={true}
-            topAdditionalRow={2}
-          />
-          <TableBodySetter args={tableBodyDataParam} />
-          <TableFooterWrapper args={tableFooterDataParam} />
-        </Table>
-      </TableContainer>
-    </StyledWrapperBox>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+        <TableHeaderCaret
+          headers={LANDING_PAGE_TEAMS_TABLE_HEADERS}
+          hasCaret={true}
+          caretKey="teams-landing-dash-blank-caret"
+          hasSpareEndCoulmn={true}
+          // topAdditionalRow={2}
+        />
+        <TableBodySetter args={tableBodyDataParam} />
+        <TableFooterWrapper args={tableFooterDataParam} />
+      </Table>
+    </TableContainer>
   );
 };
-
-const StyledWrapperBox = styled(Box)(({ theme }) => ({
-  "-webkit-box-shadow": "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
-  boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
-  padding: "20px",
-  margin: "20px",
-  flex: 4,
-}));
-
-const StyledTableBox = styled(Box)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightMedium,
-  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-  marginBottom: "15px",
-}));

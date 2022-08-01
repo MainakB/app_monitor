@@ -18,9 +18,9 @@ export const TableHeaderCaret = ({
   hasCaret,
   caretKey,
   hasSpareEndCoulmn,
-  topAdditionalRow,
-}: ITableHeaderCaretProps) => {
-  const rowsCount = (Array(topAdditionalRow || 1) as number[]).fill(0);
+}: // topAdditionalRow,
+ITableHeaderCaretProps) => {
+  const rowsCount = (Array(1) as number[]).fill(0);
 
   return (
     <StyledTableHead hasTop={rowsCount.length > 1}>
@@ -33,6 +33,7 @@ export const TableHeaderCaret = ({
             {[
               ...headers.map((header: string, index: number) => (
                 <StyledTableCell
+                  align="left"
                   colSpan={!index && hasCaret ? 2 : 1}
                   hasTop={rowsCount.length > 1}
                   key={`${header}-lndg-hdr-${index}`}
@@ -42,6 +43,7 @@ export const TableHeaderCaret = ({
               )),
               hasSpareEndCoulmn ? (
                 <StyledTableCell
+                  align="left"
                   hasTop={rowsCount.length > 1}
                   key={`${caretKey}-spare-end-col`}
                 ></StyledTableCell>
@@ -53,22 +55,15 @@ export const TableHeaderCaret = ({
             key={`lndg-hdr-expd-rwspan-crmbs-${idx}`}
             hasTop={rowsCount.length > 1}
           >
-            {/* {hasCaret ? (
-              <StyledTableCell
-                hasTop={rowsCount.length > 1}
-                key={caretKey}
-              ></StyledTableCell>
-            ) : (
-              <></>
-            )} */}
             <StyledTableCell
+              align="left"
               colSpan={
                 headers.length +
                 (hasCaret ? 1 : 0) +
                 (hasSpareEndCoulmn ? 1 : 0)
               }
             >
-              <TableCrumbs />
+              {/* <TableCrumbs /> */}
             </StyledTableCell>
           </StyledTableRow>
         )

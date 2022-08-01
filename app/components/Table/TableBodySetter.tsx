@@ -68,7 +68,7 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                 ) : rowType.type === "button" && rowType.onClickHandler ? (
                   <TableCell
                     key={`${keyValue}-${rowType.value}-spare`}
-                    align="center"
+                    align="left"
                   >
                     <StyledButton
                       onClick={(event: any) =>

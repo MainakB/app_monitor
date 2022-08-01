@@ -1,14 +1,14 @@
 import * as React from "react";
 import type { TeamsOverview } from "~/services/teams";
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import Box from "@mui/material/Box";
 
 import {
   GeneralDashboardWidgetsLayout,
   GeneralDashboardChartsLayout,
 } from "~/layout/DashboardLayouts";
-import { TeamsSatusTable } from "~/components/HomeDashboardWidgets";
-import { useFetchLandingTeamOverviewTable } from "~/hooks";
+import { TeamsStatusTable } from "~/components/HomeDashboardWidgets";
+
 import { Spinner } from "../spinner";
 
 const configdata = {
@@ -19,6 +19,7 @@ const configdata = {
       footerText: "Show all teams",
       change: 2,
       changeType: "number",
+      pathName: "/teams",
       // footerIcon: GroupsOutlinedIcon,
     },
     {
@@ -27,6 +28,7 @@ const configdata = {
       footerText: "Show all pipelines",
       change: 20,
       changeType: "number",
+      pathName: "/jobs",
       // footerIcon: InsightsOutlinedIcon,
     },
     {
@@ -35,6 +37,7 @@ const configdata = {
       footerText: "Show all jobs",
       change: 25,
       changeType: "percent",
+      pathName: "/jobs",
       // footerIcon: CodeOffOutlinedIcon,
     },
     {
@@ -43,6 +46,7 @@ const configdata = {
       footerText: "View details",
       change: -25,
       changeType: "percent",
+      pathName: "/jobs",
       // footerIcon: EngineeringOutlinedIcon,
     },
   ],
@@ -51,6 +55,7 @@ const configdata = {
       name: "Teams",
       count: 54,
       footerText: "Show all teams",
+      pathName: "/teams",
 
       // footerIcon: GroupsOutlinedIcon,
     },
@@ -58,30 +63,27 @@ const configdata = {
       name: "Jobs Trends",
       count: 54,
       footerText: "Show all pipelines",
+      pathName: "/jobs",
 
       // footerIcon: InsightsOutlinedIcon,
     },
   ],
 };
 
-// getTeamsOverview
+interface IGeneralDashboardPageProps {
+  tableData: TeamsOverview[];
+}
 
-export const GeneralDashboardPage = () => {
-  const [teamOverviewData, setTeamOverviewData] = React.useState<
-    TeamsOverview[] | null
-  >(null);
-
-  const { isLoading, isError, error } = useFetchLandingTeamOverviewTable({
-    setData: setTeamOverviewData,
-  });
-
-  return isLoading ? (
-    <Spinner show={isLoading} />
+export const GeneralDashboardPage = ({
+  tableData,
+}: IGeneralDashboardPageProps) => {
+  return tableData === undefined ? (
+    <Spinner show={tableData === undefined} />
   ) : (
     <StyledDashboardWrapper>
       <GeneralDashboardWidgetsLayout data={configdata.miniwidgets} />
       <GeneralDashboardChartsLayout data={configdata.chartWidgets} />
-      <TeamsSatusTable data={teamOverviewData} />
+      <TeamsStatusTable data={tableData} />
     </StyledDashboardWrapper>
   );
 };

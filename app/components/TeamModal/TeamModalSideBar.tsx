@@ -11,6 +11,7 @@ import IntegrationInstructionsIcon from "@mui/icons-material/IntegrationInstruct
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
 import EngineeringIcon from "@mui/icons-material/Engineering";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 const BoxStyled = styled(Box)(({ theme }) => ({
   display: "none",
@@ -31,8 +32,8 @@ const StyledListItemIcon = styled(ListItemIcon)(({ theme }) => ({
 }));
 
 const StyledListItemText = styled(ListItemText)(({ theme }) => ({
-  color: "#999",
-  fontWeight: "bold",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
+  fontWeight: theme.typography.fontWeightBold,
 }));
 
 interface ITeamModalSideBarProps extends React.HTMLAttributes<Element> {

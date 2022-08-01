@@ -5,6 +5,7 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 
 import { StackedAreaChart } from "~/components/Charts";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 interface IMiniTeamDetailsWidgetProps {
   widget: {
@@ -63,10 +64,10 @@ const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
 }));
 
-const StyledTitle = styled(Typography)((props) => ({
+const StyledTitle = styled(Typography)(({ theme }) => ({
   alignSelf: "center",
-  fontWeight: 600,
+  fontWeight: theme.typography.fontWeightMedium,
   margin: "10px",
   fontSize: "14px",
-  color: "#999",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));

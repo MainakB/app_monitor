@@ -2,8 +2,10 @@ import React from "react";
 
 import { TeamsTable } from "~/components/TeamsDashboardWidgets";
 import { TeamDetailsModal } from "./teamDetailsModal";
+import type { TeamsOverview } from "~/services/teams";
 
-interface ITeamsDashboardProps {
+interface ITeamsDashboardProps extends React.HTMLAttributes<Element> {
+  tableData: TeamsOverview[];
   title?: string;
 }
 export const TeamsDashboard = (props: ITeamsDashboardProps) => {
@@ -23,6 +25,7 @@ export const TeamsDashboard = (props: ITeamsDashboardProps) => {
       ) : null}
       <TeamsTable
         title={props.title}
+        tableData={props.tableData}
         setOpenTeamDetailsModal={setOpenTeamDetailsModal}
       />
     </>

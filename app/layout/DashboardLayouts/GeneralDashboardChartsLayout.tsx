@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { StackedAreaChart } from "~/components/Charts";
 import { MiniChartWidget } from "~/components/HomeDashboardWidgets";
+import { FONT_COLORS } from "~/data/constants/colors";
 
 interface IMiniWidgetProps {
   name: string;
@@ -63,10 +64,10 @@ const StyledMiniWidgetWrapperBox = styled(Box, {
   shouldForwardProp: (prop) => prop !== "isGraph",
 })<{ isGraph?: boolean }>(({ theme, isGraph }) => ({
   display: "flex",
-  justifyContent: "space-evenly",
+  justifyContent: "space-around",
   flex: isGraph ? 4 : 2,
-  padding: "10px",
-  "-webkit-box-shadow": "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
+  padding: "5px",
+  // -webkit-box-shadow: "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
   boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
   borderRadius: "10px",
   height: "100%",
@@ -78,8 +79,8 @@ const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
 }));
 
-const StyledTitle = styled(Typography)((props) => ({
-  fontWeight: 600,
-  fontSize: "14px",
-  color: "#999",
+const StyledTitle = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
+  fontSize: "18px",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));

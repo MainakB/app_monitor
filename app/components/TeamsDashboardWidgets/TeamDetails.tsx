@@ -3,33 +3,82 @@ import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-
-import { StackedAreaChart } from "~/components/Charts";
+import { SideStackedBar, TrendLineChart } from "~/components/Charts";
+import { useFetchTeamsTrendsLandingPage } from "~/hooks/teams";
+import { FONT_COLORS } from "~/data/constants/colors";
+import type {
+  TeamsTrendsOverview,
+  TeamsTenantsSummary,
+} from "~/services/teams";
+import { Spinner } from "~/pages/spinner";
 
 interface IMiniTeamDetailsWidgetProps {
-  widget: {
-    teamName: string;
-    name: string;
-    jobsCount: number;
-    pipelineCount: number;
-    testCount: number;
-  };
+  teamName: string;
+  startDate: Date;
+  endDate: Date;
 }
 
+type ITeamsDashOvrvwSummaryCharts = {
+  teamTrendsOvw: TeamsTrendsOverview[] | null;
+  teamTenantsSumry: TeamsTenantsSummary[] | null;
+};
+
 export const TeamDetails = (props: IMiniTeamDetailsWidgetProps) => {
-  return (
-    <StyledWrapperBox>
-      <StyledBoxContentWrapper>
-        <StyledTitle>Trends Test Cases</StyledTitle>
-        <StackedAreaChart />
-      </StyledBoxContentWrapper>
-      <Divider orientation="vertical" flexItem />
-      <StyledBoxContentWrapper>
-        <StyledTitle>Trends Jobs and Pipelines</StyledTitle>
-        <StackedAreaChart />
-      </StyledBoxContentWrapper>
-    </StyledWrapperBox>
-  );
+  const [teamsTrendsData, setTeamsTrendsData] =
+    React.useState<ITeamsDashOvrvwSummaryCharts>({
+      teamTrendsOvw: null,
+      teamTenantsSumry: null,
+    });
+
+  const { isLoading, isError, error } = useFetchTeamsTrendsLandingPage({
+    setTeamsTrendsData,
+    payload: {
+      team: props.teamName,
+      start_date: props.startDate,
+      end_date: props.endDate,
+    },
+  });
+
+  const getLegendsList = () => {
+    return {
+      pipeline_success_rate: "Pipeline",
+      non_pipeline_success_rate: "Non Pipeline",
+    };
+  };
+
+  const getView = (
+    isLoading: boolean,
+    props: IMiniTeamDetailsWidgetProps,
+    dataValue: typeof teamsTrendsData
+  ) => {
+    return isLoading ? (
+      <Spinner show={isLoading} backdropInvisible={false} />
+    ) : (
+      <StyledWrapperBox>
+        <StyledBoxContentWrapper>
+          <StyledTitle>TEAM TREND</StyledTitle>
+          <TrendLineChart
+            data={dataValue?.teamTrendsOvw}
+            legendsList={getLegendsList()}
+            dataKeyXAxes="created_date"
+            formatterUnit="%"
+          />
+        </StyledBoxContentWrapper>
+        <Divider sx={{ margin: "3px" }} orientation="vertical" flexItem />
+        <StyledBoxContentWrapper>
+          <StyledTitle>TENANTS RUN SUMMARY</StyledTitle>
+          <SideStackedBar
+            data={dataValue?.teamTenantsSumry}
+            legendsList={getLegendsList()}
+            dataKeyXAxes="tenant_name"
+            formatterUnit="%"
+          />
+        </StyledBoxContentWrapper>
+      </StyledWrapperBox>
+    );
+  };
+
+  return getView(isLoading, props, teamsTrendsData);
 };
 
 const StyledWrapperBox = styled(Box)(({ theme }) => ({
@@ -38,11 +87,10 @@ const StyledWrapperBox = styled(Box)(({ theme }) => ({
   // flex: 6,
   // padding: "20px",
   // gap: "20px",
-
+  boxShadow: "1px 4px 10px 1px rgba(201, 201, 201, 0.47)",
   [theme.breakpoints.up("md")]: {
     display: "flex",
     // padding: "20px",
-
     // gap: "20px",
     flexDirection: "row",
     flex: 6,
@@ -56,12 +104,13 @@ const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   flexDirection: "column",
   justifyContent: "space-between",
+  backgroundColor: FONT_COLORS.DOCUMENT_BODY_SECONDARY_LIGHT,
 }));
 
-const StyledTitle = styled(Typography)((props) => ({
+const StyledTitle = styled(Typography)(({ theme }) => ({
   alignSelf: "center",
-  fontWeight: 600,
+  fontWeight: theme.typography.fontWeightMedium,
   margin: "10px",
   fontSize: "14px",
-  color: "#999",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));

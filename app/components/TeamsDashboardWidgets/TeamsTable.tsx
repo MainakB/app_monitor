@@ -132,6 +132,7 @@ export const TeamsTable = (props: ITeamTableProps) => {
             hasCaret={true}
             caretKey="teams-landing-dash-blank-caret"
             hasSpareEndCoulmn={true}
+            topAdditionalRow={2}
           />
           <TableBodySetter args={tableBodyDataParam} />
           <TableFooterWrapper args={tableFooterDataParam} />
@@ -153,9 +154,4 @@ const StyledTableBox = styled(Box)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightMedium,
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
   marginBottom: "15px",
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightMedium,
-  fontSize: "10px",
 }));

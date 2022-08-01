@@ -14,6 +14,8 @@ export const TeamsDashboard = (props: ITeamsDashboardProps) => {
     "",
   ]);
 
+  const [teamsCrumbsStack, setTeamsCrumbsStack] = React.useState(["Home"]);
+
   return (
     <>
       {openTeamDetailsModal[0] ? (

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled } from "@mui/material";
+import { useNavigate } from "@remix-run/react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
@@ -23,10 +23,13 @@ import {
 interface ITeamTableProps {
   setOpenTeamDetailsModal: Function;
   tableData: TeamsOverview[];
+  crumbs: string[];
+  setCrumbs: Function;
   title?: string;
 }
 export const TeamsTable = (props: ITeamTableProps) => {
   const teamState = React.useContext(TeamContext);
+  let navigate = useNavigate();
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -37,7 +40,9 @@ export const TeamsTable = (props: ITeamTableProps) => {
 
   const teamDetailsClickHandler = (event: any, team: string) => {
     event.preventDefault();
-    props.setOpenTeamDetailsModal([true, team]);
+    // props.setCrumbs([...props.crumbs, team]);
+    // props.setOpenTeamDetailsModal([true, team]);
+    navigate(`/teams/${team}`, { replace: false });
   };
 
   const returnParams = (row: any) => {

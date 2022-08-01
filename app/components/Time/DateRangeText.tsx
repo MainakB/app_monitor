@@ -23,20 +23,31 @@ export const DateRangeText = () => {
 
   return (
     <div>
-      <StyledTypographyWrapper onClick={handleClickOpen}>
+      {/* <StyledTypographyWrapper onClick={handleClickOpen}>
         Selected Range :{" "}
         <StyledTypography>(fromStub) to (targetStub)</StyledTypography>
-      </StyledTypographyWrapper>
+      </StyledTypographyWrapper> */}
+      <StyledRangeWrapper>
+        Date range :{" "}
+        <StyledDate component="a" onClick={handleClickOpen}>
+          10/20/2022
+        </StyledDate>{" "}
+        to{" "}
+        <StyledDate component="a" onClick={handleClickOpen}>
+          10/27/2022
+        </StyledDate>
+      </StyledRangeWrapper>
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Pick a date range</DialogTitle>
         <StyledDialogContent>
           <StyledDateRangeSelector>
             <DateRangePicker placeholderText="Select start date" />
-            <Box sx={{ mx: 2 }}> to </Box>
+            <Box sx={{ mx: 2, display: "flex", alignItems: "center" }}>to</Box>
             <DateRangePicker placeholderText="Select end date" />
           </StyledDateRangeSelector>
           <StyleddButtonWrapper>
-            <Button>Cancel</Button>
+            <Button onClick={handleClose}>Cancel</Button>
             <Button>Apply</Button>
           </StyleddButtonWrapper>
         </StyledDialogContent>
@@ -70,5 +81,25 @@ const StyledTypography = styled("span")(({ theme }) => ({
   cursor: "pointer",
   "&:hover": {
     opacity: "80%",
+    transition: "all 0.5s step-start",
   },
 }));
+
+const StyledRangeWrapper = styled(Typography)(({ theme }) => ({
+  fontSize: "0.8125rem",
+}));
+
+const StyledDate = styled(Typography)(({ theme }) => ({
+  fontSize: "0.8125rem",
+  cursor: "pointer",
+  color: theme.palette.primary.light,
+  "&:hover": {
+    opacity: "75%",
+
+    transition: "all 0.5s step-start",
+  },
+  "&:active": {
+    opacity: "40%",
+    transition: "all 0.5s step-start",
+  },
+})) as typeof Typography;

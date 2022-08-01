@@ -33,7 +33,7 @@ export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
         ? !teamState.expanded[team]
         : true
     );
-    navigate("/teams", { replace: false });
+    navigate(`/teams/${team}`, { replace: false });
   };
 
   const returnParams = (row: any) => {

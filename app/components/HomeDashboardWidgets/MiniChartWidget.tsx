@@ -91,9 +91,10 @@ const StyledFooterText = styled(Typography)(({ theme }) => ({
     opacity: "100%",
     paddingBottom: "0px",
     borderBottom: "1px solid gray",
+    transition: "all 0.5s step-start",
   },
   // borderBottom: "1px solid gray",
-}));
+})) as typeof Typography;
 
 const StyledPercentage = styled(Box)(({ theme }) => ({
   display: "flex",

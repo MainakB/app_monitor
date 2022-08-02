@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
 
 import { styled, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -6,9 +6,7 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 import Home from "@mui/icons-material/Home";
-
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
 import EngineeringIcon from "@mui/icons-material/Engineering";
@@ -46,7 +44,6 @@ const StyledListItemText = styled(ListItemText)(({ theme }) => ({
 
 export const SideBar = () => {
   let location = useLocation();
-  let navigate = useNavigate();
 
   const leftNavListProps = (title: string, pathValue: string) => {
     switch (title) {

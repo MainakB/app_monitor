@@ -46,7 +46,6 @@ export const formatDateToLocaleString = (dateVal: string) =>
 
 export const formatXAxis = (tickItem: any) => {
   const dateValues = tickItem.split("-");
-  console.log("all tickItem", dateValues, typeof dateValues);
   const newDate = formatDateToLocaleString(
     new Date(
       dateValues[0],
@@ -54,6 +53,15 @@ export const formatXAxis = (tickItem: any) => {
       dateValues[2].substring(0, 3)
     ).toDateString()
   );
-  console.log("all date", newDate);
   return newDate;
+};
+
+export const trimJobUrl = (jobUrl: string) => {
+  const jobUrlArray = decodeURI(jobUrl).split("/");
+  const jobTrimmed =
+    jobUrlArray[jobUrlArray.length - 1] === ""
+      ? jobUrlArray[jobUrlArray.length - 2]
+      : jobUrlArray[jobUrlArray.length - 1];
+  console.log("jobTrimmed", jobTrimmed);
+  return jobTrimmed;
 };

@@ -6,6 +6,8 @@ import { BriefSummaryWidget } from "~/components/TeamsDashboardWidgets";
 import { FONT_COLORS } from "~/data/constants/colors";
 import type { TeamBriefSummary } from "~/services/teams";
 import { GenricNoLegendsTrendsLineChart } from "~/components/Charts";
+import { JobsTableByTeam } from "./jobsTableByTeam";
+
 interface ITeamDetailsByIdProps extends React.HTMLAttributes<Element> {
   teamName: string;
   summaryWidgetData: TeamBriefSummary | null;
@@ -15,23 +17,33 @@ export const TeamDetailsById = ({
   summaryWidgetData,
 }: ITeamDetailsByIdProps) => {
   return (
-    <StyledDashboardWrapper>
-      <StyledMiniWidgetWrapperBox>
-        <BriefSummaryWidget summaryWidgetData={summaryWidgetData} />
-      </StyledMiniWidgetWrapperBox>
-      <StyledMiniWidgetWrapperBox customFlex={2}>
-        <StyledBoxContentWrapper>
-          <StyledTitle>TEAM TREND</StyledTitle>
-          <GenricNoLegendsTrendsLineChart
-            data={summaryWidgetData?.growth || null}
-            dataKeyXAxes="weekday"
-            dataKeyYAxes="Change"
-            formatterUnit="%"
-            domainValue={[-100, 100]}
-          />
-        </StyledBoxContentWrapper>
-      </StyledMiniWidgetWrapperBox>
-    </StyledDashboardWrapper>
+    <>
+      <StyledDashboardWrapper>
+        <StyledMiniWidgetWrapperBox>
+          <BriefSummaryWidget summaryWidgetData={summaryWidgetData} />
+        </StyledMiniWidgetWrapperBox>
+        <StyledMiniWidgetWrapperBox customFlex={2}>
+          <StyledBoxContentWrapper>
+            <StyledTitle>SUCCESS RATE CHANGE TREND</StyledTitle>
+            <GenricNoLegendsTrendsLineChart
+              data={summaryWidgetData?.growth || null}
+              dataKeyXAxes="weekday"
+              dataKeyYAxes="Change"
+              formatterUnit="%"
+              domainValue={[-100, 100]}
+            />
+          </StyledBoxContentWrapper>
+        </StyledMiniWidgetWrapperBox>
+      </StyledDashboardWrapper>
+      <StyledDashboardWrapper>
+        <StyledMiniWidgetWrapperBox customFlex={2}>
+          <StyledBoxContentWrapper>
+            <StyledTitleTable>TEAM JOBS</StyledTitleTable>
+            <JobsTableByTeam tableData={summaryWidgetData?.team_jobs || null} />
+          </StyledBoxContentWrapper>
+        </StyledMiniWidgetWrapperBox>
+      </StyledDashboardWrapper>
+    </>
   );
 };
 
@@ -79,5 +91,13 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightMedium,
   fontSize: "18px",
   alignSelf: "center",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
+}));
+
+const StyledTitleTable = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
+  fontSize: "18px",
+  paddingBottom: "10px",
+  // alignSelf: "center",
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));

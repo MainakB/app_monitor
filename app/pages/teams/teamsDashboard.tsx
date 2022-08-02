@@ -24,7 +24,6 @@ interface ITeamsDashboardProps extends React.HTMLAttributes<Element> {
 
 export const TeamsDashboard = (props: ITeamsDashboardProps) => {
   useEffect(() => {
-    console.log("test", props.crumbs);
     if (props.teamName) {
       props.setCrumbs([...props.crumbs, props.teamName]);
     }

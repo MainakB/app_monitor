@@ -1,5 +1,14 @@
 import { BASE_URL, TEAMS_BRIEF_SUMMARY_ENDPOINT } from "~/data/constants";
 
+export type ITeamJobs = {
+  job_name: string;
+  is_pipeline: number;
+  build_result: string;
+  build_duration: number;
+  branch_name: string;
+  tenant_name: string;
+};
+
 export type TeamBriefSummary = {
   avg_duration: number;
   current_fail_count: number;
@@ -19,6 +28,7 @@ export type TeamBriefSummary = {
       "@last_entry := success_rate": number;
     }
   ];
+  team_jobs: ITeamJobs[];
 };
 
 export type ITeamBriefSummaryProps = {

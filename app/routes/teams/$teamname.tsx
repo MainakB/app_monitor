@@ -11,7 +11,6 @@ export default function TeamId() {
   const { teamname } = useParams();
   const loaderData: TeamBriefSummary = useLoaderData();
   const { crumbs, setCrumbs } = useOutletContext() as any;
-  console.log("on nav", loaderData);
   return (
     <TeamsDashboard
       teamName={teamname as string}

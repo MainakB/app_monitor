@@ -4,9 +4,11 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 
 import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 
 import { getPaginatedRows } from "~/lib";
 import { RowWrapperLayout } from "~/layout/TableLayouts";
+import { trimJobUrl } from "~/lib";
 
 type IRowTypes = {
   value: string;
@@ -63,7 +65,19 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                     component="th"
                     scope="row"
                   >
-                    {row[rowType.value]}
+                    {rowType.type === "link" ? (
+                      <Link
+                        href={row[rowType.value]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        color="inherit"
+                        underline="hover"
+                      >
+                        {trimJobUrl(row[rowType.value])}
+                      </Link>
+                    ) : (
+                      row[rowType.value]
+                    )}
                   </TableCell>
                 ) : rowType.type === "button" && rowType.onClickHandler ? (
                   <TableCell
@@ -88,7 +102,19 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                     style={{ width: 160 }}
                     align="center"
                   >
-                    {row[rowType.value]}
+                    {rowType.type === "link" ? (
+                      <Link
+                        href={row[rowType.value]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        color="inherit"
+                        underline="hover"
+                      >
+                        {trimJobUrl(row[rowType.value])}
+                      </Link>
+                    ) : (
+                      row[rowType.value]
+                    )}
                   </TableCell>
                 )
               )}

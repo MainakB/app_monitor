@@ -35,7 +35,6 @@ export const GenricNoLegendsTrendsLineChart = ({
     dataToUse = data;
   }
 
-  console.log("Test", dataToUse);
   return (
     <div style={{ width: "100%" }}>
       {dataToUse ? (

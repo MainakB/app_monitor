@@ -18,7 +18,7 @@ export const DateRangeText = () => {
 
   return (
     <div>
-      <StyledRangeWrapper>
+      <StyledRangeWrapper component="div">
         Date range :{" "}
         <StyledDate component="a" onClick={handleClickOpen}>
           10/20/2022
@@ -74,7 +74,7 @@ const StyleddButtonWrapper = styled(Box)(({ theme }) => ({
 
 const StyledRangeWrapper = styled(Typography)(({ theme }) => ({
   fontSize: "0.8125rem",
-}));
+})) as typeof Typography;
 
 const StyledDate = styled(Typography)(({ theme }) => ({
   fontSize: "0.8125rem",

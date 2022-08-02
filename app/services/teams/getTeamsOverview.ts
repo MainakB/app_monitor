@@ -14,9 +14,8 @@ export type TeamsOverview = {
 };
 
 export async function getTeamsOverview() {
-  console.log("test call");
   const response = await fetch(`${BASE_URL}${TEAMS_OVERVIEW_ENDPOINT}`);
   const teamsOverview: TeamsOverview[] = await response.json();
-  console.log("test call done", teamsOverview);
+  console.log("test call getTeamsOverview");
   return teamsOverview;
 }

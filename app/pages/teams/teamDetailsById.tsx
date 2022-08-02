@@ -1,39 +1,83 @@
-import { ReactNode } from "react";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
-import { TeamModalSideBar } from "~/components/TeamModal";
-import { DateRangeText } from "~/components/Time";
-import { FONT_COLORS } from "~/data/constants/colors";
 
+import { BriefSummaryWidget } from "~/components/TeamsDashboardWidgets";
+import { FONT_COLORS } from "~/data/constants/colors";
+import type { TeamBriefSummary } from "~/services/teams";
+import { GenricNoLegendsTrendsLineChart } from "~/components/Charts";
 interface ITeamDetailsByIdProps extends React.HTMLAttributes<Element> {
   teamName: string;
+  summaryWidgetData: TeamBriefSummary | null;
 }
-export const TeamDetailsById = ({ teamName }: ITeamDetailsByIdProps) => {
-  return <StyledContentWrapper></StyledContentWrapper>;
+export const TeamDetailsById = ({
+  teamName,
+  summaryWidgetData,
+}: ITeamDetailsByIdProps) => {
+  return (
+    <StyledDashboardWrapper>
+      <StyledMiniWidgetWrapperBox>
+        <BriefSummaryWidget summaryWidgetData={summaryWidgetData} />
+      </StyledMiniWidgetWrapperBox>
+      <StyledMiniWidgetWrapperBox customFlex={2}>
+        <StyledBoxContentWrapper>
+          <StyledTitle>TEAM TREND</StyledTitle>
+          <GenricNoLegendsTrendsLineChart
+            data={summaryWidgetData?.growth || null}
+            dataKeyXAxes="weekday"
+            dataKeyYAxes="Change"
+            formatterUnit="%"
+            domainValue={[-100, 100]}
+          />
+        </StyledBoxContentWrapper>
+      </StyledMiniWidgetWrapperBox>
+    </StyledDashboardWrapper>
+  );
 };
 
-const StyledContentWrapper = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
+const StyledDashboardWrapper = styled(Box)(({ theme }) => ({
+  // display: "flex",
+  // flexDirection: "column",
+  // flex: 6,
+  // padding: "20px",
+  // gap: "20px",
+
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    padding: "20px",
+    gap: "20px",
+    flexDirection: "row",
+    flex: 6,
+    justifyContent: "space-evenly",
+    // width: "1vw",
+  },
 }));
 
-const StyledModalHeaderWrapper = styled(Box)(({ theme }) => ({
+const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
+  // backgroundColor: "red",
   display: "flex",
+  flex: 1,
   flexDirection: "column",
-  padding: "5px 5px 15px 5px",
+  justifyContent: "space-evenly",
+  padding: "10px 10px 10px 20px",
 }));
 
-const StyledModalTitleWrapper = styled(Typography)(({ theme }) => ({
+const StyledMiniWidgetWrapperBox = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "customFlex",
+})<{ customFlex?: number }>(({ theme, customFlex }) => ({
+  display: "flex",
+  justifyContent: "space-around",
+  flex: customFlex ? customFlex : 1,
+  padding: "5px",
+  "-webkit-box-shadow": "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
+  boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+  borderRadius: "10px",
+  // height: "100%",
+}));
+
+const StyledTitle = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
+  fontSize: "18px",
+  alignSelf: "center",
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-}));
-
-const StyledModalBodyWrapper = styled(Stack)(({ theme }) => ({
-  marginTop: "15px",
-
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   backgroundColor: "yellow",
 }));

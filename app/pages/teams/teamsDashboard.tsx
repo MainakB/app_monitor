@@ -4,7 +4,8 @@ import Box from "@mui/material/Box";
 import { TeamsTable } from "~/components/TeamsDashboardWidgets";
 import { TeamsDashboardWrapper } from "~/layout/TeamModalLayout";
 import { TeamDetailsModal } from "./teamDetailsModal";
-import type { TeamsOverview } from "~/services/teams";
+import type { TeamsOverview, TeamBriefSummary } from "~/services/teams";
+
 import { GenericBreadcrumbs } from "~/components/Breadcrumbs";
 import { FONT_COLORS } from "~/data/constants/colors";
 import { TeamDetailsById } from "~/pages/teams";
@@ -18,7 +19,9 @@ interface ITeamsDashboardProps extends React.HTMLAttributes<Element> {
   crumbs: string[];
   teamName?: string;
   setCrumbs: Function;
+  summaryWidgetData?: TeamBriefSummary;
 }
+
 export const TeamsDashboard = (props: ITeamsDashboardProps) => {
   useEffect(() => {
     console.log("test", props.crumbs);
@@ -39,7 +42,10 @@ export const TeamsDashboard = (props: ITeamsDashboardProps) => {
       setCrumbs={props.setCrumbs}
     >
       {props.crumbs.length === 2 ? (
-        <TeamDetailsById teamName={props.teamName as string} />
+        <TeamDetailsById
+          teamName={props.teamName as string}
+          summaryWidgetData={props.summaryWidgetData || null}
+        />
       ) : null}
       {props.crumbs.length === 1 && props.crumbs[0] === "Home" ? (
         <TeamsTable

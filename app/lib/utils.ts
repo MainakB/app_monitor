@@ -46,11 +46,14 @@ export const formatDateToLocaleString = (dateVal: string) =>
 
 export const formatXAxis = (tickItem: any) => {
   const dateValues = tickItem.split("-");
-  return formatDateToLocaleString(
+  console.log("all tickItem", dateValues, typeof dateValues);
+  const newDate = formatDateToLocaleString(
     new Date(
       dateValues[0],
       dateValues[1] ? dateValues[1] - 1 : dateValues[1],
-      dateValues[2]
+      dateValues[2].substring(0, 3)
     ).toDateString()
   );
+  console.log("all date", newDate);
+  return newDate;
 };

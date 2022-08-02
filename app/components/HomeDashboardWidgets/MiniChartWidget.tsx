@@ -9,6 +9,7 @@ import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FONT_COLORS } from "~/data/constants/colors";
+import { BoxWidgetsLayout } from "~/layout/WidgetsLayout";
 
 interface IMiniWidgetProps {
   widget: {
@@ -26,7 +27,7 @@ interface IMiniWidgetProps {
 
 export const MiniChartWidget = ({ widget }: IMiniWidgetProps) => {
   return (
-    <StyledMiniWidgetWrapperBox>
+    <BoxWidgetsLayout>
       <StyledBoxContentWrapper>
         <StyledTitle>{widget.name}</StyledTitle>
         <StyledCounter>{widget.count}</StyledCounter>
@@ -48,20 +49,9 @@ export const MiniChartWidget = ({ widget }: IMiniWidgetProps) => {
         </StyledPercentage>
         {/* {widget.footerIcon} */}
       </StyledBoxContentWrapper>
-    </StyledMiniWidgetWrapperBox>
+    </BoxWidgetsLayout>
   );
 };
-
-const StyledMiniWidgetWrapperBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  justifyContent: "space-around",
-  flex: 1,
-  padding: "5px",
-  // -webkit-box-shadow: "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
-  boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
-  borderRadius: "10px",
-  height: "100%",
-}));
 
 const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
   display: "flex",

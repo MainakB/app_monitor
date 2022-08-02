@@ -32,14 +32,6 @@ export const TeamsDashboardWrapper = (props: ITeamsDashboardProps) => {
           <StyledDateRangeFilter>
             <StyledRangeWrapper>
               <DateRangeText />
-              {/* Date range :{" "}
-              <StyledDate component="a" onClick={openDateClickHandler}>
-                10/20/2022
-              </StyledDate>{" "}
-              to{" "}
-              <StyledDate component="a" onClick={openDateClickHandler}>
-                10/27/2022
-              </StyledDate> */}
             </StyledRangeWrapper>
           </StyledDateRangeFilter>
         ) : null}
@@ -75,7 +67,7 @@ const StyledDateRangeFilter = styled(Box)(({ theme }) => ({
   fontSize: "0.8125rem",
 }));
 
-const StyledRangeWrapper = styled(Typography)(({ theme }) => ({
+const StyledRangeWrapper = styled(Box)(({ theme }) => ({
   fontSize: "0.8125rem",
 }));
 

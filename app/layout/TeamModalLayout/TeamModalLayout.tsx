@@ -51,7 +51,7 @@ const StyledModalHeaderWrapper = styled(Box)(({ theme }) => ({
 
 const StyledModalTitleWrapper = styled(Typography)(({ theme }) => ({
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-}));
+})) as typeof Typography;
 
 const StyledModalBodyWrapper = styled(Stack)(({ theme }) => ({
   marginTop: "15px",

@@ -9,7 +9,11 @@ export default function TeamsIndex() {
     <>
       <TeamsDashboard
         tableData={data}
-        title={LANDING_PAGE_TEAMS_TABLE_TITLE}
+        title={
+          crumbs && crumbs.length === 1
+            ? LANDING_PAGE_TEAMS_TABLE_TITLE
+            : undefined
+        }
         crumbs={crumbs}
         setCrumbs={setCrumbs}
       />

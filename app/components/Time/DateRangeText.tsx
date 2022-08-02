@@ -13,20 +13,11 @@ export const DateRangeText = () => {
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
-      {/* <StyledTypographyWrapper onClick={handleClickOpen}>
-        Selected Range :{" "}
-        <StyledTypography>(fromStub) to (targetStub)</StyledTypography>
-      </StyledTypographyWrapper> */}
       <StyledRangeWrapper>
         Date range :{" "}
         <StyledDate component="a" onClick={handleClickOpen}>

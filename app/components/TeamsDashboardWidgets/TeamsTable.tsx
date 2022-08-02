@@ -21,7 +21,6 @@ import {
 } from "~/data/constants";
 
 interface ITeamTableProps {
-  setOpenTeamDetailsModal: Function;
   tableData: TeamsOverview[];
   crumbs: string[];
   setCrumbs: Function;
@@ -40,8 +39,6 @@ export const TeamsTable = (props: ITeamTableProps) => {
 
   const teamDetailsClickHandler = (event: any, team: string) => {
     event.preventDefault();
-    // props.setCrumbs([...props.crumbs, team]);
-    // props.setOpenTeamDetailsModal([true, team]);
     navigate(`/teams/${team}`, { replace: false });
   };
 

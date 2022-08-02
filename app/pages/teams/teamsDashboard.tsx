@@ -17,11 +17,6 @@ interface ITeamsDashboardProps extends React.HTMLAttributes<Element> {
   title?: string;
 }
 export const TeamsDashboard = (props: ITeamsDashboardProps) => {
-  const [openTeamDetailsModal, setOpenTeamDetailsModal] = React.useState([
-    false,
-    "",
-  ]);
-
   useEffect(() => {
     console.log("test", props.crumbs);
     if (props.teamName) {
@@ -51,7 +46,6 @@ export const TeamsDashboard = (props: ITeamsDashboardProps) => {
           tableData={props.tableData as TeamsOverview[]}
           crumbs={props.crumbs}
           setCrumbs={props.setCrumbs}
-          setOpenTeamDetailsModal={setOpenTeamDetailsModal}
         />
       ) : null}
     </TeamsDashboardWrapper>

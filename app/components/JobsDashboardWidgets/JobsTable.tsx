@@ -62,7 +62,7 @@ export const JobsTable = (props: IJobsTableProps) => {
   return (
     <StyledWrapperBox>
       {/* <StyledTableBox>STATUS BY JOBS (LAST 7 DAYS)</StyledTableBox> */}
-      {props.title ? <StyledTableBox>{props.title}</StyledTableBox> : null}
+      {/* {props.title ? <StyledTableBox>{props.title}</StyledTableBox> : null}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHeaderCaret
@@ -112,7 +112,7 @@ export const JobsTable = (props: IJobsTableProps) => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </StyledWrapperBox>
   );
 };

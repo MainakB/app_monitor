@@ -8,13 +8,16 @@ import type { TeamsOverview } from "~/services/teams";
 import { GenericBreadcrumbs } from "~/components/Breadcrumbs";
 import { FONT_COLORS } from "~/data/constants/colors";
 import { TeamDetailsById } from "~/pages/teams";
+import {
+  LANDING_PAGE_TEAMS_TABLE_TITLE,
+  LANDING_PAGE_TEAM_DETAIL_TITLE,
+} from "~/data";
 
 interface ITeamsDashboardProps extends React.HTMLAttributes<Element> {
   tableData?: TeamsOverview[];
   crumbs: string[];
   teamName?: string;
   setCrumbs: Function;
-  title?: string;
 }
 export const TeamsDashboard = (props: ITeamsDashboardProps) => {
   useEffect(() => {
@@ -24,25 +27,23 @@ export const TeamsDashboard = (props: ITeamsDashboardProps) => {
     }
   }, []);
 
+  const resolveTitle = (crumbs: string[], teamname: string | undefined) =>
+    crumbs && crumbs.length > 1
+      ? `${LANDING_PAGE_TEAM_DETAIL_TITLE} : ${teamname?.toUpperCase()}`
+      : LANDING_PAGE_TEAMS_TABLE_TITLE;
+
   return (
     <TeamsDashboardWrapper
-      title={props.title}
+      title={resolveTitle(props.crumbs, props.teamName)}
       crumbs={props.crumbs}
       setCrumbs={props.setCrumbs}
     >
-      {/* {openTeamDetailsModal[0] ? (
-        <TeamDetailsModal
-          open={openTeamDetailsModal[0] as boolean}
-          team={openTeamDetailsModal[1] as string}
-          setOpen={setOpenTeamDetailsModal}
-        />
-      ) : null} */}
       {props.crumbs.length === 2 ? (
         <TeamDetailsById teamName={props.teamName as string} />
       ) : null}
       {props.crumbs.length === 1 && props.crumbs[0] === "Home" ? (
         <TeamsTable
-          title={props.title}
+          title={resolveTitle(props.crumbs, props.teamName)}
           tableData={props.tableData as TeamsOverview[]}
           crumbs={props.crumbs}
           setCrumbs={props.setCrumbs}

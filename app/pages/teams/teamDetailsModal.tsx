@@ -25,38 +25,39 @@ interface ITeamDetailsModalProps {
   setOpen: Function;
 }
 export const TeamDetailsModal = (props: ITeamDetailsModalProps) => {
-  const [modalNavIndex, setModalNavIndex] = useState(0);
-  const handleClose = () => props.setOpen(false);
+  // const [modalNavIndex, setModalNavIndex] = useState(0);
+  // const handleClose = () => props.setOpen(false);
 
-  const getView = (value: number) => {
-    switch (value) {
-      case 0:
-        return <div>Home</div>;
-      case 1:
-        return <JobsDashboard />;
-      case 2:
-        return <div>cASEE 1</div>;
-      default:
-        return <div>Default</div>;
-    }
-  };
+  // const getView = (value: number) => {
+  //   switch (value) {
+  //     case 0:
+  //       return <div>Home</div>;
+  //     case 1:
+  //       return <JobsDashboard />;
+  //     case 2:
+  //       return <div>cASEE 1</div>;
+  //     default:
+  //       return <div>Default</div>;
+  //   }
+  // };
 
   return (
-    <Modal
-      open={props.open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <TeamModalLayout
-          team={props.team}
-          modalNavIndex={modalNavIndex}
-          setModalNavIndex={setModalNavIndex}
-        >
-          {getView(modalNavIndex)}
-        </TeamModalLayout>
-      </Box>
-    </Modal>
+    <></>
+    // <Modal
+    //   open={props.open}
+    //   onClose={handleClose}
+    //   aria-labelledby="modal-modal-title"
+    //   aria-describedby="modal-modal-description"
+    // >
+    //   <Box sx={style}>
+    //     <TeamModalLayout
+    //       team={props.team}
+    //       modalNavIndex={modalNavIndex}
+    //       setModalNavIndex={setModalNavIndex}
+    //     >
+    //       {getView(modalNavIndex)}
+    //     </TeamModalLayout>
+    //   </Box>
+    // </Modal>
   );
 };

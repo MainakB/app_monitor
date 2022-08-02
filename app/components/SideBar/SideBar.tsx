@@ -1,4 +1,4 @@
-import { Link, useLocation } from "@remix-run/react";
+import { Link, useLocation, useNavigate } from "@remix-run/react";
 
 import { styled, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -46,8 +46,9 @@ const StyledListItemText = styled(ListItemText)(({ theme }) => ({
 
 export const SideBar = () => {
   let location = useLocation();
+  let navigate = useNavigate();
 
-  const leftNavListProps = (title: string) => {
+  const leftNavListProps = (title: string, pathValue: string) => {
     switch (title) {
       case "Home":
         return {
@@ -56,7 +57,7 @@ export const SideBar = () => {
         };
       case "Teams Dashboard":
         return {
-          path: "/teams",
+          path: pathValue.match(/^\/teams\/.+$/g) ? pathValue : "/teams",
           icon: <GroupsOutlinedIcon />,
         };
       case "Jobs Dashboard":
@@ -77,7 +78,7 @@ export const SideBar = () => {
     title: string,
     parentLabel?: string
   ) => {
-    const propsRetrieved = leftNavListProps(title);
+    const propsRetrieved = leftNavListProps(title, pathValue);
     return (
       <>
         {parentLabel ? <StyledLabels>{parentLabel}</StyledLabels> : null}

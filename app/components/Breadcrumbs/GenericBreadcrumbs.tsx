@@ -8,7 +8,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { ROUTEPATHS } from "~/data/constants/nav";
+import { ROUTEPATHS } from "~/data/constants/Nav";
 
 interface IGenericBreadcrumbsProps {
   crumbs: string[];

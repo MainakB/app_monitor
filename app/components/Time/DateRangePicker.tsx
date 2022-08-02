@@ -6,17 +6,17 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface IDateRangePicker {
   placeholderText: string;
+  value: Date | null;
+  setValue: Function;
 }
 export const DateRangePicker = (props: IDateRangePicker) => {
-  const [value, setValue] = React.useState<Date | null>(null);
-
   return (
     // <LocalizationProvider dateAdapter={AdapterDateFns}>
     <DatePicker
       label={props.placeholderText}
-      value={value}
+      value={props.value}
       onChange={(newValue: any) => {
-        setValue(newValue);
+        props.setValue(newValue);
       }}
       renderInput={(params: any) => <TextField {...params} />}
     />

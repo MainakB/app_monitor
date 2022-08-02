@@ -12,6 +12,8 @@ import Box from "@mui/material/Box";
 
 export const DateRangeText = () => {
   const [open, setOpen] = React.useState(false);
+  const [startDate, setStartDate] = React.useState<Date | null>(null);
+  const [endDate, setEndDate] = React.useState<Date | null>(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,9 +44,17 @@ export const DateRangeText = () => {
         <DialogTitle>Pick a date range</DialogTitle>
         <StyledDialogContent>
           <StyledDateRangeSelector>
-            <DateRangePicker placeholderText="Select start date" />
+            <DateRangePicker
+              placeholderText="Select start date"
+              value={startDate}
+              setValue={setStartDate}
+            />
             <Box sx={{ mx: 2, display: "flex", alignItems: "center" }}>to</Box>
-            <DateRangePicker placeholderText="Select end date" />
+            <DateRangePicker
+              placeholderText="Select end date"
+              value={endDate}
+              setValue={setEndDate}
+            />
           </StyledDateRangeSelector>
           <StyleddButtonWrapper>
             <Button onClick={handleClose}>Cancel</Button>
@@ -71,18 +81,6 @@ const StyleddButtonWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "right",
   flexDirection: "row",
-}));
-
-const StyledTypographyWrapper = styled(Typography)(({ theme }) => ({
-  // color: "#999",
-}));
-
-const StyledTypography = styled("span")(({ theme }) => ({
-  cursor: "pointer",
-  "&:hover": {
-    opacity: "80%",
-    transition: "all 0.5s step-start",
-  },
 }));
 
 const StyledRangeWrapper = styled(Typography)(({ theme }) => ({

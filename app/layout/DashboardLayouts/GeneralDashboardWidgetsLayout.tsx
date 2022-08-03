@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 
-import { MiniChartWidget } from "~/components/HomeDashboardWidgets";
+import { MiniChartWidget } from "~/components/NavBar/HomeDashboardWidgets";
 
 interface IMiniWidgetProps {
   name: string;

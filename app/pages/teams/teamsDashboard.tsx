@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
-import { styled } from "@mui/material";
-import Box from "@mui/material/Box";
 import { TeamsTable } from "~/components/TeamsDashboardWidgets";
-import { TeamsDashboardWrapper } from "~/layout/TeamModalLayout";
-import { TeamDetailsModal } from "./teamDetailsModal";
+import { TeamsDashboardWrapper } from "~/layout/TeamLayout";
 import type { TeamsOverview, TeamBriefSummary } from "~/services/teams";
-
-import { GenericBreadcrumbs } from "~/components/Breadcrumbs";
-import { FONT_COLORS } from "~/data/constants/colors";
 import { TeamDetailsById } from "~/pages/teams";
 import {
   LANDING_PAGE_TEAMS_TABLE_TITLE,
@@ -48,7 +42,6 @@ export const TeamsDashboard = (props: ITeamsDashboardProps) => {
       ) : null}
       {props.crumbs.length === 1 && props.crumbs[0] === "Home" ? (
         <TeamsTable
-          title={resolveTitle(props.crumbs, props.teamName)}
           tableData={props.tableData as TeamsOverview[]}
           crumbs={props.crumbs}
           setCrumbs={props.setCrumbs}

@@ -10,7 +10,7 @@ interface IRowWrapperLayoutProps extends React.HTMLAttributes<Element> {
   row: any;
   expandKey?: string;
   expandRowSpan?: number;
-  stateContext?: string;
+  // stateContext?: string;
 }
 
 export const RowWrapperLayout = (props: IRowWrapperLayoutProps) => {
@@ -24,7 +24,7 @@ export const RowWrapperLayout = (props: IRowWrapperLayoutProps) => {
       key={props.row[props.keyValue]}
       keyValue={props.row[props.keyValue]}
       expandKey={props.expandKey as string}
-      stateContext={props.stateContext as string}
+      // stateContext={props.stateContext as string}
       expandComponent={
         <TableCell colSpan={props.expandRowSpan || 3}>
           <DashboardExpandTableLayoutSelection args={expandLayoutArgs} />

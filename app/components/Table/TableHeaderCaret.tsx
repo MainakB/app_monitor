@@ -26,7 +26,7 @@ export const TableHeaderCaret = ({
         {[
           ...headers.map((header: string, index: number) => (
             <StyledTableCell
-              align="left"
+              align="center"
               colSpan={!index && hasCaret ? 2 : 1}
               key={`${header}-lndg-hdr-${index}`}
             >
@@ -35,7 +35,7 @@ export const TableHeaderCaret = ({
           )),
           hasSpareEndCoulmn ? (
             <StyledTableCell
-              align="left"
+              align="center"
               key={`${caretKey}-spare-end-col`}
             ></StyledTableCell>
           ) : null,

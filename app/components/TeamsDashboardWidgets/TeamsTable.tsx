@@ -1,19 +1,16 @@
 import * as React from "react";
 import { useNavigate } from "@remix-run/react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 
 import type { TeamsOverview } from "~/services/teams";
-import { TeamContext } from "~/context";
+// import { TeamContext } from "~/context";
 import {
   TableHeaderCaret,
   TableBodySetter,
   TableFooterWrapper,
 } from "~/components/Table";
-import { FONT_COLORS } from "~/data/constants/colors";
 import {
   LANDING_PAGE_TEAMS_TABLE_HEADERS,
   TEAM_LANDING_TRENDS_KEY,
@@ -24,18 +21,17 @@ interface ITeamTableProps {
   tableData: TeamsOverview[];
   crumbs: string[];
   setCrumbs: Function;
-  title?: string;
 }
 export const TeamsTable = (props: ITeamTableProps) => {
-  const teamState = React.useContext(TeamContext);
+  // const teamState = React.useContext(TeamContext);
   let navigate = useNavigate();
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  React.useEffect(() => {
-    return () => teamState.setExpandedForTeam();
-  }, []);
+  // React.useEffect(() => {
+  //   return () => teamState.setExpandedForTeam();
+  // }, []);
 
   const teamDetailsClickHandler = (event: any, team: string) => {
     event.preventDefault();

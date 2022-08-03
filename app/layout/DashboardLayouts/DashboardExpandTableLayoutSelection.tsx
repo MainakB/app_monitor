@@ -1,6 +1,9 @@
 import React from "react";
 import { TeamDetails } from "~/components/TeamsDashboardWidgets";
-import { TEAM_LANDING_TRENDS_KEY } from "~/data/constants/propKeys";
+import {
+  TEAM_LANDING_TRENDS_KEY,
+  JOB_LANDING_TRENDS_KEY,
+} from "~/data/constants/propKeys";
 import { DEFUALTTIMERANGE } from "~/data/constants/timeranges";
 import {
   setDateWithDayStartTime,
@@ -24,6 +27,17 @@ export const DashboardExpandTableLayoutSelection = (
   const getView = (keyValue: string) => {
     switch (keyValue) {
       case TEAM_LANDING_TRENDS_KEY:
+        return (
+          <TeamDetails
+            teamName={header}
+            startDate={getDateStringFromTimestamp(
+              setDateWithDayStartTime(),
+              DEFUALTTIMERANGE
+            )}
+            endDate={getDateStringFromTimestamp(setDateWithDayStartTime())}
+          />
+        );
+      case JOB_LANDING_TRENDS_KEY:
         return (
           <TeamDetails
             teamName={header}

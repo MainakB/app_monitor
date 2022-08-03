@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { StackedAreaChart } from "~/components/Charts";
-import { MiniChartWidget } from "~/components/HomeDashboardWidgets";
+import { MiniChartWidget } from "~/components/NavBar/HomeDashboardWidgets";
 import { FONT_COLORS } from "~/data/constants/colors";
 
 interface IMiniWidgetProps {

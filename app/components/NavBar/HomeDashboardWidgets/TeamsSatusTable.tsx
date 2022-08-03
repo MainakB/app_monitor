@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
-import { TeamContext } from "~/context";
+// import { TeamContext } from "~/context/index.delete";
 import type { TeamsOverview } from "~/services/teams";
 import {
   TableHeaderCaret,
@@ -20,19 +20,25 @@ interface ITeamsStatusTableProps {
 }
 export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
   let navigate = useNavigate();
-  const teamState = React.useContext(TeamContext);
+  const [isExpanded, setIsExpanded] = React.useState({} as any);
+  // const teamState = React.useContext(TeamContext);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const onClickDetails = (event: any, team: string) => {
     event.preventDefault();
-    teamState.setExpandedForTeam(
-      team,
-      teamState.expanded !== undefined && teamState.expanded[team] !== undefined
-        ? !teamState.expanded[team]
-        : true
-    );
+    setIsExpanded({
+      ...isExpanded,
+      [team]: isExpanded[team] ? !isExpanded[team] : true,
+    });
+
+    // teamState.setExpandedForTeam(
+    //   team,
+    //   teamState.expanded !== undefined && teamState.expanded[team] !== undefined
+    //     ? !teamState.expanded[team]
+    //     : true
+    // );
     navigate(`/teams/${team}`, { replace: false });
   };
 

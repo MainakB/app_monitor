@@ -1,6 +1,17 @@
+import { useOutletContext, Outlet } from "@remix-run/react";
 import { JobsDashboard } from "~/pages/jobs";
-import { LANDING_PAGE_JOBS_TABLE_TITLE } from "~/data";
 
 export default function JobsIndex() {
-  return <JobsDashboard title={LANDING_PAGE_JOBS_TABLE_TITLE} />;
+  const { data, jobsCrumbs, setJobsCrumbs } = useOutletContext() as any;
+
+  return (
+    <>
+      <JobsDashboard
+        tableData={(data && data.jobsList) || []}
+        crumbs={jobsCrumbs}
+        setCrumbs={setJobsCrumbs}
+      />
+      {/* <Outlet context={data} /> */}
+    </>
+  );
 }

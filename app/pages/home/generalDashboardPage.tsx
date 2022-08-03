@@ -7,7 +7,7 @@ import {
   GeneralDashboardWidgetsLayout,
   GeneralDashboardChartsLayout,
 } from "~/layout/DashboardLayouts";
-import { TeamsStatusTable } from "~/components/HomeDashboardWidgets";
+import { TeamsStatusTable } from "~/components/NavBar/HomeDashboardWidgets";
 
 import { Spinner } from "../spinner";
 

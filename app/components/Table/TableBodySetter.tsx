@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-
+import moment from "moment";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 
@@ -27,7 +27,7 @@ interface ITableBodySetterProps {
     keyValue: string;
     expandKey?: string;
     expandRowSpan?: number;
-    stateContext?: string;
+    // stateContext?: string;
   };
 }
 
@@ -41,10 +41,32 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
     hasCaret,
     expandKey,
     expandRowSpan,
-    stateContext,
+    // stateContext,
   } = props.args;
   const tableData = getPaginatedRows(rowsPerPage, rows, page);
 
+  const getCell = (value: any, type: string, altStr?: string) => {
+    switch (type) {
+      case "link":
+        return (
+          <Link
+            href={value}
+            target="_blank"
+            rel="noopener noreferrer"
+            color="inherit"
+            underline="hover"
+          >
+            {trimJobUrl(value)}
+          </Link>
+        );
+      case "image":
+        return <img src={value} alt={value} loading="lazy" />;
+      case "unixtime":
+        return moment.unix(Number(value) / 1000).format("MM-DD-YYYY");
+      default:
+        return value;
+    }
+  };
   return (
     <TableBody>
       {tableData && tableData.length
@@ -56,7 +78,7 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
               row={row}
               expandKey={expandKey}
               expandRowSpan={expandRowSpan}
-              stateContext={stateContext}
+              // stateContext={stateContext}
             >
               {...keyOrder.map((rowType: IRowTypes, index: number) =>
                 !index ? (
@@ -65,7 +87,8 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                     component="th"
                     scope="row"
                   >
-                    {rowType.type === "link" ? (
+                    {getCell(row[rowType.value], rowType.type)}
+                    {/* {rowType.type === "link" ? (
                       <Link
                         href={row[rowType.value]}
                         target="_blank"
@@ -77,7 +100,7 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                       </Link>
                     ) : (
                       row[rowType.value]
-                    )}
+                    )} */}
                   </TableCell>
                 ) : rowType.type === "button" && rowType.onClickHandler ? (
                   <TableCell
@@ -102,7 +125,8 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                     style={{ width: 160 }}
                     align="center"
                   >
-                    {rowType.type === "link" ? (
+                    {getCell(row[rowType.value], rowType.type)}
+                    {/* {rowType.type === "link" ? (
                       <Link
                         href={row[rowType.value]}
                         target="_blank"
@@ -114,7 +138,7 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                       </Link>
                     ) : (
                       row[rowType.value]
-                    )}
+                    )} */}
                   </TableCell>
                 )
               )}

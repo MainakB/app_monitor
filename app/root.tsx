@@ -22,7 +22,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DocumentLayout } from "~/layout/DocumentLayout";
 import { NavMenuLayout } from "~/layout/NavMenuLayout";
 import { FONT_COLORS } from "~/data/constants/colors";
-import { TeamContext } from "~/context";
+// import { TeamContext } from "~/context/index.delete";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -65,42 +65,40 @@ const theme = createTheme({
 const queryClient = new QueryClient();
 
 export default function App() {
-  const setExpandedForTeam = (team?: string, value?: boolean) => {
-    let updatedState = null;
-    if (!team) {
-      updatedState = {
-        expanded: {},
-      };
-    } else {
-      updatedState = {
-        expanded: {
-          ...isExpandedState.expanded,
-          [team as string]: value,
-        },
-      };
-    }
-    setIsExpandedState({ ...isExpandedState, ...updatedState });
-  };
+  // const setExpandedForTeam = (team?: string, value?: boolean) => {
+  //   let updatedState = null;
+  //   if (!team) {
+  //     updatedState = {
+  //       expanded: {},
+  //     };
+  //   } else {
+  //     updatedState = {
+  //       expanded: {
+  //         ...isExpandedState.expanded,
+  //         [team as string]: value,
+  //       },
+  //     };
+  //   }
+  //   setIsExpandedState({ ...isExpandedState, ...updatedState });
+  // };
 
-  const initTeamsState = {
-    expanded: {} as any,
-    setExpandedForTeam: setExpandedForTeam,
-  };
+  // const initTeamsState = {
+  //   expanded: {} as any,
+  //   setExpandedForTeam: setExpandedForTeam,
+  // };
 
-  const [isExpandedState, setIsExpandedState] = React.useState(initTeamsState);
+  // const [isExpandedState, setIsExpandedState] = React.useState(initTeamsState);
 
-  React.useEffect(() => {}, [isExpandedState]);
+  // React.useEffect(() => {}, [isExpandedState]);
 
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <DocumentLayout>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <TeamContext.Provider value={isExpandedState}>
-              <NavMenuLayout>
-                <Outlet />
-              </NavMenuLayout>
-            </TeamContext.Provider>
+            <NavMenuLayout>
+              <Outlet />
+            </NavMenuLayout>
           </LocalizationProvider>
         </DocumentLayout>
       </QueryClientProvider>

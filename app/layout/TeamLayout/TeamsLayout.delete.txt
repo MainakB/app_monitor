@@ -14,10 +14,7 @@ interface ITeamModalLayoutProps extends React.HTMLAttributes<Element> {
   modalNavIndex: number;
   team: string;
 }
-export const TeamModalLayout = ({
-  children,
-  ...props
-}: ITeamModalLayoutProps) => {
+export const TeamsLayout = ({ children, ...props }: ITeamModalLayoutProps) => {
   return (
     <StyledModalWrapper>
       <StyledModalHeaderWrapper>

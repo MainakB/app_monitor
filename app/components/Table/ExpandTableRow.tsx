@@ -97,7 +97,7 @@ interface IExpandableTableRow extends React.HTMLAttributes<Element> {
   keyValue: string;
   expandComponent: any;
   expandKey: string;
-  stateContext: string;
+  // stateContext?: string;
   otherProps?: any;
 }
 
@@ -106,20 +106,24 @@ export const ExpandableTableRow = ({
   keyValue,
   expandComponent,
   expandKey,
-  stateContext,
+  // stateContext,
   ...otherProps
 }: IExpandableTableRow) => {
-  // const [isExpanded, setIsExpanded] = React.useState({} as any);
-  const state = useGetContext(stateContext);
+  const [isExpanded, setIsExpanded] = React.useState({} as any);
+  // const state = useGetContext(stateContext);
 
   const setExpanded = (event: any, keyValue: string) => {
     event.preventDefault();
-    state.setExpandedForTeam(
-      keyValue,
-      state.expanded !== undefined && state.expanded[keyValue] !== undefined
-        ? !state.expanded[keyValue]
-        : true
-    );
+    setIsExpanded({
+      ...isExpanded,
+      [keyValue]: isExpanded[keyValue] ? !isExpanded[keyValue] : true,
+    });
+    // state.setExpandedForTeam(
+    //   keyValue,
+    //   state.expanded !== undefined && state.expanded[keyValue] !== undefined
+    //     ? !state.expanded[keyValue]
+    //     : true
+    // );
   };
 
   return (
@@ -130,9 +134,7 @@ export const ExpandableTableRow = ({
       >
         <TableCell padding="checkbox">
           <IconButton onClick={(event: any) => setExpanded(event, keyValue)}>
-            {state &&
-            state.expanded !== undefined &&
-            (state.expanded as any)[keyValue] ? (
+            {isExpanded && (isExpanded as any)[keyValue] ? (
               <KeyboardArrowUpOutlinedIcon />
             ) : (
               <KeyboardArrowDownOutlinedIcon />
@@ -141,14 +143,12 @@ export const ExpandableTableRow = ({
         </TableCell>
         {children}
       </TableRow>
-      {state &&
-        state.expanded !== undefined &&
-        (state.expanded as any)[keyValue] && (
-          <StyledTableRowWrapper>
-            {/* <TableCell padding="checkbox" /> */}
-            {expandComponent}
-          </StyledTableRowWrapper>
-        )}
+      {isExpanded && (isExpanded as any)[keyValue] && (
+        <StyledTableRowWrapper>
+          {/* <TableCell padding="checkbox" /> */}
+          {expandComponent}
+        </StyledTableRowWrapper>
+      )}
     </>
   );
 };

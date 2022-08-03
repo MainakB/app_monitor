@@ -1,5 +1,6 @@
 import React from "react";
 import { TeamDetails } from "~/components/TeamsDashboardWidgets";
+import { JobDetails } from "~/components/JobsDashboardWidgets";
 import {
   TEAM_LANDING_TRENDS_KEY,
   JOB_LANDING_TRENDS_KEY,
@@ -8,6 +9,7 @@ import { DEFUALTTIMERANGE } from "~/data/constants/timeranges";
 import {
   setDateWithDayStartTime,
   getDateStringFromTimestamp,
+  trimJobUrl,
 } from "~/lib/utils";
 
 interface IDashboardExpandTableLayoutSelectionArgs {
@@ -38,9 +40,10 @@ export const DashboardExpandTableLayoutSelection = (
           />
         );
       case JOB_LANDING_TRENDS_KEY:
+        console.log("header", trimJobUrl(header));
         return (
-          <TeamDetails
-            teamName={header}
+          <JobDetails
+            jobName={header}
             startDate={getDateStringFromTimestamp(
               setDateWithDayStartTime(),
               DEFUALTTIMERANGE

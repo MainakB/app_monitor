@@ -46,11 +46,18 @@ export const formatDateToLocaleString = (dateVal: string) =>
 
 export const formatXAxis = (tickItem: any) => {
   const dateValues = tickItem.split("-");
+  let dayPart = dateValues[2].substring(0, 3);
+  if (isNaN(Number(dayPart))) {
+    let daySplit = dayPart.split("");
+    daySplit.pop();
+    dayPart = daySplit.join("");
+  }
+
   const newDate = formatDateToLocaleString(
     new Date(
       dateValues[0],
       dateValues[1] ? dateValues[1] - 1 : dateValues[1],
-      dateValues[2].substring(0, 3)
+      dayPart
     ).toDateString()
   );
   return newDate;
@@ -62,6 +69,5 @@ export const trimJobUrl = (jobUrl: string) => {
     jobUrlArray[jobUrlArray.length - 1] === ""
       ? jobUrlArray[jobUrlArray.length - 2]
       : jobUrlArray[jobUrlArray.length - 1];
-  console.log("jobTrimmed", jobTrimmed);
   return jobTrimmed;
 };

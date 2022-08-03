@@ -28,7 +28,7 @@ export const GenricNoLegendsTrendsLineChart = ({
   domainValue,
 }: IGenricNoLegendsTrendsLineChartProps) => {
   let dataToUse;
-
+  
   const isBuildUnAvailable = !data || !data.length;
 
   if (!isBuildUnAvailable) {

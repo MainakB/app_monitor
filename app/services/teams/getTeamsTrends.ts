@@ -38,7 +38,7 @@ export async function getTeamsTrendsOverview(
   props: QueryFunctionContext<(string | GetTeamsTrendsOverviewPayload)[], any>
 ): Promise<ITeamsDashOvrvwSummaryCharts> {
   const data = props.queryKey[1];
-  console.log("test trends call DATA", JSON.stringify(data));
+
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -49,17 +49,11 @@ export async function getTeamsTrendsOverview(
     fetch(`${BASE_URL}${TEAMS_TENANT_SUMMARY_ENDPOINT}`, requestOptions),
   ]);
 
-  //   const teamsTenantsSummary: TeamsTenantsSummary[] = await response.json();
-  //: TeamsTrendsOverview[]
   const [teamsTrendsOverview, teamsTenantsSummary] = await Promise.all([
     response[0].json(),
     response[1].json(),
   ]);
-  console.log(
-    "test trends call done",
-    teamsTrendsOverview,
-    teamsTenantsSummary
-  );
+
   return {
     teamTrendsOvw: teamsTrendsOverview,
     teamTenantsSumry: teamsTenantsSummary,

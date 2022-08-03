@@ -5,7 +5,7 @@ import { UseQueryDefaults } from "~/data/constants";
 
 type IJobsDashOvrvwSummaryCharts = {
   jobTrendsOvw: IJobsTrendsOverview[] | null;
-  jobsTenantsSumry: IJobsTenantsSummary[] | null;
+  jobTenantsSumry: IJobsTenantsSummary[] | null;
 };
 
 interface IUseFetchJobsTrendsLandingPageProps {

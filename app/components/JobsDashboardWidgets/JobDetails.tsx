@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import {
-  SideStackedBar,
+  GenricNoLegendsBarChart,
   GenricNoLegendsTrendsLineChart,
 } from "~/components/Charts";
 import { useFetchJobsTrendsLandingPage } from "~/hooks/jobs";
@@ -25,14 +25,14 @@ interface IMiniJobDetailsWidgetProps {
 
 type IJobsDashOvrvwSummaryCharts = {
   jobTrendsOvw: IJobsTrendsOverview[] | null;
-  jobsTenantsSumry: IJobsTenantsSummary[] | null;
+  jobTenantsSumry: IJobsTenantsSummary[] | null;
 };
 
 export const JobDetails = (props: IMiniJobDetailsWidgetProps) => {
   const [jobsTrendsData, setJobsTrendsData] =
     React.useState<IJobsDashOvrvwSummaryCharts>({
       jobTrendsOvw: null,
-      jobsTenantsSumry: null,
+      jobTenantsSumry: null,
     });
 
   const { isLoading, isError, error } = useFetchJobsTrendsLandingPage({
@@ -49,6 +49,7 @@ export const JobDetails = (props: IMiniJobDetailsWidgetProps) => {
     props: IMiniJobDetailsWidgetProps,
     dataValue: typeof jobsTrendsData
   ) => {
+    console.log("HELLO BAR1", dataValue);
     return isLoading ? (
       <Spinner show={isLoading} backdropInvisible={false} />
     ) : (
@@ -66,12 +67,15 @@ export const JobDetails = (props: IMiniJobDetailsWidgetProps) => {
         <Divider sx={{ margin: "3px" }} orientation="vertical" flexItem />
         <StyledBoxContentWrapper>
           <StyledTitle>TENANTS RUN SUMMARY</StyledTitle>
-          {/* <SideStackedBar
-            data={dataValue?.jobsTenantsSumry}
-            legendsList={getLegendsList()}
+          <GenricNoLegendsBarChart
+            data={dataValue?.jobTenantsSumry}
             dataKeyXAxes="tenant_name"
+            dataKeyYAxes="success_rate"
+            domainValue={[0, 100]}
             formatterUnit="%"
-          /> */}
+            hasLabel={true}
+            labelDataKey="count"
+          />
         </StyledBoxContentWrapper>
       </StyledWrapperBox>
     );

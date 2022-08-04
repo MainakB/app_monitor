@@ -71,3 +71,41 @@ export const trimJobUrl = (jobUrl: string) => {
       : jobUrlArray[jobUrlArray.length - 1];
   return jobTrimmed;
 };
+
+export const decrypt = (salt: string, encoded: string) => {
+  const textToChars = (text: string) =>
+    text.split("").map((c) => c.charCodeAt(0));
+
+  const applySaltToChar = (code: any) =>
+    textToChars(salt).reduce((a, b) => a ^ b, code);
+
+  return encoded
+    ?.match(/.{1,2}/g)
+    ?.map((hex: any) => parseInt(hex, 16))
+    ?.map(applySaltToChar)
+    .map((charCode: any) => String.fromCharCode(charCode))
+    .join("");
+
+  // return encoded
+  //   ?.match(/.{1,2}/g)
+  //   .map((hex: any) => parseInt(hex, 16))
+  //   .map(applySaltToChar);
+  // .map((charCode: any) => String.fromCharCode(charCode))
+  // .join("");
+};
+
+export const crypt = (salt: string, text: string) => {
+  const textToChars = (text: string) =>
+    text.split("").map((c: any) => c.charCodeAt(0));
+  const byteHex = (n: string | number) =>
+    ("0" + Number(n).toString(16)).substr(-2);
+  const applySaltToChar = (code: any) =>
+    textToChars(salt).reduce((a, b) => a ^ b, code);
+
+  return text
+    .split("")
+    .map(textToChars)
+    .map(applySaltToChar)
+    .map(byteHex)
+    .join("");
+};

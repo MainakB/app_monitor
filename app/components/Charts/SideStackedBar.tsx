@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material";
+
 import {
   BarChart,
   Bar,
@@ -13,6 +13,7 @@ import {
   Label,
   LabelList,
 } from "recharts";
+import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { CHARTCOLORS, FONT_COLORS } from "~/data/constants/colors";
@@ -25,7 +26,6 @@ interface ItrendLineChartProps {
 }
 
 const CustomTooltip = ({ active, payload, label }: any) => {
-  console.log("payload", payload, label);
   if (active && payload && payload.length) {
     return (
       <StyledBox>
@@ -85,14 +85,13 @@ export const SideStackedBar = ({
   const renderCustomizedLabel = (props: any) => {
     const { x, y, width, height, value, fill } = props;
     const radius = 10;
-    console.log("Value123", props);
     return (
       <g>
         <circle cx={x + width / 2} cy={y - radius} r={radius} fill={fill} />
         <text
           x={x + width / 2}
           y={y - radius}
-          font-size="0.8em"
+          fontSize="0.8em"
           fill="#fff"
           textAnchor="middle"
           dominantBaseline="middle"

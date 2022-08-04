@@ -10,17 +10,54 @@ import {
   Label,
   ResponsiveContainer,
 } from "recharts";
+
+import { styled } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+
 import { formatXAxis } from "~/lib";
 
-import { CHARTCOLORS } from "~/data/constants/colors";
+import { PICKCOLOR, FONT_COLORS } from "~/data/constants/colors";
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    console.log(active, payload, label);
+    return (
+      // <StyledBox>
+      //   <StyledTypographyWrapper
+      //     fill={payload[0].stroke}
+      //     key={`${payload[0].dataKey}-${0}`}
+      //   >
+      //     {payload[0].dataKey}
+      //   </StyledTypographyWrapper>
+      // </StyledBox>
+      <StyledBox>
+        <StyledTypographyWrapperHeader>{`${label}`}</StyledTypographyWrapperHeader>
+        {payload.map((val: any, idx: number) => (
+          <StyledTypographyWrapper
+            fill={payload[idx].stroke}
+            key={`${val.dataKey}-${idx}`}
+          >
+            {`${val.dataKey} : ${val.value}% (${
+              val.payload[`${val.dataKey}-count`]
+            })`}
+          </StyledTypographyWrapper>
+        ))}
+      </StyledBox>
+    );
+  }
+
+  return null;
+};
 
 interface ItrendLineChartProps {
   data: any[] | null;
   legendsList: string[] | object;
   dataKeyXAxes: string;
+
   formatterUnit: string;
 }
-export const TrendLineChart = ({
+export const JobTenantTrendsLineChart = ({
   data,
   legendsList,
   dataKeyXAxes,
@@ -53,7 +90,7 @@ export const TrendLineChart = ({
     dataToUse = data;
   }
 
-  console.log("data trend", dataToUse, legendKeys);
+  console.log("job data to use, ", dataToUse);
   return (
     <div style={{ width: "100%" }}>
       {dataToUse ? (
@@ -94,9 +131,10 @@ export const TrendLineChart = ({
                 backgroundColor: "#FBFBFB",
                 fontSize: "0.8em",
               }}
-              formatter={(value: string | number, name: string, props: any) =>
-                `${value}${formatterUnit || ""}`
-              }
+              content={<CustomTooltip />}
+              // formatter={(value: string | number, name: string, props: any) =>
+              //   `${value}${formatterUnit || ""}`
+              // }
             />
             <Legend
               iconType="circle"
@@ -110,16 +148,14 @@ export const TrendLineChart = ({
             {["All", ...legendKeys].map((id: string, idx: number) => {
               return (
                 <Line
-                  name={
-                    Array.isArray(legendsList) ? id : (legendsList as any)[id]
-                  }
+                  name={id}
                   connectNulls
                   isAnimationActive={false}
                   type="monotone"
-                  dot={{ fill: (CHARTCOLORS as any)[id] }}
-                  stroke={(CHARTCOLORS as any)[id]}
+                  dot={{ fill: (PICKCOLOR as any)[idx] }}
+                  stroke={(PICKCOLOR as any)[idx]}
                   key={`line_${id}`}
-                  dataKey={`${id}`}
+                  dataKey={id}
                   activeDot={{ r: 1 }}
                   hide={hide.includes(id)}
                 />
@@ -131,3 +167,30 @@ export const TrendLineChart = ({
     </div>
   );
 };
+
+const StyledTypographyWrapperHeader = styled(Typography)(({ theme }) => ({
+  alignSelf: "center",
+  fontWeight: theme.typography.fontWeightBold,
+  padding: "0px 5px 0px 5px",
+  fontSize: "12px",
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
+}));
+
+const StyledTypographyWrapper = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== "fill",
+})<{ fill?: string }>(({ theme, fill }) => ({
+  alignSelf: "center",
+
+  padding: "5px",
+  fontSize: "11.5px",
+  color: fill || FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
+}));
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  //   alignSelf: "center",
+  fontWeight: theme.typography.fontWeightMedium,
+  backgroundColor: FONT_COLORS.DOCUMENT_TOOLTIPS,
+  padding: "10px 15px 15px 15px",
+  border: `0.4px solid ${FONT_COLORS.INACTIVES_DISABLED_PRIMARY}`,
+  borderRadius: "8%",
+}));

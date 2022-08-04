@@ -2,18 +2,20 @@ import React, { useEffect } from "react";
 
 import { JobsTable } from "~/components/JobsDashboardWidgets";
 import { BreadCrumbsLayout } from "~/layout/DocumentLayout";
-import type { JobsOverview } from "~/services/jobs";
+import type { JobsOverview, IJobBriefSummary } from "~/services/jobs";
+import { JobDetailsById } from "./jobDetailsById";
 import {
   LANDING_PAGE_JOBS_TABLE_TITLE,
   LANDING_PAGE_JOB_DETAIL_TITLE,
 } from "~/data";
 import { trimJobUrl } from "~/lib";
+
 interface IJobsDashboardProps {
   tableData?: JobsOverview[];
   crumbs: string[];
   jobName?: string;
   setCrumbs: Function;
-  // summaryWidgetData?: TeamBriefSummary;
+  summaryWidgetData?: IJobBriefSummary;
 }
 // export const JobsDashboard = (props: IJobsDashboardProps) => {
 //   return <JobsTable title={props.title} />;
@@ -40,12 +42,11 @@ export const JobsDashboard = (props: IJobsDashboardProps) => {
       setCrumbs={props.setCrumbs}
     >
       {props.crumbs.length === 2 ? (
-        <div>Test</div>
-      ) : // <TeamDetailsById
-      //   teamName={props.teamName as string}
-      //   summaryWidgetData={props.summaryWidgetData || null}
-      // />
-      null}
+        <JobDetailsById
+          jobName={props.jobName as string}
+          summaryWidgetData={props.summaryWidgetData || null}
+        />
+      ) : null}
       {props.crumbs.length === 1 && props.crumbs[0] === "Home" ? (
         <JobsTable
           tableData={props.tableData as JobsOverview[]}

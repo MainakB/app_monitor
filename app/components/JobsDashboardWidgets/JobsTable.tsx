@@ -17,6 +17,8 @@ import {
   TEAMS_LANDING_CONTEXT_KEY,
 } from "~/data/constants";
 
+import { crypt } from "~/lib";
+
 interface IJobsTableProps {
   tableData: JobsOverview[];
   crumbs: string[];
@@ -30,7 +32,7 @@ export const JobsTable = (props: IJobsTableProps) => {
 
   const jobDetailsClickHandler = (event: any, jobName: string) => {
     event.preventDefault();
-    navigate(`/jobs/${jobName}`, { replace: false });
+    navigate(`/jobs/${crypt("jobBrief", jobName)}`, { replace: false });
   };
 
   const returnParams = (row: any) => {

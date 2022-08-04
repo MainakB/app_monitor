@@ -11,7 +11,7 @@ export default function JobsIndex() {
         crumbs={jobsCrumbs}
         setCrumbs={setJobsCrumbs}
       />
-      {/* <Outlet context={data} /> */}
+      <Outlet context={data} />
     </>
   );
 }

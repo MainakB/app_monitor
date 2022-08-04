@@ -59,7 +59,7 @@ export const SideBar = () => {
         };
       case "Jobs Dashboard":
         return {
-          path: "/jobs",
+          path: pathValue.match(/^\/jobs\/.+$/g) ? pathValue : "/jobs",
           icon: <EngineeringIcon />,
         };
       default:

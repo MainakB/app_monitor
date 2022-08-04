@@ -12,36 +12,6 @@ import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import { FONT_COLORS } from "~/data/constants/colors";
 
-const BoxStyled = styled(Box)(({ theme }) => ({
-  display: "none",
-  borderRight: "0.5px solid #dcdbdb",
-  marginTop: "20px",
-  width: "100%",
-  maxWidth: "300px",
-  bgcolor: "background.paper",
-  [theme.breakpoints.up("sm")]: {
-    display: "flex",
-    minWidth: "250px",
-    width: "250px",
-    // flex: 1.5,
-    flexDirection: "column",
-  },
-}));
-
-const StyledLabels = styled(Typography)(({ theme }) => ({
-  paragraph: true,
-  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-  fontSize: "13px",
-  fontWeight: theme.typography.fontWeightBold,
-  margin: "15px 0px 5px 5px",
-}));
-
-const StyledListItemText = styled(ListItemText)(({ theme }) => ({
-  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-  fontSize: "12px",
-  fontWeight: theme.typography.fontWeightBold,
-}));
-
 export const SideBar = () => {
   let location = useLocation();
 
@@ -101,3 +71,33 @@ export const SideBar = () => {
     </BoxStyled>
   );
 };
+
+const BoxStyled = styled(Box)(({ theme }) => ({
+  display: "none",
+  borderRight: "0.5px solid #dcdbdb",
+  marginTop: "20px",
+  width: "100%",
+  maxWidth: "300px",
+  bgcolor: "background.paper",
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+    minWidth: "250px",
+    width: "250px",
+    // flex: 1.5,
+    flexDirection: "column",
+  },
+}));
+
+const StyledLabels = styled(Typography)(({ theme }) => ({
+  paragraph: true,
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
+  fontSize: "13px",
+  fontWeight: theme.typography.fontWeightBold,
+  margin: "15px 0px 5px 5px",
+}));
+
+const StyledListItemText = styled(ListItemText)(({ theme }) => ({
+  color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
+  fontSize: "12px",
+  fontWeight: theme.typography.fontWeightBold,
+}));

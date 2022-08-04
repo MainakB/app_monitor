@@ -41,7 +41,7 @@ export const DocumentLayout = ({ children }: Props) => {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body style={{ margin: "0px", padding: "0px" }}>
         {(state === "loading" || state === "submitting") && (
           <Spinner
             show={state === "loading"}

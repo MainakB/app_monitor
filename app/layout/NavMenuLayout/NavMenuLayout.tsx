@@ -18,7 +18,7 @@ export const NavMenuLayout = ({ children, ...props }: INavMenuLayoutProps) => {
   return (
     <div>
       <NavBar />
-      <Stack direction="row">
+      <Stack direction="row" sx={{ padding: "8px" }}>
         <SideBar />
         {children}
       </Stack>

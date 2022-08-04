@@ -35,10 +35,10 @@ export const NavBar = (props: Props) => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        VARIS
       </Typography>
       <Divider />
-      <List>
+      {/* <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
@@ -46,7 +46,7 @@ export const NavBar = (props: Props) => {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </Box>
   );
 
@@ -62,7 +62,7 @@ export const NavBar = (props: Props) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 0, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -71,14 +71,14 @@ export const NavBar = (props: Props) => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            VARIS
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
+            {/* {navItems.map((item) => (
               <Button key={item} sx={{ color: "#fff" }}>
                 {item}
               </Button>
-            ))}
+            ))} */}
           </Box>
         </Toolbar>
       </AppBar>

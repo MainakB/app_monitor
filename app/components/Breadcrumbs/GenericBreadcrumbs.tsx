@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate, useLocation } from "@remix-run/react";
 import { emphasize, styled } from "@mui/material/styles";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Chip from "@mui/material/Chip";
@@ -18,6 +18,8 @@ interface IGenericBreadcrumbsProps {
 
 export const GenericBreadcrumbs = (props: IGenericBreadcrumbsProps) => {
   let navigate = useNavigate();
+  let location = useLocation();
+
   const handleClick = (
     event: React.MouseEvent<Element, MouseEvent>,
     crumbsList: string[],
@@ -28,7 +30,12 @@ export const GenericBreadcrumbs = (props: IGenericBreadcrumbsProps) => {
     crumbsList.pop();
     setCrumbsFn([...crumbsList]);
     if (props.shouldNavigate) {
-      navigate((ROUTEPATHS as any)[crumbsList[crumbsList.length - 1]]);
+      console.log("interim path", location.pathname);
+      navigate(
+        (ROUTEPATHS as any)[crumbsList[crumbsList.length - 1]][
+          location.pathname.startsWith("/teams") ? "teams" : "jobs"
+        ]
+      );
     }
   };
 

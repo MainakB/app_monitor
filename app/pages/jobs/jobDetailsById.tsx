@@ -71,7 +71,9 @@ export const JobDetailsById = ({
       <StyledDashboardWrapper>
         <StyledMiniWidgetWrapperBox customFlex={2}>
           <StyledBoxContentWrapper>
-            <StyledTitleTable>TEAM JOBS</StyledTitleTable>
+            <StyledTitleTable>
+              PLACEHOLDER FOR TEST RELATED DATA
+            </StyledTitleTable>
             {/* <JobsTableByTeam tableData={summaryWidgetData?.team_jobs || null} /> */}
           </StyledBoxContentWrapper>
         </StyledMiniWidgetWrapperBox>

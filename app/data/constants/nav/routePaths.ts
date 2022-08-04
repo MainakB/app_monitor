@@ -1,3 +1,6 @@
 export const ROUTEPATHS = {
-  Home: "/teams",
+  Home: {
+    teams: "/teams",
+    jobs: "/jobs",
+  },
 };

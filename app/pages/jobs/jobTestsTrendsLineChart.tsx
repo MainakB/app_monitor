@@ -18,6 +18,7 @@ import Typography from "@mui/material/Typography";
 import { formatXAxis } from "~/lib";
 
 import { PICKCOLOR, FONT_COLORS } from "~/data/constants/colors";
+import { PlaylistAddOutlined } from "@mui/icons-material";
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -159,7 +160,9 @@ export const JobTestsTrendsLineChart = ({
                   dataKey={id}
                   activeDot={{
                     onClick: (e, payload) => {
-                      setToolContext(payload.dataKey);
+                      setToolContext(
+                        `${payload.dataKey} - ${payload.payload.created_timestamp}`
+                      );
                     },
                     r: 1,
                   }}

@@ -9,16 +9,76 @@ import { GenricNoLegendsTrendsLineChart } from "~/components/Charts";
 import { JobTenantTrendsLineChart } from "~/components/JobsDashboardWidgets";
 
 import { AllJobsTestAnalyticsPie } from "./pieChart";
+import { JobTestsTrendsLineChart } from "./jobTestsTrendsLineChart";
+
+const getJobsummaryMock = () => {
+  let result = [];
+  let tenantsList = ["qa", "dev", "preprod", "prod"];
+  let tool = ["TEST PROJECT", "POSTMAN"];
+  //   let tenantsList = Array(5)
+  //     .fill(0)
+  //     .map((val, idx) => `demoenv${[idx]}`);
+
+  for (let j = 0; j < tool.length; j++) {
+    let day = 0;
+    let month = 1;
+    let year = 2022;
+    let oldVal = 0;
+
+    for (let i = 0; i < 5; i++) {
+      day = 1 + (day < 27 ? day : 0);
+      month = day === 27 ? month + 1 : month;
+      year = month > 12 ? year + 1 : year;
+      month = month > 12 ? 1 : month;
+
+      result.push({
+        tenant_name: tool[j],
+        created_timestamp: `${year}-${month}-${day}`,
+        success_rate: Math.ceil(Math.random() * (100 - 9) + 9),
+        count: Math.ceil(Math.random() * (40 - 9) + 9),
+      });
+    }
+  }
+  return result;
+};
 
 interface IJobDetailsByIdProps extends React.HTMLAttributes<Element> {
   jobName: string;
   summaryWidgetData: IJobBriefSummary | null;
 }
+
 export const JobDetailsById = ({
   jobName,
   summaryWidgetData,
 }: IJobDetailsByIdProps) => {
   const dataToUse = summaryWidgetData?.job_tenant_trend.reduce(
+    (acc: any, val: ITenantTrend) => {
+      acc.tenants.add(val.tenant_name);
+      acc.data = {
+        ...acc.data,
+        [val.created_timestamp]: {
+          ...(acc.data[val.created_timestamp]
+            ? {
+                ...acc.data[val.created_timestamp],
+                [val.tenant_name]: val.success_rate,
+                [`${val.tenant_name}-count`]: val.count,
+              }
+            : {
+                created_timestamp: val.created_timestamp,
+                [val.tenant_name]: val.success_rate,
+                [`${val.tenant_name}-count`]: val.count,
+              }),
+        },
+      };
+      return acc;
+    },
+    {
+      tenants: new Set<string>(),
+      data: {},
+    }
+  );
+
+  const mockDataToUse = getJobsummaryMock().reduce(
     (acc: any, val: ITenantTrend) => {
       acc.tenants.add(val.tenant_name);
       acc.data = {
@@ -73,7 +133,7 @@ export const JobDetailsById = ({
         </StyledMiniWidgetWrapperBox>
       </StyledDashboardWrapper>
       <StyledDashboardWrapper>
-        <StyledMiniWidgetWrapperBox customFlex={2}>
+        <StyledMiniWidgetWrapperBox customFlex={1}>
           <StyledBoxContentWrapper>
             <StyledTitleTable>TEST CASES TYPE</StyledTitleTable>
             <AllJobsTestAnalyticsPie data={mockData} />
@@ -81,8 +141,13 @@ export const JobDetailsById = ({
         </StyledMiniWidgetWrapperBox>
         <StyledMiniWidgetWrapperBox customFlex={2}>
           <StyledBoxContentWrapper>
-            <StyledTitleTable>PLACEHOLDER TYPE</StyledTitleTable>
-            <AllJobsTestAnalyticsPie data={mockData} />
+            <StyledTitleTable>TEST TOOL RUN TREND</StyledTitleTable>
+            <JobTestsTrendsLineChart
+              data={Object.values(mockDataToUse.data)}
+              legendsList={Array.from(mockDataToUse.tenants)}
+              dataKeyXAxes="created_timestamp"
+              formatterUnit="%"
+            />
           </StyledBoxContentWrapper>
         </StyledMiniWidgetWrapperBox>
       </StyledDashboardWrapper>

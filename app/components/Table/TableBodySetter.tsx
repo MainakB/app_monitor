@@ -60,7 +60,14 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
           </Link>
         );
       case "image":
-        return <img src={value} alt={value} loading="lazy" />;
+        return (
+          <img
+            src={value}
+            alt="Error Loading Embedded Url.Please run the job to update."
+            referrerPolicy="no-referrer"
+            loading="lazy"
+          />
+        );
       case "unixtime":
         return moment.unix(Number(value) / 1000).format("MM-DD-YYYY");
       default:

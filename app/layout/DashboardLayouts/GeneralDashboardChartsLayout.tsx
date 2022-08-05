@@ -83,4 +83,5 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightMedium,
   fontSize: "18px",
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
+  paddingLeft: "40%",
 }));

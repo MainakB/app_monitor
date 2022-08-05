@@ -101,6 +101,7 @@ export const JobTestsTrendsLineChart = ({
             width={500}
             height={300}
             data={dataToUse}
+            cursor="pointer"
             margin={{
               top: 15,
               right: 50,
@@ -164,7 +165,7 @@ export const JobTestsTrendsLineChart = ({
                         `${payload.dataKey} - ${payload.payload.created_timestamp}`
                       );
                     },
-                    r: 1,
+                    r: 5,
                   }}
                   hide={hide.includes(id)}
                 />

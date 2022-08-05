@@ -54,7 +54,7 @@ interface IJobTestsTrendsLineChartProps {
   data: any[] | null;
   legendsList: string[] | object;
   dataKeyXAxes: string;
-
+  setToolContext: Function;
   formatterUnit: string;
 }
 export const JobTestsTrendsLineChart = ({
@@ -62,6 +62,7 @@ export const JobTestsTrendsLineChart = ({
   legendsList,
   dataKeyXAxes,
   formatterUnit,
+  setToolContext,
 }: IJobTestsTrendsLineChartProps) => {
   let dataToUse;
   const [hide, setHide] = useState<string[]>([]);
@@ -156,7 +157,12 @@ export const JobTestsTrendsLineChart = ({
                   stroke={(PICKCOLOR as any)[idx]}
                   key={`line_${id}`}
                   dataKey={id}
-                  activeDot={{ r: 1 }}
+                  activeDot={{
+                    onClick: (e, payload) => {
+                      setToolContext(payload.dataKey);
+                    },
+                    r: 1,
+                  }}
                   hide={hide.includes(id)}
                 />
               );

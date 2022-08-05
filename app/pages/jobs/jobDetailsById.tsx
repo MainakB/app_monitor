@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -10,14 +12,12 @@ import { JobTenantTrendsLineChart } from "~/components/JobsDashboardWidgets";
 
 import { AllJobsTestAnalyticsPie } from "./pieChart";
 import { JobTestsTrendsLineChart } from "./jobTestsTrendsLineChart";
+import { ToolContextBreadcrumbs } from "./toolContextBreadcrumbs";
 
 const getJobsummaryMock = () => {
   let result = [];
   let tenantsList = ["qa", "dev", "preprod", "prod"];
   let tool = ["TEST PROJECT", "POSTMAN"];
-  //   let tenantsList = Array(5)
-  //     .fill(0)
-  //     .map((val, idx) => `demoenv${[idx]}`);
 
   for (let j = 0; j < tool.length; j++) {
     let day = 0;
@@ -51,6 +51,8 @@ export const JobDetailsById = ({
   jobName,
   summaryWidgetData,
 }: IJobDetailsByIdProps) => {
+  const [toolContext, setToolContext] = useState<string | null>(null);
+
   const dataToUse = summaryWidgetData?.job_tenant_trend.reduce(
     (acc: any, val: ITenantTrend) => {
       acc.tenants.add(val.tenant_name);
@@ -142,12 +144,30 @@ export const JobDetailsById = ({
         <StyledMiniWidgetWrapperBox customFlex={2}>
           <StyledBoxContentWrapper>
             <StyledTitleTable>TEST TOOL RUN TREND</StyledTitleTable>
-            <JobTestsTrendsLineChart
-              data={Object.values(mockDataToUse.data)}
-              legendsList={Array.from(mockDataToUse.tenants)}
-              dataKeyXAxes="created_timestamp"
-              formatterUnit="%"
-            />
+            {toolContext ? (
+              <ToolContextBreadcrumbs
+                crumbs={toolContext}
+                setCrumbs={setToolContext}
+              />
+            ) : null}
+            {toolContext ? (
+              <div>
+                <Typography>Total Tests: 10</Typography>
+                <Typography>Passed: 70%</Typography>
+                <Typography>Failed: 20%</Typography>
+                <Typography>Skipped: 10%</Typography>
+                <Typography>Browsers Count: 3</Typography>
+                <Typography>Browsers List: Chrome,Firefox,Safari</Typography>
+              </div>
+            ) : (
+              <JobTestsTrendsLineChart
+                data={Object.values(mockDataToUse.data)}
+                legendsList={Array.from(mockDataToUse.tenants)}
+                setToolContext={setToolContext}
+                dataKeyXAxes="created_timestamp"
+                formatterUnit="%"
+              />
+            )}
           </StyledBoxContentWrapper>
         </StyledMiniWidgetWrapperBox>
       </StyledDashboardWrapper>

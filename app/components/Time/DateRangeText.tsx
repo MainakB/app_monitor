@@ -47,7 +47,7 @@ export const DateRangeText = () => {
           </StyledDateRangeSelector>
           <StyleddButtonWrapper>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button>Apply</Button>
+            <Button onClick={handleClose} >Apply</Button>
           </StyleddButtonWrapper>
         </StyledDialogContent>
       </Dialog>
@@ -62,6 +62,7 @@ const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
 
 const StyledDateRangeSelector = styled(Box)(({ theme }) => ({
   display: "flex",
+  padding: "10px",
   flexDirection: "row",
 }));
 

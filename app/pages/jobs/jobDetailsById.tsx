@@ -8,6 +8,8 @@ import type { IJobBriefSummary, ITenantTrend } from "~/services/jobs";
 import { GenricNoLegendsTrendsLineChart } from "~/components/Charts";
 import { JobTenantTrendsLineChart } from "~/components/JobsDashboardWidgets";
 
+import { AllJobsTestAnalyticsPie } from "./pieChart";
+
 interface IJobDetailsByIdProps extends React.HTMLAttributes<Element> {
   jobName: string;
   summaryWidgetData: IJobBriefSummary | null;
@@ -43,8 +45,10 @@ export const JobDetailsById = ({
     }
   );
 
-  // const getData = (job_tenant_trend: ITenantTrend[]) =>
-  //     job_tenant_trend.map((val: ITenantTrend) => val.tenant_name);
+  let mockData = [
+    { name: "TEST PROJECT", value: 40, count: 200, fill: "#8884d8" },
+    { name: "POSTMAN", value: 30, count: 50, fill: "#119a58" },
+  ];
 
   return (
     <>
@@ -71,10 +75,14 @@ export const JobDetailsById = ({
       <StyledDashboardWrapper>
         <StyledMiniWidgetWrapperBox customFlex={2}>
           <StyledBoxContentWrapper>
-            <StyledTitleTable>
-              PLACEHOLDER FOR TEST RELATED DATA
-            </StyledTitleTable>
-            {/* <JobsTableByTeam tableData={summaryWidgetData?.team_jobs || null} /> */}
+            <StyledTitleTable>TEST CASES TYPE</StyledTitleTable>
+            <AllJobsTestAnalyticsPie data={mockData} />
+          </StyledBoxContentWrapper>
+        </StyledMiniWidgetWrapperBox>
+        <StyledMiniWidgetWrapperBox customFlex={2}>
+          <StyledBoxContentWrapper>
+            <StyledTitleTable>PLACEHOLDER TYPE</StyledTitleTable>
+            <AllJobsTestAnalyticsPie data={mockData} />
           </StyledBoxContentWrapper>
         </StyledMiniWidgetWrapperBox>
       </StyledDashboardWrapper>
@@ -133,6 +141,8 @@ const StyledTitleTable = styled(Typography)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightMedium,
   fontSize: "18px",
   paddingBottom: "10px",
+  display: "flex",
+  justifyContent: "space-around",
   // alignSelf: "center",
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
 }));

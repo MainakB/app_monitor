@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "@remix-run/react";
 import type { ITeamJobs } from "~/services/teams";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -9,13 +10,25 @@ import {
   TableFooterWrapper,
 } from "~/components/Table";
 import { TEAMS_SUMMARY_JOBS_TABLE_HEADERS } from "~/data/constants";
+import { crypt } from "~/lib";
 
 interface IJobsTableByTeamProps {
   tableData: ITeamJobs[] | null;
 }
 export const JobsTableByTeam = (props: IJobsTableByTeamProps) => {
+  let navigate = useNavigate();
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const jobDetailsClickHandler = (event: any, jobName: string) => {
+    event.preventDefault();
+    navigate(`/jobs/${crypt("jobBrief", jobName)}`, { replace: false });
+  };
+
+  const returnParams = (row: any) => {
+    return row["job_name"];
+  };
 
   const staticTableParam = {
     value: "",
@@ -26,7 +39,7 @@ export const JobsTableByTeam = (props: IJobsTableByTeamProps) => {
     rowsPerPage,
     rows: props.tableData || null,
     page,
-    colspan: TEAMS_SUMMARY_JOBS_TABLE_HEADERS.length,
+    colspan: TEAMS_SUMMARY_JOBS_TABLE_HEADERS.length + 1,
     setPage,
     setRowsPerPage,
   };
@@ -62,6 +75,13 @@ export const JobsTableByTeam = (props: IJobsTableByTeamProps) => {
         ...staticTableParam,
         value: "tenant_name",
       },
+      {
+        ...staticTableParam,
+        value: "Details",
+        type: "button",
+        onClickHandler: jobDetailsClickHandler,
+        fnArgs: returnParams,
+      },
     ],
     keyValue: "job_name",
   };
@@ -72,7 +92,7 @@ export const JobsTableByTeam = (props: IJobsTableByTeamProps) => {
         <TableHeaderCaret
           headers={TEAMS_SUMMARY_JOBS_TABLE_HEADERS}
           hasCaret={false}
-          hasSpareEndCoulmn={false}
+          hasSpareEndCoulmn={true}
         />
 
         <TableBodySetter args={tableBodyDataParam} />

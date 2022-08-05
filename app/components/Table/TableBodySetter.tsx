@@ -93,26 +93,14 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                     key={`${keyValue}-${rowType.value}`}
                     component="th"
                     scope="row"
+                    align="center"
                   >
                     {getCell(row[rowType.value], rowType.type)}
-                    {/* {rowType.type === "link" ? (
-                      <Link
-                        href={row[rowType.value]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        color="inherit"
-                        underline="hover"
-                      >
-                        {trimJobUrl(row[rowType.value])}
-                      </Link>
-                    ) : (
-                      row[rowType.value]
-                    )} */}
                   </TableCell>
                 ) : rowType.type === "button" && rowType.onClickHandler ? (
                   <TableCell
                     key={`${keyValue}-${rowType.value}-spare`}
-                    align="left"
+                    align="center"
                   >
                     <StyledButton
                       onClick={(event: any) =>
@@ -133,19 +121,6 @@ export const TableBodySetter = (props: ITableBodySetterProps) => {
                     align="center"
                   >
                     {getCell(row[rowType.value], rowType.type)}
-                    {/* {rowType.type === "link" ? (
-                      <Link
-                        href={row[rowType.value]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        color="inherit"
-                        underline="hover"
-                      >
-                        {trimJobUrl(row[rowType.value])}
-                      </Link>
-                    ) : (
-                      row[rowType.value]
-                    )} */}
                   </TableCell>
                 )
               )}

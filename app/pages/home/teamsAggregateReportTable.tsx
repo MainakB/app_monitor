@@ -7,8 +7,10 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
-import { TableHeaderCaret } from "~/components/Table";
+import { AggregateTableHeaders } from "./aggregateTableHeaders";
 import { TEAMS_AGGREGATE_REPORT } from "~/data/constants";
+import { TableHeaderCaret } from "~/components/Table";
+
 import { trimJobUrl } from "~/lib";
 
 interface IJobsTableByTeamProps {
@@ -28,7 +30,7 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
       acc = acc + Object.keys(teamObj[val]).length;
       return acc;
     }, 0);
-
+    console.log("test", rowSpan, services);
     return rowSpan;
   };
 
@@ -48,7 +50,8 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
     tableData: any
   ) => {
     const jobNameObj = tableData[teamName][serviceName][jobName];
-    return Object.keys(jobNameObj).length;
+    return Object.keys(jobNameObj).filter((val) => val === "success_rate")
+      .length;
   };
 
   const getTeamsServices = (teamName: string, tableData: any) => {
@@ -68,17 +71,19 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
     tableData: any
   ) => {
     const jobObj = tableData[teamName][service][jobName];
-    return Object.keys(jobObj);
+    return Object.keys(jobObj).filter((val) => val === "success_rate");
   };
+
+  const headers = ["TEAM NAME", "SERVICE NAME", "JOB NAME", "TOTAL COUNT"];
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHeaderCaret
+        <AggregateTableHeaders
           headers={TEAMS_AGGREGATE_REPORT}
-          hasCaret={false}
-          hasSpareEndCoulmn={false}
+          tenant={props.tenant}
         />
+        {/* <TableHeaderCaret headers={headers} /> */}
         <TableBody>
           {teams.map((teamName, idx) =>
             getTeamsServices(teamName, props.tableData).map(
@@ -144,6 +149,20 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
                               {
                                 props.tableData[teamName][service][jobname][
                                   "success_rate"
+                                ]
+                              }
+                            </StyledTableCell>
+                            <StyledTableCell align="center">
+                              {
+                                props.tableData[teamName][service][jobname][
+                                  "success_count"
+                                ]
+                              }
+                            </StyledTableCell>
+                            <StyledTableCell align="center">
+                              {
+                                props.tableData[teamName][service][jobname][
+                                  "total_count"
                                 ]
                               }
                             </StyledTableCell>

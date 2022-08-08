@@ -1,9 +1,11 @@
 import * as React from "react";
+import { styled } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { TeamsStatusTable } from "~/components/HomeDashboardWidgets";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+
 import { TeamsAggregateReportTable } from "./teamsAggregateReportTable";
 
 interface TabPanelProps {
@@ -50,19 +52,26 @@ export const TabsPanel = (props: any) => {
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          {tenantsList.map((val: string, idx: number) => (
-            <Tab
-              key={`${val}-${idx}-landingaggtab`}
-              label={val.toUpperCase()}
-              {...a11yProps(idx)}
-            />
-          ))}
-        </Tabs>
+        <StyledGenericTitleDateRangeWrapper>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            {tenantsList.map((val: string, idx: number) => (
+              <Tab
+                key={`${val}-${idx}-landingaggtab`}
+                label={val.toUpperCase()}
+                {...a11yProps(idx)}
+              />
+            ))}
+          </Tabs>
+          <StyledDateRangeFilter>
+            <StyledRangeWrapper>
+              <FileDownloadOutlinedIcon />
+            </StyledRangeWrapper>
+          </StyledDateRangeFilter>
+        </StyledGenericTitleDateRangeWrapper>
       </Box>
       {tenantsList.map((val: string, idx: number) => (
         <TabPanel
@@ -86,3 +95,19 @@ export const TabsPanel = (props: any) => {
     </Box>
   );
 };
+
+const StyledGenericTitleDateRangeWrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "0px 15px 0px 15px",
+}));
+
+const StyledDateRangeFilter = styled(Box)(({ theme }) => ({
+  padding: "10px",
+  fontSize: "0.8125rem",
+}));
+
+const StyledRangeWrapper = styled(Box)(({ theme }) => ({
+  fontSize: "0.8125rem",
+}));

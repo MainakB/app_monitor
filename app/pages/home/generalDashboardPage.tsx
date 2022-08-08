@@ -96,14 +96,7 @@ export const GeneralDashboardPage = ({
       <GeneralDashboardWidgetsLayout data={configdata.miniwidgets} />
       <GeneralDashboardChartsLayout data={configdata.chartWidgets} />
       <StyleTabWrapper>
-        {/* <StyledGenericTitleDateRangeWrapper> */}
         <StyledTableBox>{LANDING_PAGE_TEAMS_TABLE_TITLE}</StyledTableBox>
-        {/* <StyledDateRangeFilter>
-            <StyledRangeWrapper>
-              <DateRangeText />
-            </StyledRangeWrapper>
-          </StyledDateRangeFilter>
-        </StyledGenericTitleDateRangeWrapper> */}
 
         <TabsPanel data={aggReportData} />
       </StyleTabWrapper>
@@ -126,8 +119,9 @@ const StyledDashboardWrapper = styled(Box)(({ theme }) => ({
 }));
 const StyledTableBox = styled(Box)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightMedium,
+  fontSize: "24px",
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-  padding: "10px",
+  padding: "15px 10px 10px 10px",
   // marginBottom: "15px",
 }));
 

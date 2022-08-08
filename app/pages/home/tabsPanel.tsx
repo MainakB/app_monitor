@@ -1,4 +1,6 @@
 import * as React from "react";
+
+import { useNavigate, Link } from "@remix-run/react";
 import { styled } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -6,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
+import { FONT_COLORS } from "~/data/constants/colors";
 import { TeamsAggregateReportTable } from "./teamsAggregateReportTable";
 
 interface TabPanelProps {
@@ -49,6 +52,14 @@ export const TabsPanel = (props: any) => {
   };
 
   let tenantsList: string[] = Object.keys(props.data);
+
+  const navigate = useNavigate();
+
+  const downloadPdfHandler = (event: any) => {
+    event?.preventDefault();
+    navigate("/pdf");
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -68,7 +79,15 @@ export const TabsPanel = (props: any) => {
           </Tabs>
           <StyledDateRangeFilter>
             <StyledRangeWrapper>
-              <FileDownloadOutlinedIcon />
+              <Link to={"/pdf"} target="_blank" rel="noreferrer" reloadDocument>
+                <StyledFileDownloadOutlinedIcon />
+              </Link>
+
+              {/* // component={Link}
+                // to={"/pdf"}
+                // reloadDocument
+                onClick={downloadPdfHandler}
+              /> */}
             </StyledRangeWrapper>
           </StyledDateRangeFilter>
         </StyledGenericTitleDateRangeWrapper>
@@ -111,3 +130,17 @@ const StyledDateRangeFilter = styled(Box)(({ theme }) => ({
 const StyledRangeWrapper = styled(Box)(({ theme }) => ({
   fontSize: "0.8125rem",
 }));
+
+const StyledFileDownloadOutlinedIcon = styled(FileDownloadOutlinedIcon)(
+  ({ theme }) => ({
+    cursor: "pointer",
+    color: FONT_COLORS.PRIMARY_TEXT,
+    transition: "all 0.5s step-start",
+    "&:hover": {
+      opacity: "70%",
+    },
+    "&:active": {
+      opacity: "50%",
+    },
+  })
+);

@@ -1,7 +1,4 @@
-import React from "react";
 import { Link } from "@remix-run/react";
-
-import { useNavigate } from "@remix-run/react";
 import { styled } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -12,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import { TableHeaderCaret } from "~/components/Table";
 import { TEAMS_AGGREGATE_REPORT } from "~/data/constants";
-import { crypt, trimJobUrl } from "~/lib";
+import { trimJobUrl } from "~/lib";
 
 interface IJobsTableByTeamProps {
   tableData: any;
@@ -20,22 +17,7 @@ interface IJobsTableByTeamProps {
   tenantList: string[];
 }
 
-// let headers = ["TEAM NAME", "SERVICE NAME", "JOB NAME", "SUCCESS RATE"];
-
 export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
-  let navigate = useNavigate();
-
-  const jobDetailsClickHandler = (event: any, jobName: string) => {
-    event.preventDefault();
-    navigate(`/jobs/${crypt("jobBrief", jobName)}`, { replace: false });
-  };
-
-  //   const teamNameClickHandler = (event: any) => {
-  //     event.preventDefault();
-  //     console.log("team name is", event.target.value);
-  //     // navigate(`/jobs/${crypt("jobBrief", jobName)}`, { replace: false });
-  //   };
-
   let teams = Object.keys(props.tableData);
 
   const getTeamsRowSpan = (teamName: string, tableData: any) => {

@@ -160,7 +160,7 @@ export const JobTestsTrendsLineChart = ({
                   key={`line_${id}`}
                   dataKey={id}
                   activeDot={{
-                    onClick: (e, payload) => {
+                    onClick: (e: any, payload: any) => {
                       setToolContext(
                         `${payload.dataKey} - ${payload.payload.created_timestamp}`
                       );

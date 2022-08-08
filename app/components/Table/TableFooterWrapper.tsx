@@ -124,7 +124,7 @@ export const TableFooterWrapper = (props: ITableFooterProps) => {
     <TableFooter>
       <TableRow>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+          rowsPerPageOptions={[1, 5, 10, 25, { label: "All", value: -1 }]}
           colSpan={colspan}
           count={(rows || []).length}
           rowsPerPage={rowsPerPage}

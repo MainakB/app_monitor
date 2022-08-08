@@ -49,7 +49,7 @@ export const ToolContextBreadcrumbs = (props: IGenericBreadcrumbsProps) => {
       >
         {["HOME", props.crumbs].map((val, idx) => (
           <StyledBreadcrumb
-            disabled={props.crumbs && idx == 0}
+            disabled={props.crumbs !== null && idx == 0}
             key={`crumb-tms-${val}-${idx}`}
             component="a"
             href="#"

@@ -9,8 +9,8 @@ import {
   GeneralDashboardChartsLayout,
 } from "~/layout/DashboardLayouts";
 import { TeamsStatusTable } from "~/components/HomeDashboardWidgets";
-import { LANDING_PAGE_TEAMS_TABLE_TITLE } from "~/data";
-
+import { LANDING_PAGE_TEAMS_TABLE_TITLE, LANDING_PAGE_DASHBOARD } from "~/data";
+import { DateRangeText } from "~/components/Time";
 import { Spinner } from "../spinner";
 
 const configdata = {
@@ -85,10 +85,26 @@ export const GeneralDashboardPage = ({
     <Spinner show={tableData === undefined} />
   ) : (
     <StyledDashboardWrapper>
+      <StyledGenericTitleDateRangeWrapper>
+        <StyledTableBox>{LANDING_PAGE_DASHBOARD}</StyledTableBox>
+        <StyledDateRangeFilter>
+          <StyledRangeWrapper>
+            <DateRangeText />
+          </StyledRangeWrapper>
+        </StyledDateRangeFilter>
+      </StyledGenericTitleDateRangeWrapper>
       <GeneralDashboardWidgetsLayout data={configdata.miniwidgets} />
       <GeneralDashboardChartsLayout data={configdata.chartWidgets} />
       <StyleTabWrapper>
+        {/* <StyledGenericTitleDateRangeWrapper> */}
         <StyledTableBox>{LANDING_PAGE_TEAMS_TABLE_TITLE}</StyledTableBox>
+        {/* <StyledDateRangeFilter>
+            <StyledRangeWrapper>
+              <DateRangeText />
+            </StyledRangeWrapper>
+          </StyledDateRangeFilter>
+        </StyledGenericTitleDateRangeWrapper> */}
+
         <TabsPanel data={aggReportData} />
       </StyleTabWrapper>
 
@@ -111,9 +127,26 @@ const StyledDashboardWrapper = styled(Box)(({ theme }) => ({
 const StyledTableBox = styled(Box)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightMedium,
   color: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-  marginBottom: "15px",
+  padding: "10px",
+  // marginBottom: "15px",
 }));
 
 const StyleTabWrapper = styled(Box)(({ theme }) => ({
   paddingTop: "45px",
+}));
+
+const StyledGenericTitleDateRangeWrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "0px 15px 0px 15px",
+}));
+
+const StyledDateRangeFilter = styled(Box)(({ theme }) => ({
+  padding: "10px",
+  fontSize: "0.8125rem",
+}));
+
+const StyledRangeWrapper = styled(Box)(({ theme }) => ({
+  fontSize: "0.8125rem",
 }));

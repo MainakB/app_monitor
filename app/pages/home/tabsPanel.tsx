@@ -1,6 +1,6 @@
 import * as React from "react";
-
-import { useNavigate, Link } from "@remix-run/react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import { styled } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -46,6 +46,7 @@ function a11yProps(index: number) {
 
 export const TabsPanel = (props: any) => {
   const [value, setValue] = React.useState(0);
+  const tableEl = React.useRef(null);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -53,11 +54,39 @@ export const TabsPanel = (props: any) => {
 
   let tenantsList: string[] = Object.keys(props.data);
 
-  const navigate = useNavigate();
-
   const downloadPdfHandler = (event: any) => {
     event?.preventDefault();
-    navigate("/pdf");
+    // const pdf = new jsPDF("l", "mm", [305, 250]);
+    const pdf = new jsPDF();
+    autoTable(pdf, {
+      html: "#table",
+      theme: "grid",
+      startY: 40,
+
+      styles: { halign: "center", cellPadding: 2, overflow: "linebreak" },
+      showHead: "everyPage",
+      headStyles: {
+        valign: "middle",
+        cellPadding: 2,
+      },
+      didDrawPage: function (data) {
+        // Header
+        pdf.setFontSize(20);
+        pdf.setTextColor(40);
+        let textX =
+          (pdf.internal.pageSize.getWidth() -
+            pdf.getTextWidth("Test Automation Report")) /
+          2;
+        pdf.text("Test Automation Report", textX, 25);
+        textX =
+          (pdf.internal.pageSize.getWidth() -
+            pdf.getTextWidth("08/01/2022 to 08/08/2022")) /
+          2;
+        pdf.setFontSize(12);
+        pdf.text("08/01/2022 to 08/08/2022", textX + 15, 35);
+      },
+    });
+    pdf.save("Report.pdf");
   };
 
   return (
@@ -79,15 +108,11 @@ export const TabsPanel = (props: any) => {
           </Tabs>
           <StyledDateRangeFilter>
             <StyledRangeWrapper>
-              <Link to={"/pdf"} target="_blank" rel="noreferrer" reloadDocument>
-                <StyledFileDownloadOutlinedIcon />
-              </Link>
+              {/* <Link to={"/pdf"} target="_blank" rel="noreferrer" reloadDocument> */}
+              {/* <StyledFileDownloadOutlinedIcon /> */}
+              {/* </Link> */}
 
-              {/* // component={Link}
-                // to={"/pdf"}
-                // reloadDocument
-                onClick={downloadPdfHandler}
-              /> */}
+              <StyledFileDownloadOutlinedIcon onClick={downloadPdfHandler} />
             </StyledRangeWrapper>
           </StyledDateRangeFilter>
         </StyledGenericTitleDateRangeWrapper>
@@ -102,6 +127,7 @@ export const TabsPanel = (props: any) => {
             tableData={props.data[tenantsList[value]]}
             tenant={tenantsList[value]}
             tenantList={tenantsList}
+            tableRef={tableEl}
           />
           {/* <TeamsStatusTable data={props.data} /> */}
         </TabPanel>

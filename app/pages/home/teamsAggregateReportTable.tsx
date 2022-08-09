@@ -17,6 +17,7 @@ interface IJobsTableByTeamProps {
   tableData: any;
   tenant: string;
   tenantList: string[];
+  tableRef: any;
 }
 
 export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
@@ -74,11 +75,14 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
     return Object.keys(jobObj).filter((val) => val === "success_rate");
   };
 
-  const headers = ["TEAM NAME", "SERVICE NAME", "JOB NAME", "TOTAL COUNT"];
-
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <Table
+        sx={{ minWidth: 500 }}
+        aria-label="custom pagination table"
+        ref={props.tableRef}
+        id="table"
+      >
         <AggregateTableHeaders
           headers={TEAMS_AGGREGATE_REPORT}
           tenant={props.tenant}

@@ -18,11 +18,13 @@ import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 // or for Moment.js
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import type { LoaderFunction, LoaderArgs } from "@remix-run/node";
+import { reportDwldCartCookie } from "~/services/cookies";
 import { DocumentLayout } from "~/layout/DocumentLayout";
 import { NavMenuLayout } from "~/layout/NavMenuLayout";
 import { FONT_COLORS } from "~/data/constants/colors";
-// import { TeamContext } from "~/context/index.delete";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -50,19 +52,40 @@ const theme = createTheme({
       disabled: FONT_COLORS.INACTIVES_DISABLED_PRIMARY,
     },
     divider: FONT_COLORS.BORDERS_SEPERATORS,
-    // headers: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-    // labels: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-    // placeholders: FONT_COLORS.HEADERS_LABELS_PLACEHOLDERS,
-    // borders: FONT_COLORS.BORDERS_SEPERATORS,
-    // seperators: FONT_COLORS.BORDERS_SEPERATORS,
-    // background: {
-    //   paper: FONT_COLORS.DOCUMENT_BODY,
-    //   default: FONT_COLORS.DOCUMENT_BODY,
-    // },
   },
 });
 
 const queryClient = new QueryClient();
+
+export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
+  const cookieHeader = request.headers.get("Cookie");
+  const cookie = await reportDwldCartCookie.parse(cookieHeader);
+
+  if (cookie) {
+    return json(
+      { pdfDwldCart: cookie.pdfDwldCart },
+      {
+        headers: {
+          "Set-Cookie": await reportDwldCartCookie.serialize({
+            pdfDwldCart: cookie.pdfDwldCart,
+          }),
+        },
+      }
+    );
+  }
+  const pdfDwldCart: string[] = [];
+
+  return json(
+    { pdfDwldCart },
+    {
+      headers: {
+        "Set-Cookie": await reportDwldCartCookie.serialize({
+          pdfDwldCart,
+        }),
+      },
+    }
+  );
+};
 
 export default function App() {
   // const setExpandedForTeam = (team?: string, value?: boolean) => {
@@ -90,14 +113,15 @@ export default function App() {
   // const [isExpandedState, setIsExpandedState] = React.useState(initTeamsState);
 
   // React.useEffect(() => {}, [isExpandedState]);
+  const loaderData = useLoaderData<typeof loader>();
 
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <DocumentLayout>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <NavMenuLayout>
-              <Outlet />
+            <NavMenuLayout pdfDwldCart={loaderData.pdfDwldCart}>
+              <Outlet context={{ pdfDwldCart: loaderData.pdfDwldCart }} />
             </NavMenuLayout>
           </LocalizationProvider>
         </DocumentLayout>

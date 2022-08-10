@@ -1,15 +1,17 @@
+// import { useEffect, useState } from "react";
 import { Link } from "@remix-run/react";
-
+import { styled } from "@mui/material";
+import { useFetcher, useLocation } from "@remix-run/react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import type { OverridableComponent } from "@mui/material/OverridableComponent";
-import type { SvgIconTypeMap } from "@mui/material/SvgIcon";
-
-import { styled } from "@mui/material";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { FONT_COLORS } from "~/data/constants/colors";
 import { BoxWidgetsLayout } from "~/layout/WidgetsLayout";
+import { clickHandlerAddWidgetToCart } from "~/lib";
 
 interface IMiniWidgetProps {
   widget: {
@@ -17,15 +19,23 @@ interface IMiniWidgetProps {
     count: string | number;
     footerText: string;
     pathName: string;
-    // footerIcon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-    //   muiName: string;
-    // };
     change: number;
     changeType: string;
   };
+  pdfDwldCart: string[];
+  // cart: string[];
+  // setCart: Function;
 }
 
-export const MiniChartWidget = ({ widget }: IMiniWidgetProps) => {
+export const MiniChartWidget = ({
+  widget,
+  // cart,
+  // setCart,
+  pdfDwldCart,
+}: IMiniWidgetProps) => {
+  const { pathname, search } = useLocation();
+  const fetcher = useFetcher();
+
   return (
     <BoxWidgetsLayout>
       <StyledBoxContentWrapper>
@@ -47,6 +57,45 @@ export const MiniChartWidget = ({ widget }: IMiniWidgetProps) => {
           {widget.change}
           {widget.changeType === "percent" ? "%" : ""}
         </StyledPercentage>
+        <StyledFooterIcon>
+          <fetcher.Form method="post" action="/update-download-cart">
+            <input
+              hidden
+              name="redirectUrl"
+              value={pathname + search}
+              readOnly
+            />
+            <input hidden name="widgetName" value={widget.name} readOnly />
+            <input
+              hidden
+              name="actionType"
+              value={pdfDwldCart.includes(widget.name) ? "remove" : "add"}
+              readOnly
+            />
+            <IconButton type="submit">
+              {pdfDwldCart.includes(widget.name) ? (
+                <StyledAddTaskOutlinedIcon
+                  id={widget.name}
+                  // onClick={(event: React.MouseEvent<SVGSVGElement>) =>
+                  //   clickHandlerAddWidgetToCart(
+                  //     cart,
+                  //     widget.name,
+                  //     "remove",
+                  //     setCart
+                  //   )
+                  // }
+                />
+              ) : (
+                <AddCircleOutlineOutlinedIcon
+                  id={widget.name}
+                  // onClick={(event: React.MouseEvent<SVGSVGElement>) =>
+                  //   clickHandlerAddWidgetToCart(cart, widget.name, "add", setCart)
+                  // }
+                />
+              )}
+            </IconButton>
+          </fetcher.Form>
+        </StyledFooterIcon>
         {/* {widget.footerIcon} */}
       </StyledBoxContentWrapper>
     </BoxWidgetsLayout>
@@ -83,7 +132,6 @@ const StyledFooterText = styled(Typography)(({ theme }) => ({
     borderBottom: "1px solid gray",
     transition: "all 0.5s step-start",
   },
-  // borderBottom: "1px solid gray",
 })) as typeof Typography;
 
 const StyledPercentage = styled(Box)(({ theme }) => ({
@@ -97,4 +145,22 @@ const StyledPercentage = styled(Box)(({ theme }) => ({
   "&.negative": {
     color: theme.palette.error.main,
   },
+}));
+
+const StyledFooterIcon = styled(Box)(({ theme }) => ({
+  marginLeft: "auto",
+  color: FONT_COLORS.PRIMARY_TEXT,
+  opacity: "80%",
+  cursor: "pointer",
+  transition: "all 0.5s step-start",
+  "&:hover": {
+    opacity: "60%",
+  },
+  "&:active": {
+    opacity: "30%",
+  },
+}));
+
+const StyledAddTaskOutlinedIcon = styled(AddTaskOutlinedIcon)(({ theme }) => ({
+  color: theme.palette.success.main,
 }));

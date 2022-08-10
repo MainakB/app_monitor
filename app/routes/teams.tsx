@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData, Outlet } from "@remix-run/react";
+import { useLoaderData, Outlet, useOutletContext } from "@remix-run/react";
 import type { TeamsOverview } from "~/services/teams";
 import { getTeamsOverview } from "~/services/teams";
 
@@ -8,6 +8,7 @@ export const loader = () => {
 };
 
 export default function Teams() {
+  const { pdfDwldCart } = useOutletContext() as any;
   const loaderData: TeamsOverview[] = useLoaderData();
   const [crumbs, setCrumbs] = useState(["Home"]);
 
@@ -15,6 +16,7 @@ export default function Teams() {
     data: loaderData,
     crumbs,
     setCrumbs,
+    pdfDwldCart,
   };
 
   return (

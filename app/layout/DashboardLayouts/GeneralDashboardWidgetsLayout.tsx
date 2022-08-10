@@ -1,5 +1,6 @@
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
+import { useState } from "react";
 
 import { MiniChartWidget } from "~/components/HomeDashboardWidgets";
 
@@ -17,6 +18,7 @@ interface IMiniWidgetProps {
 
 interface IGeneralDashboardWidgetsLayoutProps {
   data: IMiniWidgetProps[];
+  pdfDwldCart: string[];
   //   title?: string;
   // any props that come into the component
 }
@@ -24,10 +26,18 @@ interface IGeneralDashboardWidgetsLayoutProps {
 export const GeneralDashboardWidgetsLayout = (
   props: IGeneralDashboardWidgetsLayoutProps
 ) => {
+  const [cart, setCart] = useState<string[]>([]);
+
   return (
     <StyledWrapperBox>
       {props.data.map((widget: IMiniWidgetProps) => (
-        <MiniChartWidget key={widget.name} widget={widget} />
+        <MiniChartWidget
+          key={widget.name}
+          widget={widget}
+          // cart={cart}
+          // setCart={setCart}
+          pdfDwldCart={props.pdfDwldCart}
+        />
       ))}
     </StyledWrapperBox>
   );

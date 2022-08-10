@@ -1,7 +1,7 @@
 import { createCookie } from "@remix-run/node";
-import { TEAMID_OVW_COOKIE } from "~/data/constants/cookies";
+import { DWNLD_CART_COOKIE } from "~/data/constants/cookies";
 
-export const teamIdDetailsCookie = createCookie(TEAMID_OVW_COOKIE, {
+export const reportDwldCartCookie = createCookie(DWNLD_CART_COOKIE, {
   httpOnly: true,
   maxAge: 60,
   path: "/",

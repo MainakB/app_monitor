@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
 import { GeneralDashboardPage } from "~/pages/home";
 import { getLandingOverview } from "~/services/landing";
 import { json } from "@remix-run/node";
@@ -44,14 +44,16 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
 };
 
 export default function HomeIndex() {
+  const { pdfDwldCart } = useOutletContext() as any;
   const loaderData: any = useLoaderData<typeof loader>();
 
   return (
     <GeneralDashboardPage
-      tableData={loaderData.data.teamsOvw}
+      // tableData={loaderData.data.teamsOvw}
       startDate={loaderData.startDate}
       endDate={loaderData.endDate}
       aggReportData={loaderData.data.reportAggregate}
+      pdfDwldCart={pdfDwldCart}
     />
   );
 }

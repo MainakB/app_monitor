@@ -12,20 +12,22 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Badge from "@mui/material/Badge";
+import ShoppingCartCheckoutOutlinedIcon from "@mui/icons-material/ShoppingCartCheckoutOutlined";
 
-interface Props {
+const drawerWidth = 240;
+
+interface INavBarProps {
+  pdfDwldCart: string[];
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
    */
-  window?: () => Window;
+  // window?: () => Window;
 }
 
-const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
-
-export const NavBar = (props: Props) => {
-  const { window } = props;
+export const NavBar = (props: INavBarProps) => {
+  // const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -38,20 +40,11 @@ export const NavBar = (props: Props) => {
         VARIS
       </Typography>
       <Divider />
-      {/* <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  // const container =
+  //   window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -74,17 +67,21 @@ export const NavBar = (props: Props) => {
             VARIS
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {/* {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
-            ))} */}
+            <IconButton
+              size="large"
+              aria-label={`show ${props.pdfDwldCart.length} new notifications`}
+              color="inherit"
+            >
+              <Badge badgeContent={props.pdfDwldCart.length} color="error">
+                <ShoppingCartCheckoutOutlinedIcon />
+              </Badge>
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       <Box component="nav">
         <Drawer
-          container={container}
+          // container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}

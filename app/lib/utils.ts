@@ -115,3 +115,22 @@ export const crypt = (salt: string, text: string) => {
     .map(byteHex)
     .join("");
 };
+
+export const clickHandlerAddWidgetToCart = (
+  cartVal: string[],
+  id: string | null,
+  type: string | null
+) => {
+  if (!id || !type) {
+    return cartVal;
+  }
+
+  if (type === "add") {
+    return [...cartVal, id];
+  } else {
+    let index = cartVal.indexOf(id);
+    let modifiedCart = [...cartVal];
+    modifiedCart.splice(index, 1);
+    return [...modifiedCart];
+  }
+};

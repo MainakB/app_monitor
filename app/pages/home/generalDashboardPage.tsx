@@ -73,20 +73,22 @@ const configdata = {
 };
 
 interface IGeneralDashboardPageProps {
-  tableData: TeamsOverview[];
+  // tableData: TeamsOverview[];
   aggReportData: any;
   startDate: string;
   endDate: string;
+  pdfDwldCart: string[];
 }
 
 export const GeneralDashboardPage = ({
-  tableData,
+  // tableData,
   aggReportData,
   startDate,
   endDate,
+  pdfDwldCart,
 }: IGeneralDashboardPageProps) => {
-  return tableData === undefined ? (
-    <Spinner show={tableData === undefined} />
+  return aggReportData === undefined ? (
+    <Spinner show={aggReportData === undefined} />
   ) : (
     <StyledDashboardWrapper>
       <StyledGenericTitleDateRangeWrapper>
@@ -101,7 +103,10 @@ export const GeneralDashboardPage = ({
           </StyledRangeWrapper>
         </StyledDateRangeFilter>
       </StyledGenericTitleDateRangeWrapper>
-      <GeneralDashboardWidgetsLayout data={configdata.miniwidgets} />
+      <GeneralDashboardWidgetsLayout
+        data={configdata.miniwidgets}
+        pdfDwldCart={pdfDwldCart}
+      />
       <GeneralDashboardChartsLayout data={configdata.chartWidgets} />
       <StyleTabWrapper>
         <StyledTableBox>{LANDING_PAGE_TEAMS_TABLE_TITLE}</StyledTableBox>

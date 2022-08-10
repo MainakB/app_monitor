@@ -2,7 +2,7 @@ import { useOutletContext, Outlet } from "@remix-run/react";
 import { TeamsDashboard } from "~/pages/teams";
 
 export default function TeamsIndex() {
-  const { data, crumbs, setCrumbs } = useOutletContext() as any;
+  const { data, crumbs, setCrumbs, pdfDwldCart } = useOutletContext() as any;
 
   return (
     <>

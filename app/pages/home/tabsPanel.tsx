@@ -100,7 +100,11 @@ export const TabsPanel = (props: ITabsPanelProps) => {
         pdf.text(reportDatetext, textX + 15, 35);
       },
     });
-    pdf.save("Report.pdf");
+    pdf.save(
+      `Report_${formatDate(props.startDate)}_to_${formatDate(
+        props.endDate
+      )}.pdf`
+    );
   };
 
   return (

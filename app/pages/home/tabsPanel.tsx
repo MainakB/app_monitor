@@ -10,6 +10,7 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
 import { FONT_COLORS } from "~/data/constants/colors";
 import { TeamsAggregateReportTable } from "./teamsAggregateReportTable";
+import moment from "moment";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -44,7 +45,13 @@ function a11yProps(index: number) {
   };
 }
 
-export const TabsPanel = (props: any) => {
+interface ITabsPanelProps {
+  data: any;
+  startDate: string;
+  endDate: string;
+}
+
+export const TabsPanel = (props: ITabsPanelProps) => {
   const [value, setValue] = React.useState(0);
   const tableEl = React.useRef(null);
 
@@ -53,6 +60,13 @@ export const TabsPanel = (props: any) => {
   };
 
   let tenantsList: string[] = Object.keys(props.data);
+
+  const formatDate = (date: string) => {
+    return moment(date).format("MM-DD-YYYY");
+  };
+  const reportDatetext = `${formatDate(props.startDate)} to ${formatDate(
+    props.endDate
+  )}`;
 
   const downloadPdfHandler = (event: any) => {
     event?.preventDefault();
@@ -80,10 +94,10 @@ export const TabsPanel = (props: any) => {
         pdf.text("Test Automation Report", textX, 25);
         textX =
           (pdf.internal.pageSize.getWidth() -
-            pdf.getTextWidth("08/01/2022 to 08/08/2022")) /
+            pdf.getTextWidth(reportDatetext)) /
           2;
         pdf.setFontSize(12);
-        pdf.text("08/01/2022 to 08/08/2022", textX + 15, 35);
+        pdf.text(reportDatetext, textX + 15, 35);
       },
     });
     pdf.save("Report.pdf");

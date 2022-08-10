@@ -106,7 +106,11 @@ export const GeneralDashboardPage = ({
       <StyleTabWrapper>
         <StyledTableBox>{LANDING_PAGE_TEAMS_TABLE_TITLE}</StyledTableBox>
 
-        <TabsPanel data={aggReportData} />
+        <TabsPanel
+          data={aggReportData}
+          startDate={startDate}
+          endDate={endDate}
+        />
       </StyleTabWrapper>
       {/* <div>{startDate}</div>
       <div>{endDate}</div> */}

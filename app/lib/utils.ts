@@ -32,9 +32,7 @@ export const getDateStringFromTimestamp = (
   const hours = timestamp.getHours();
   const mins = timestamp.getMinutes();
   const seconds = timestamp.getSeconds();
-  const dateVal = backdate
-    ? new Date(new Date(year, month, day, hours, mins, seconds))
-    : timestamp;
+  const dateVal = new Date(new Date(year, month, day, hours, mins, seconds));
   return dateVal.toJSON();
 };
 

@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import { AggregateTableHeaders } from "./aggregateTableHeaders";
 import { TEAMS_AGGREGATE_REPORT } from "~/data/constants";
-import { TableHeaderCaret } from "~/components/Table";
 
 import { trimJobUrl } from "~/lib";
 
@@ -76,9 +75,8 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 500 }}
+    <StyledTableContainer component={Paper}>
+      <StyledTable
         aria-label="custom pagination table"
         ref={props.tableRef}
         id="table"
@@ -96,92 +94,105 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
                   (jobname, idxJob) =>
                     getJobs(teamName, service, jobname, props.tableData).map(
                       (successrate, idxrate) => (
-                        <>
-                          <TableRow
-                            key={teamName}
-                            sx={{
-                              //   border: "1px solid black",
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            {!indexService && !idxJob && !idxrate ? (
-                              <StyledTableCell
-                                align="center"
-                                component="th"
-                                scope="row"
-                                rowSpan={getTeamsRowSpan(
-                                  teamName,
-                                  props.tableData
-                                )}
+                        <TableRow
+                          key={`${teamName}${idx}${service}${indexService}${jobname}${idxJob}${idxrate}-row${
+                            Math.random() * 2000
+                          }`}
+                          sx={{
+                            //   border: "1px solid black",
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          {!indexService && !idxJob && !idxrate ? (
+                            <StyledTableCell
+                              align="center"
+                              component="th"
+                              scope="row"
+                              rowSpan={getTeamsRowSpan(
+                                teamName,
+                                props.tableData
+                              )}
+                            >
+                              <StyledTypography
+                                component={Link}
+                                to={`/teams/${teamName}`}
                               >
-                                <StyledTypography
-                                  component={Link}
-                                  to={`/teams/${teamName}`}
-                                >
-                                  {teamName}
-                                </StyledTypography>
-                              </StyledTableCell>
-                            ) : null}
-                            {!idxJob ? (
-                              <StyledTableCell
-                                align="center"
-                                key={`${teamName}-${service}-${indexService}`}
-                                rowSpan={getTeamsServicesRowSpan(
-                                  service,
-                                  teamName,
-                                  props.tableData
-                                )}
-                              >
-                                {trimJobUrl(service)}
-                              </StyledTableCell>
-                            ) : null}
-                            {!idxrate ? (
-                              <StyledTableCell
-                                align="center"
-                                key={`${teamName}-${service}-${jobname}-${idxJob}`}
-                                rowSpan={getJobsRowSpan(
-                                  service,
-                                  teamName,
-                                  jobname,
-                                  props.tableData
-                                )}
-                              >
-                                {trimJobUrl(jobname)}
-                              </StyledTableCell>
-                            ) : null}
-                            <StyledTableCell align="center">
-                              {
-                                props.tableData[teamName][service][jobname][
-                                  "success_rate"
-                                ]
-                              }
+                                {teamName}
+                              </StyledTypography>
                             </StyledTableCell>
-                            <StyledTableCell align="center">
-                              {
-                                props.tableData[teamName][service][jobname][
-                                  "success_count"
-                                ]
-                              }
+                          ) : null}
+                          {!idxJob ? (
+                            <StyledTableCell
+                              align="center"
+                              key={`${teamName}-${service}-${indexService}`}
+                              rowSpan={getTeamsServicesRowSpan(
+                                service,
+                                teamName,
+                                props.tableData
+                              )}
+                            >
+                              {trimJobUrl(service)}
                             </StyledTableCell>
-                            <StyledTableCell align="center">
-                              {
-                                props.tableData[teamName][service][jobname][
-                                  "total_count"
-                                ]
-                              }
+                          ) : null}
+                          {!idxrate ? (
+                            <StyledTableCell
+                              align="center"
+                              key={`${teamName}-${service}-${jobname}-${idxJob}`}
+                              rowSpan={getJobsRowSpan(
+                                service,
+                                teamName,
+                                jobname,
+                                props.tableData
+                              )}
+                            >
+                              {trimJobUrl(jobname)}
                             </StyledTableCell>
-                          </TableRow>
-                        </>
+                          ) : null}
+                          <StyledTableCell align="center">
+                            {
+                              props.tableData[teamName][service][jobname][
+                                "success_rate"
+                              ]
+                            }
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {
+                              props.tableData[teamName][service][jobname][
+                                "success_count"
+                              ]
+                            }
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {
+                              props.tableData[teamName][service][jobname][
+                                "total_count"
+                              ]
+                            }
+                          </StyledTableCell>
+                        </TableRow>
                       )
                     )
                 )
             )
           )}
         </TableBody>
-      </Table>
-    </TableContainer>
+      </StyledTable>
+    </StyledTableContainer>
   );
 };
+
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+  boxShadow: theme.shadows[1],
+  "-webkit-box-shadow": "2px 2px 8px 0px rgba(69, 68, 68, 0.47)",
+})) as typeof TableContainer;
+
+const StyledTable = styled(Table)(({ theme }) => ({
+  minWidth: 500,
+  border: "none",
+  // boxShadow: "20px 4px 10px 1px rgba(234, 18, 18, 0.47)",
+  // // theme.shadows[1],
+  // "-webkit-box-shadow": "2px 4px 10px 1px rgba(234, 18, 18, 0.47)",
+}));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   boxShadow: theme.shadows[1],

@@ -14,6 +14,7 @@ import {
 } from "~/components/Table";
 
 import { LANDING_PAGE_HOME_TABLE_HEADERS } from "~/data/constants";
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 
 interface ITeamsStatusTableProps {
   data: TeamsOverview[] | null;
@@ -139,8 +140,7 @@ export const TeamsStatusTable = (props: ITeamsStatusTableProps) => {
 };
 
 const StyledWrapperBox = styled(Box)(({ theme }) => ({
-  "-webkit-box-shadow": "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
-  boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+  boxShadow: GLOBALBOXSHADOW,
   padding: "20px",
   margin: "20px",
 }));

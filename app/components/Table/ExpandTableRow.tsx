@@ -85,7 +85,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
-// import { TeamContext } from "~/context";
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 import { useGetContext } from "~/hooks/contexts";
 
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
@@ -155,5 +155,5 @@ export const ExpandableTableRow = ({
 
 const StyledTableRowWrapper = styled(TableRow)(({ theme }) => ({
   borderBottom: `1px solid ${FONT_COLORS.BORDERS_SEPERATORS}`,
-  boxShadow: "5px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+  boxShadow: GLOBALBOXSHADOW,
 }));

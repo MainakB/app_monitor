@@ -7,7 +7,7 @@ import { FONT_COLORS } from "~/data/constants/colors";
 import type { TeamBriefSummary } from "~/services/teams";
 import { GenricNoLegendsTrendsLineChart } from "~/components/Charts";
 import { JobsTableByTeam } from "./jobsTableByTeam";
-
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 interface ITeamDetailsByIdProps extends React.HTMLAttributes<Element> {
   teamName: string;
   summaryWidgetData: TeamBriefSummary | null;
@@ -81,10 +81,8 @@ const StyledMiniWidgetWrapperBox = styled(Box, {
   justifyContent: "space-around",
   flex: customFlex ? customFlex : 1,
   padding: "5px",
-  "-webkit-box-shadow": "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
-  boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+  boxShadow: GLOBALBOXSHADOW,
   borderRadius: "10px",
-  // height: "100%",
 }));
 
 const StyledTitle = styled(Typography)(({ theme }) => ({

@@ -1,3 +1,4 @@
 export * from "./chartColors";
 export * from "./fontColors";
 export * from "./tableColors";
+export * from "./styles";

@@ -4,6 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { TABLE_COLORS, FONT_COLORS } from "~/data/constants/colors";
 import type { TEAMS_AGGREGATE_REPORT } from "~/data/constants";
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 
 interface ITableHeaderCaretProps {
   headers: typeof TEAMS_AGGREGATE_REPORT;
@@ -59,7 +60,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledTableCellTenant = styled(TableCell)(({ theme }) => ({
   align: "right",
-  // boxShadow: theme.shadows[1],
   borderBottom: `1px solid ${FONT_COLORS.BORDERS_SEPERATORS}`,
 }));
 

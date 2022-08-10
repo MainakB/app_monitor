@@ -7,6 +7,7 @@ import { GenericBreadcrumbs } from "~/components/Breadcrumbs";
 import { DateRangeText } from "~/components/Time";
 import { FONT_COLORS } from "~/data/constants/colors";
 import { TEAM_DETAILS_TIME_RANGE_HANDLER_PATH } from "~/data/constants/redirections";
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 
 interface ITeamsDashboardWrapperProps extends React.HTMLAttributes<Element> {
   title?: string;
@@ -47,8 +48,7 @@ export const TeamsDashboardWrapper = (props: ITeamsDashboardWrapperProps) => {
 };
 
 const StyledWrapperBox = styled(Box)(({ theme }) => ({
-  "-webkit-box-shadow": "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
-  boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+  boxShadow: GLOBALBOXSHADOW,
   padding: "20px",
   margin: "20px",
   flex: 4,

@@ -13,6 +13,7 @@ import { JobTenantTrendsLineChart } from "~/components/JobsDashboardWidgets";
 import { AllJobsTestAnalyticsPie } from "./pieChart";
 import { JobTestsTrendsLineChart } from "./jobTestsTrendsLineChart";
 import { ToolContextBreadcrumbs } from "./toolContextBreadcrumbs";
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 
 const getJobsummaryMock = () => {
   let result = [];
@@ -209,10 +210,8 @@ const StyledMiniWidgetWrapperBox = styled(Box, {
   justifyContent: "space-around",
   flex: customFlex ? customFlex : 1,
   padding: "5px",
-  "-webkit-box-shadow": "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
-  boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+  boxShadow: GLOBALBOXSHADOW,
   borderRadius: "10px",
-  // height: "100%",
 }));
 
 const StyledTitle = styled(Typography)(({ theme }) => ({

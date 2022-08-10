@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import { AggregateTableHeaders } from "./aggregateTableHeaders";
 import { TEAMS_AGGREGATE_REPORT } from "~/data/constants";
-
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 import { trimJobUrl } from "~/lib";
 
 interface IJobsTableByTeamProps {
@@ -182,16 +182,12 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
 };
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
-  boxShadow: theme.shadows[1],
   "-webkit-box-shadow": "2px 2px 8px 0px rgba(69, 68, 68, 0.47)",
 })) as typeof TableContainer;
 
 const StyledTable = styled(Table)(({ theme }) => ({
   minWidth: 500,
   border: "none",
-  // boxShadow: "20px 4px 10px 1px rgba(234, 18, 18, 0.47)",
-  // // theme.shadows[1],
-  // "-webkit-box-shadow": "2px 4px 10px 1px rgba(234, 18, 18, 0.47)",
 }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

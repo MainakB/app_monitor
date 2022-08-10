@@ -16,7 +16,8 @@ import type {
   IJobsTenantsSummary,
 } from "~/services/jobs";
 import { Spinner } from "~/pages/spinner";
-// getJobsTrends
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
+
 interface IMiniJobDetailsWidgetProps {
   jobName: string;
   startDate: Date;
@@ -49,7 +50,6 @@ export const JobDetails = (props: IMiniJobDetailsWidgetProps) => {
     props: IMiniJobDetailsWidgetProps,
     dataValue: typeof jobsTrendsData
   ) => {
-
     return isLoading ? (
       <Spinner show={isLoading} backdropInvisible={false} />
     ) : (
@@ -90,7 +90,7 @@ const StyledWrapperBox = styled(Box)(({ theme }) => ({
   // flex: 6,
   // padding: "20px",
   // gap: "20px",
-  boxShadow: "1px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+  boxShadow: GLOBALBOXSHADOW,
   [theme.breakpoints.up("md")]: {
     display: "flex",
     // padding: "20px",

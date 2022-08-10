@@ -8,6 +8,7 @@ import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FONT_COLORS } from "~/data/constants/colors";
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 
 interface IMiniWidgetProps {
   widget: {
@@ -21,12 +22,12 @@ interface IMiniWidgetProps {
 export const MiniTeamDetailsWidget = ({ widget }: IMiniWidgetProps) => {
   return (
     <StyledMiniWidgetWrapperBox>
-      <StyledBoxContentWrapper>
+      <Box>
         <StyledTitle>{widget.name}</StyledTitle>
         <StyledCounter>Job Count: {widget.jobsCount}</StyledCounter>
         <StyledCounter>Pipeline Count: {widget.pipelineCount}</StyledCounter>
         <StyledCounter>Test Count: {widget.testCount}</StyledCounter>
-      </StyledBoxContentWrapper>
+      </Box>
     </StyledMiniWidgetWrapperBox>
   );
 };
@@ -36,16 +37,9 @@ const StyledMiniWidgetWrapperBox = styled(Box)(({ theme }) => ({
   justifyContent: "space-around",
   flex: 1,
   padding: "5px",
-  // -webkit-box-shadow: "2px 4px 10px 1px rgba(0, 0, 0, 0.47)",
-  boxShadow: "2px 4px 10px 1px rgba(201, 201, 201, 0.47)",
+  boxShadow: GLOBALBOXSHADOW,
   borderRadius: "10px",
   height: "100%",
-}));
-
-const StyledBoxContentWrapper = styled(Box)(({ theme }) => ({
-  // display: "flex",
-  // flexDirection: "column",
-  // justifyContent: "space-between",
 }));
 
 const StyledTitle = styled(Typography)(({ theme }) => ({

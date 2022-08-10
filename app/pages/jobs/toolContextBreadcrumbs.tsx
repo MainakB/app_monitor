@@ -9,6 +9,7 @@ import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { ROUTEPATHS } from "~/data/constants/nav";
+import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 
 interface IGenericBreadcrumbsProps {
   crumbs: string;
@@ -84,7 +85,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
       backgroundColor: emphasize(backgroundColor, 0.06),
     },
     "&:active": {
-      boxShadow: theme.shadows[1],
+      boxShadow: GLOBALBOXSHADOW,
       backgroundColor: emphasize(backgroundColor, 0.12),
     },
   };

@@ -16,6 +16,10 @@ export async function action({ request }: ActionArgs) {
   const cookieHeader = request.headers.get("Cookie");
   const cookie = await reportDwldCartCookie.parse(cookieHeader);
 
+  if (!cookie) {
+    return redirect("/");
+  }
+
   const cartValue = clickHandlerAddWidgetToCart(
     cookie.pdfDwldCart,
     typeof widgetName === "string" ? widgetName : null,

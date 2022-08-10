@@ -6,9 +6,9 @@ import Box from "@mui/material/Box";
 import { GenericBreadcrumbs } from "~/components/Breadcrumbs";
 import { DateRangeText } from "~/components/Time";
 import { FONT_COLORS } from "~/data/constants/colors";
-import { TEAM_DETAILS_TIME_RANGE_HANDLER_PATH } from "~/data/constants/redirections";
+import { JOB_DETAILS_TIME_RANGE_HANDLER_PATH } from "~/data/constants/redirections";
 
-interface ITeamsDashboardWrapperProps extends React.HTMLAttributes<Element> {
+interface IJobsDashboardWrapperProps extends React.HTMLAttributes<Element> {
   title?: string;
   crumbs: string[];
   setCrumbs: Function;
@@ -16,7 +16,7 @@ interface ITeamsDashboardWrapperProps extends React.HTMLAttributes<Element> {
   startDate?: string;
   endDate?: string;
 }
-export const TeamsDashboardWrapper = (props: ITeamsDashboardWrapperProps) => {
+export const JobsDashboardWrapper = (props: IJobsDashboardWrapperProps) => {
   return (
     <StyledWrapperBox>
       {props.title ? (
@@ -34,7 +34,7 @@ export const TeamsDashboardWrapper = (props: ITeamsDashboardWrapperProps) => {
               <DateRangeText
                 startDate={props.startDate}
                 endDate={props.endDate}
-                redirectPath={TEAM_DETAILS_TIME_RANGE_HANDLER_PATH}
+                redirectPath={JOB_DETAILS_TIME_RANGE_HANDLER_PATH}
               />
             </StyledRangeWrapper>
           </StyledDateRangeFilter>

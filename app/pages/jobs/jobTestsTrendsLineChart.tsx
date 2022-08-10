@@ -22,7 +22,6 @@ import { PlaylistAddOutlined } from "@mui/icons-material";
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
-    console.log(active, payload, label);
     return (
       // <StyledBox>
       //   <StyledTypographyWrapper
@@ -92,7 +91,6 @@ export const JobTestsTrendsLineChart = ({
     dataToUse = data;
   }
 
-  console.log("job data to use, ", dataToUse);
   return (
     <div style={{ width: "100%" }}>
       {dataToUse ? (

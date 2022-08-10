@@ -53,7 +53,6 @@ export const TrendLineChart = ({
     dataToUse = data;
   }
 
-  console.log("data trend", dataToUse, legendKeys);
   return (
     <div style={{ width: "100%" }}>
       {dataToUse ? (

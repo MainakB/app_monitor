@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { JobsTable } from "~/components/JobsDashboardWidgets";
-import { BreadCrumbsLayout } from "~/layout/DocumentLayout";
+import { JobsDashboardWrapper } from "~/layout/JobsLayout";
 import type { JobsOverview, IJobBriefSummary } from "~/services/jobs";
 import { JobDetailsById } from "./jobDetailsById";
 import {
@@ -16,10 +16,9 @@ interface IJobsDashboardProps {
   jobName?: string;
   setCrumbs: Function;
   summaryWidgetData?: IJobBriefSummary;
+  startDate?: string;
+  endDate?: string;
 }
-// export const JobsDashboard = (props: IJobsDashboardProps) => {
-//   return <JobsTable title={props.title} />;
-// };
 
 export const JobsDashboard = (props: IJobsDashboardProps) => {
   useEffect(() => {
@@ -36,10 +35,12 @@ export const JobsDashboard = (props: IJobsDashboardProps) => {
       : LANDING_PAGE_JOBS_TABLE_TITLE;
 
   return (
-    <BreadCrumbsLayout
+    <JobsDashboardWrapper
       title={resolveTitle(props.crumbs, props.jobName)}
       crumbs={props.crumbs}
       setCrumbs={props.setCrumbs}
+      startDate={props.startDate}
+      endDate={props.endDate}
     >
       {props.crumbs.length === 2 ? (
         <JobDetailsById
@@ -54,6 +55,6 @@ export const JobsDashboard = (props: IJobsDashboardProps) => {
           setCrumbs={props.setCrumbs}
         />
       ) : null}
-    </BreadCrumbsLayout>
+    </JobsDashboardWrapper>
   );
 };

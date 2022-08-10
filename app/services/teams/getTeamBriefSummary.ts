@@ -52,6 +52,5 @@ export async function getTeamBriefSummary(props: ITeamBriefSummaryProps) {
   );
 
   const teamsOverview: TeamBriefSummary = await response.json();
-  console.log("test call done", teamsOverview);
   return teamsOverview;
 }

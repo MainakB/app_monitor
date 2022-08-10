@@ -23,6 +23,7 @@ export const getDateStringFromTimestamp = (
   const newDate = new Date(
     new Date().setDate(timestamp.getDate() - (backdate || 0))
   );
+
   const year = newDate.getFullYear();
   const month = newDate.getMonth();
   const day = newDate.getDate();
@@ -85,13 +86,6 @@ export const decrypt = (salt: string, encoded: string) => {
     ?.map(applySaltToChar)
     .map((charCode: any) => String.fromCharCode(charCode))
     .join("");
-
-  // return encoded
-  //   ?.match(/.{1,2}/g)
-  //   .map((hex: any) => parseInt(hex, 16))
-  //   .map(applySaltToChar);
-  // .map((charCode: any) => String.fromCharCode(charCode))
-  // .join("");
 };
 
 export const crypt = (salt: string, text: string) => {

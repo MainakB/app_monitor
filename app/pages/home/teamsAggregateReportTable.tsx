@@ -31,7 +31,7 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
       acc = acc + Object.keys(teamObj[val]).length;
       return acc;
     }, 0);
-    console.log("test", rowSpan, services);
+
     return rowSpan;
   };
 

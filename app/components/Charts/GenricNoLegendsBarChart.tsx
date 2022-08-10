@@ -56,7 +56,6 @@ export const GenricNoLegendsBarChart = ({
     );
   };
 
-  console.log("HELLO BAR", dataToUse);
   return (
     <div style={{ width: "100%" }}>
       {dataToUse ? (

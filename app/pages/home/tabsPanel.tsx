@@ -108,10 +108,6 @@ export const TabsPanel = (props: any) => {
           </Tabs>
           <StyledDateRangeFilter>
             <StyledRangeWrapper>
-              {/* <Link to={"/pdf"} target="_blank" rel="noreferrer" reloadDocument> */}
-              {/* <StyledFileDownloadOutlinedIcon /> */}
-              {/* </Link> */}
-
               <StyledFileDownloadOutlinedIcon onClick={downloadPdfHandler} />
             </StyledRangeWrapper>
           </StyledDateRangeFilter>
@@ -129,13 +125,7 @@ export const TabsPanel = (props: any) => {
             tenantList={tenantsList}
             tableRef={tableEl}
           />
-          {/* <TeamsStatusTable data={props.data} /> */}
         </TabPanel>
-        // <Tab
-        //   key={`${val}-${idx}-landingaggtab`}
-        //   label={val.toUpperCase()}
-        //   {...a11yProps(idx)}
-        // />
       ))}
     </Box>
   );

@@ -49,7 +49,7 @@ export const JobDetails = (props: IMiniJobDetailsWidgetProps) => {
     props: IMiniJobDetailsWidgetProps,
     dataValue: typeof jobsTrendsData
   ) => {
-    console.log("HELLO BAR1", dataValue);
+
     return isLoading ? (
       <Spinner show={isLoading} backdropInvisible={false} />
     ) : (

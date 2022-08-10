@@ -1,4 +1,3 @@
-import * as React from "react";
 import type { TeamsOverview } from "~/services/teams";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -12,6 +11,7 @@ import { TeamsStatusTable } from "~/components/HomeDashboardWidgets";
 import { LANDING_PAGE_TEAMS_TABLE_TITLE, LANDING_PAGE_DASHBOARD } from "~/data";
 import { DateRangeText } from "~/components/Time";
 import { Spinner } from "../spinner";
+import { OVERVIEW_TIME_RANGE_HANDLER_PATH } from "~/data/constants/redirections";
 
 const configdata = {
   miniwidgets: [
@@ -75,11 +75,15 @@ const configdata = {
 interface IGeneralDashboardPageProps {
   tableData: TeamsOverview[];
   aggReportData: any;
+  startDate: string;
+  endDate: string;
 }
 
 export const GeneralDashboardPage = ({
   tableData,
   aggReportData,
+  startDate,
+  endDate,
 }: IGeneralDashboardPageProps) => {
   return tableData === undefined ? (
     <Spinner show={tableData === undefined} />
@@ -89,7 +93,11 @@ export const GeneralDashboardPage = ({
         <StyledTableBox>{LANDING_PAGE_DASHBOARD}</StyledTableBox>
         <StyledDateRangeFilter>
           <StyledRangeWrapper>
-            <DateRangeText />
+            <DateRangeText
+              startDate={startDate}
+              endDate={endDate}
+              redirectPath={OVERVIEW_TIME_RANGE_HANDLER_PATH}
+            />
           </StyledRangeWrapper>
         </StyledDateRangeFilter>
       </StyledGenericTitleDateRangeWrapper>
@@ -100,9 +108,9 @@ export const GeneralDashboardPage = ({
 
         <TabsPanel data={aggReportData} />
       </StyleTabWrapper>
-
-      {/* <TeamsStatusTable data={tableData} />*/}
-      <TeamsStatusTable data={tableData} />
+      {/* <div>{startDate}</div>
+      <div>{endDate}</div> */}
+      {/* <TeamsStatusTable data={tableData} /> */}
     </StyledDashboardWrapper>
   );
 };

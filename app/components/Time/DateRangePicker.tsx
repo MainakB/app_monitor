@@ -1,7 +1,4 @@
-import * as React from "react";
 import TextField from "@mui/material/TextField";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface IDateRangePicker {
@@ -11,15 +8,13 @@ interface IDateRangePicker {
 }
 export const DateRangePicker = (props: IDateRangePicker) => {
   return (
-    // <LocalizationProvider dateAdapter={AdapterDateFns}>
     <DatePicker
       label={props.placeholderText}
       value={props.value}
       onChange={(newValue: any) => {
-        props.setValue(newValue);
+        props.setValue(newValue.toUTCString());
       }}
       renderInput={(params: any) => <TextField {...params} />}
     />
-    // </LocalizationProvider>
   );
 };

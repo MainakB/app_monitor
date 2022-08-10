@@ -40,7 +40,6 @@ export const DashboardExpandTableLayoutSelection = (
           />
         );
       case JOB_LANDING_TRENDS_KEY:
-        console.log("header", trimJobUrl(header));
         return (
           <JobDetails
             jobName={header}

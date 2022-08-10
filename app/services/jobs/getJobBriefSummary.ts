@@ -35,7 +35,6 @@ export type IJobBriefSummaryProps = {
 };
 
 export async function getJobBriefSummary(props: IJobBriefSummaryProps) {
-  console.log("req props", props);
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },

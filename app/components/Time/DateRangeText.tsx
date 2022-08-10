@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "@mui/material";
+import { useFetcher, useLocation } from "@remix-run/react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -7,25 +8,43 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { DateRangePicker } from "./DateRangePicker";
 import Box from "@mui/material/Box";
+import moment from "moment";
+interface IDateRangeTextProps {
+  startDate: string;
+  endDate: string;
+  redirectPath: string;
+}
+export const DateRangeText = ({
+  startDate,
+  endDate,
+  redirectPath,
+}: IDateRangeTextProps) => {
+  const { pathname, search } = useLocation();
+  const fetcher = useFetcher();
 
-export const DateRangeText = () => {
   const [open, setOpen] = React.useState(false);
-  const [startDate, setStartDate] = React.useState<Date | null>(null);
-  const [endDate, setEndDate] = React.useState<Date | null>(null);
+
+  const [startDateState, setStartDateState] = React.useState<string>("");
+  const [endDateState, setEndDateState] = React.useState<string>("");
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  // React.useEffect(() => {
+  //   // setStartDateState(startDate);
+  //   // setEndDateState(endDate);
+  // }, [startDate, endDate]);
 
   return (
     <div>
       <StyledRangeWrapper component="div">
         Date range :{" "}
         <StyledDate component="a" onClick={handleClickOpen}>
-          10/20/2022
+          {moment(new Date(startDate)).format(`MM-DD-YYYY`)}
         </StyledDate>{" "}
         to{" "}
         <StyledDate component="a" onClick={handleClickOpen}>
-          10/27/2022
+          {moment(new Date(endDate)).format(`MM-DD-YYYY`)}
         </StyledDate>
       </StyledRangeWrapper>
 
@@ -35,19 +54,41 @@ export const DateRangeText = () => {
           <StyledDateRangeSelector>
             <DateRangePicker
               placeholderText="Select start date"
-              value={startDate}
-              setValue={setStartDate}
+              value={new Date(startDateState || startDate)}
+              setValue={setStartDateState}
             />
             <Box sx={{ mx: 2, display: "flex", alignItems: "center" }}>to</Box>
             <DateRangePicker
               placeholderText="Select end date"
-              value={endDate}
-              setValue={setEndDate}
+              value={new Date(endDateState || endDate)}
+              setValue={setEndDateState}
             />
           </StyledDateRangeSelector>
           <StyleddButtonWrapper>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose} >Apply</Button>
+            <fetcher.Form method="post" action={redirectPath}>
+              <input
+                hidden
+                name="redirectUrl"
+                value={pathname + search}
+                readOnly
+              />
+              <input
+                hidden
+                name="startDate"
+                value={startDateState || startDate}
+                readOnly
+              />
+              <input
+                hidden
+                name="endDate"
+                value={endDateState || endDate}
+                readOnly
+              />
+              <Button type="submit" onClick={handleClose}>
+                Apply
+              </Button>
+            </fetcher.Form>
           </StyleddButtonWrapper>
         </StyledDialogContent>
       </Dialog>

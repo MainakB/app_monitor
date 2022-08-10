@@ -30,7 +30,6 @@ export const GenericBreadcrumbs = (props: IGenericBreadcrumbsProps) => {
     crumbsList.pop();
     setCrumbsFn([...crumbsList]);
     if (props.shouldNavigate) {
-      console.log("interim path", location.pathname);
       navigate(
         (ROUTEPATHS as any)[crumbsList[crumbsList.length - 1]][
           location.pathname.startsWith("/teams") ? "teams" : "jobs"

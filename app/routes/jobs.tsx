@@ -8,7 +8,7 @@ export const loader = () => {
 };
 
 export default function Jobs() {
-  const loaderData: JobsOverview[] = useLoaderData();
+  const loaderData: JobsOverview[] = useLoaderData<typeof loader>();
   const [jobsCrumbs, setJobsCrumbs] = useState(["Home"]);
 
   const data = {

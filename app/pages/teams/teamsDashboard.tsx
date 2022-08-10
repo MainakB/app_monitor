@@ -14,6 +14,8 @@ interface ITeamsDashboardProps extends React.HTMLAttributes<Element> {
   teamName?: string;
   setCrumbs: Function;
   summaryWidgetData?: TeamBriefSummary;
+  startDate?: string;
+  endDate?: string;
 }
 
 export const TeamsDashboard = (props: ITeamsDashboardProps) => {
@@ -33,6 +35,8 @@ export const TeamsDashboard = (props: ITeamsDashboardProps) => {
       title={resolveTitle(props.crumbs, props.teamName)}
       crumbs={props.crumbs}
       setCrumbs={props.setCrumbs}
+      startDate={props.startDate}
+      endDate={props.endDate}
     >
       {props.crumbs.length === 2 ? (
         <TeamDetailsById

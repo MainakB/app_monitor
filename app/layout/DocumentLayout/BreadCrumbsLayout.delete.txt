@@ -12,6 +12,8 @@ interface IBreadCrumbsLayoutProps extends React.HTMLAttributes<Element> {
   crumbs: string[];
   setCrumbs: Function;
   children: ReactNode;
+  startDate: string;
+  endDate: string;
 }
 export const BreadCrumbsLayout = (props: IBreadCrumbsLayoutProps) => {
   // const openDateClickHandler = (
@@ -31,7 +33,10 @@ export const BreadCrumbsLayout = (props: IBreadCrumbsLayoutProps) => {
         {props.crumbs.length === 2 ? (
           <StyledDateRangeFilter>
             <StyledRangeWrapper>
-              <DateRangeText />
+              <DateRangeText
+                startDate={props.startDate}
+                endDate={props.endDate}
+              />
             </StyledRangeWrapper>
           </StyledDateRangeFilter>
         ) : null}

@@ -1,11 +1,13 @@
 import { BASE_URL, JOBS_TEST_STATUS_AGGREGATE_REPORT } from "~/data/constants";
 
-export async function getTeamsJobsAggregate() {
-  let props = {
-    start_time: "2022-07-01T03:13:44.707Z",
-    end_time: "2022-07-24T03:12:44.707Z",
-  };
+interface IGetTeamsJobsAggregateProps {
+  start_time: string;
+  end_time: string;
+}
 
+export async function getTeamsJobsAggregate(
+  props: IGetTeamsJobsAggregateProps
+) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },

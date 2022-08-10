@@ -33,6 +33,8 @@ export type TeamBriefSummary = {
 
 export type ITeamBriefSummaryProps = {
   team: string;
+  start_time: string;
+  end_time: string;
 };
 
 export async function getTeamBriefSummary(props: ITeamBriefSummaryProps) {

@@ -13,8 +13,22 @@ export type TeamsOverview = {
   nonpipeline_avg_duration: string;
 };
 
-export async function getTeamsOverview() {
-  const response = await fetch(`${BASE_URL}${TEAMS_OVERVIEW_ENDPOINT}`);
+interface IGetTeamsOverviewProps {
+  start_time: string;
+  end_time: string;
+}
+
+export async function getTeamsOverview(props: IGetTeamsOverviewProps) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(props),
+  };
+
+  const response = await fetch(
+    `${BASE_URL}${TEAMS_OVERVIEW_ENDPOINT}`,
+    requestOptions
+  );
   const teamsOverview: TeamsOverview[] = await response.json();
   return teamsOverview;
 }

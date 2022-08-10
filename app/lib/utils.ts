@@ -1,3 +1,5 @@
+import { DEFUALTTIMERANGE } from "~/data/constants/timeranges";
+
 export const getPaginatedRows = (
   rowsPerPage: number,
   rows: any[] | null,
@@ -19,7 +21,7 @@ export const applyOffsetToDate = (dateVal: Date) => {
 export const getDateStringFromTimestamp = (
   timestamp: Date,
   backdate?: number
-): Date => {
+): string => {
   const newDate = new Date(
     new Date().setDate(timestamp.getDate() - (backdate || 0))
   );
@@ -33,7 +35,19 @@ export const getDateStringFromTimestamp = (
   const dateVal = backdate
     ? new Date(new Date(year, month, day, hours, mins, seconds))
     : timestamp;
-  return dateVal;
+  return dateVal.toJSON();
+};
+
+export const getDefaultDate = ({ start }: { start: boolean }) => {
+  const timeArgs: number[] = start ? [0, 0, 0, 0] : [23, 59, 59, 59];
+  return getDateStringFromTimestamp(
+    (() => {
+      const d = new Date();
+      d.setHours(timeArgs[0], timeArgs[1], timeArgs[2], timeArgs[3]);
+      return d;
+    })(),
+    start ? DEFUALTTIMERANGE : 0
+  );
 };
 
 export const setDateWithDayStartTime = () => {

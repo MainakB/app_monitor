@@ -125,9 +125,10 @@ export const clickHandlerAddWidgetToCart = (
   id: string | null,
   type: string | null,
   startDate: string | null,
-  endDate: string | null
+  endDate: string | null,
+  widgetType: string | null
 ) => {
-  if (!id || !type || !startDate || !endDate) {
+  if (!id || !type || !startDate || !endDate || !widgetType) {
     return cartVal;
   }
 
@@ -139,6 +140,7 @@ export const clickHandlerAddWidgetToCart = (
         range: `${formatTimestampStrToDateStr(
           startDate
         )} to ${formatTimestampStrToDateStr(endDate)}`,
+        widgetType,
       },
     };
   } else {

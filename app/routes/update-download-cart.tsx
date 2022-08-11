@@ -15,6 +15,7 @@ export async function action({ request }: ActionArgs) {
   const actionType = formData.get("actionType");
   const startDate = formData.get("widgetStartDate");
   const endDate = formData.get("widgetEndDate");
+  const widgetType = formData.get("widgetType");
 
   const cookieHeader = request.headers.get("Cookie");
   const cookie = await reportDwldCartCookie.parse(cookieHeader);
@@ -28,7 +29,8 @@ export async function action({ request }: ActionArgs) {
     typeof widgetName === "string" ? widgetName : null,
     typeof actionType === "string" ? actionType : null,
     typeof startDate === "string" ? startDate : null,
-    typeof endDate === "string" ? endDate : null
+    typeof endDate === "string" ? endDate : null,
+    typeof widgetType === "string" ? widgetType : null
   );
 
   return redirect(typeof redirectUrl === "string" ? redirectUrl : "/", {

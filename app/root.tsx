@@ -73,7 +73,16 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
       }
     );
   }
-  const pdfDwldCart: any = {};
+  interface IPdfDwldCart {
+    id: string;
+    range: string;
+    widgetType: string;
+  }
+
+  type IPdfDwldCartList<K extends string> = {
+    [k in K]: IPdfDwldCart;
+  };
+  const pdfDwldCart: IPdfDwldCartList<string> = {};
 
   return json(
     { pdfDwldCart },

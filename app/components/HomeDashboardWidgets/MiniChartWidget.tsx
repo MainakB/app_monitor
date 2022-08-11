@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { FONT_COLORS } from "~/data/constants/colors";
 import { BoxWidgetsLayout } from "~/layout/WidgetsLayout";
-import { clickHandlerAddWidgetToCart } from "~/lib";
 
 interface IMiniWidgetProps {
   widget: {
@@ -90,6 +89,7 @@ export const MiniChartWidget = ({
               }
               readOnly
             />
+            <input hidden name="widgetType" value="square_mini" readOnly />
             <IconButton type="submit">
               {Object.keys(pdfDwldCart).includes(widget.name) ? (
                 <StyledAddTaskOutlinedIcon

@@ -20,7 +20,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 
 import ShoppingCartCheckoutOutlinedIcon from "@mui/icons-material/ShoppingCartCheckoutOutlined";
 
@@ -38,6 +37,7 @@ interface INavBarProps {
 interface IWidgetType {
   id: string;
   range: string;
+  widgetType: string;
 }
 
 export const NavBar = (props: INavBarProps) => {
@@ -93,23 +93,31 @@ export const NavBar = (props: INavBarProps) => {
             VARIS
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Tooltip title="Open download cart">
-              <IconButton
-                disabled={Object.values(props.pdfDwldCart).length < 1}
-                size="large"
-                aria-label={`show ${
-                  Object.values(props.pdfDwldCart).length
-                } new notifications`}
-                color="inherit"
-                onClick={handleOpenUserMenu}
-              >
-                <Badge
-                  badgeContent={Object.values(props.pdfDwldCart).length}
-                  color="error"
+            <Tooltip
+              title={
+                Object.values(props.pdfDwldCart).length
+                  ? "Open download cart"
+                  : "Add charts to enable download report option"
+              }
+            >
+              <span>
+                <IconButton
+                  disabled={Object.values(props.pdfDwldCart).length < 1}
+                  size="large"
+                  aria-label={`show ${
+                    Object.values(props.pdfDwldCart).length
+                  } new notifications`}
+                  color="inherit"
+                  onClick={handleOpenUserMenu}
                 >
-                  <ShoppingCartCheckoutOutlinedIcon />
-                </Badge>
-              </IconButton>
+                  <Badge
+                    badgeContent={Object.values(props.pdfDwldCart).length}
+                    color="error"
+                  >
+                    <ShoppingCartCheckoutOutlinedIcon />
+                  </Badge>
+                </IconButton>
+              </span>
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}

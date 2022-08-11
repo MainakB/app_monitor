@@ -6,9 +6,10 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
+import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
+
 import Typography from "@mui/material/Typography";
 import { FONT_COLORS } from "~/data/constants/colors";
 import { BoxWidgetsLayout } from "~/layout/WidgetsLayout";

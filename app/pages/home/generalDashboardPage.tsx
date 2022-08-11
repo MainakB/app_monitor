@@ -119,6 +119,7 @@ export const GeneralDashboardPage = ({
           data={aggReportData}
           startDate={startDate}
           endDate={endDate}
+          pdfDwldCart={pdfDwldCart}
         />
       </StyleTabWrapper>
       {/* <div>{startDate}</div>

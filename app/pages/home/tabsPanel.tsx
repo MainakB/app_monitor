@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useFetcher, useLocation } from "@remix-run/react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { styled } from "@mui/material";
@@ -7,6 +8,9 @@ import Tab from "@mui/material/Tab";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
+import IconButton from "@mui/material/IconButton";
 
 import { FONT_COLORS } from "~/data/constants/colors";
 import { TeamsAggregateReportTable } from "./teamsAggregateReportTable";
@@ -49,11 +53,14 @@ interface ITabsPanelProps {
   data: any;
   startDate: string;
   endDate: string;
+  pdfDwldCart: any;
 }
 
 export const TabsPanel = (props: ITabsPanelProps) => {
   const [value, setValue] = React.useState(0);
   const tableEl = React.useRef(null);
+  const { pathname, search } = useLocation();
+  const fetcher = useFetcher();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -129,6 +136,59 @@ export const TabsPanel = (props: ITabsPanelProps) => {
               <Tooltip title="Download as a report">
                 <StyledFileDownloadOutlinedIcon onClick={downloadPdfHandler} />
               </Tooltip>
+              <Tooltip title="Add to downloadable report">
+                <fetcher.Form method="post" action="/update-download-cart">
+                  <input
+                    hidden
+                    name="redirectUrl"
+                    value={pathname + search}
+                    readOnly
+                  />
+                  <input
+                    hidden
+                    name="widgetName"
+                    value="Status by date"
+                    readOnly
+                  />
+                  <input
+                    hidden
+                    name="widgetStartDate"
+                    value={props.startDate}
+                    readOnly
+                  />
+                  <input
+                    hidden
+                    name="widgetEndDate"
+                    value={props.endDate}
+                    readOnly
+                  />
+                  <input
+                    hidden
+                    name="actionType"
+                    value={
+                      Object.keys(props.pdfDwldCart).includes("Status by date")
+                        ? "remove"
+                        : "add"
+                    }
+                    readOnly
+                  />
+                  <input
+                    hidden
+                    name="widgetType"
+                    value="square_mini"
+                    readOnly
+                  />
+                  <IconButton type="submit">
+                    {Object.keys(props.pdfDwldCart).includes(
+                      "Status by date"
+                    ) ? (
+                      <StyledAddTaskOutlinedIcon id={"Status by date"} />
+                    ) : (
+                      <StyledAddToDownloadIcon id={"Status by date"} />
+                    )}
+                  </IconButton>
+                </fetcher.Form>
+              </Tooltip>
             </StyledRangeWrapper>
           </StyledDateRangeFilter>
         </StyledGenericTitleDateRangeWrapper>
@@ -164,10 +224,40 @@ const StyledDateRangeFilter = styled(Box)(({ theme }) => ({
 }));
 
 const StyledRangeWrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+  alignItems: "center",
   fontSize: "0.8125rem",
 }));
 
 const StyledFileDownloadOutlinedIcon = styled(FileDownloadOutlinedIcon)(
+  ({ theme }) => ({
+    cursor: "pointer",
+    color: FONT_COLORS.PRIMARY_TEXT,
+    transition: "all 0.5s step-start",
+    "&:hover": {
+      opacity: "70%",
+    },
+    "&:active": {
+      opacity: "50%",
+    },
+  })
+);
+
+const StyledAddTaskOutlinedIcon = styled(AddTaskOutlinedIcon)(({ theme }) => ({
+  color: theme.palette.success.main,
+  cursor: "pointer",
+  transition: "all 0.5s step-start",
+  "&:hover": {
+    opacity: "70%",
+  },
+  "&:active": {
+    opacity: "50%",
+  },
+}));
+
+const StyledAddToDownloadIcon = styled(AddCircleOutlineOutlinedIcon)(
   ({ theme }) => ({
     cursor: "pointer",
     color: FONT_COLORS.PRIMARY_TEXT,

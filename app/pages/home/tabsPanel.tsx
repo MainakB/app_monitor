@@ -4,7 +4,7 @@ import autoTable from "jspdf-autotable";
 import { styled } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
@@ -126,7 +126,9 @@ export const TabsPanel = (props: ITabsPanelProps) => {
           </Tabs>
           <StyledDateRangeFilter>
             <StyledRangeWrapper>
-              <StyledFileDownloadOutlinedIcon onClick={downloadPdfHandler} />
+              <Tooltip title="Download as a report">
+                <StyledFileDownloadOutlinedIcon onClick={downloadPdfHandler} />
+              </Tooltip>
             </StyledRangeWrapper>
           </StyledDateRangeFilter>
         </StyledGenericTitleDateRangeWrapper>

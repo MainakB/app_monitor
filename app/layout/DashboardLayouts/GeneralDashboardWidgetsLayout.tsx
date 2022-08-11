@@ -9,16 +9,15 @@ interface IMiniWidgetProps {
   count: string | number;
   footerText: string;
   pathName: string;
-  // footerIcon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-  //   muiName: string;
-  // };
+  startDate: string;
+  endDate: string;
   change: number;
   changeType: string;
 }
 
 interface IGeneralDashboardWidgetsLayoutProps {
   data: IMiniWidgetProps[];
-  pdfDwldCart: string[];
+  pdfDwldCart: any;
   //   title?: string;
   // any props that come into the component
 }
@@ -26,8 +25,6 @@ interface IGeneralDashboardWidgetsLayoutProps {
 export const GeneralDashboardWidgetsLayout = (
   props: IGeneralDashboardWidgetsLayoutProps
 ) => {
-  const [cart, setCart] = useState<string[]>([]);
-
   return (
     <StyledWrapperBox>
       {props.data.map((widget: IMiniWidgetProps) => (

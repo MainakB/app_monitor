@@ -13,71 +13,12 @@ import { DateRangeText } from "~/components/Time";
 import { Spinner } from "../spinner";
 import { OVERVIEW_TIME_RANGE_HANDLER_PATH } from "~/data/constants/redirections";
 
-const configdata = {
-  miniwidgets: [
-    {
-      name: "Teams",
-      count: "54",
-      footerText: "Show all teams",
-      change: 2,
-      changeType: "number",
-      pathName: "/teams",
-      // footerIcon: GroupsOutlinedIcon,
-    },
-    {
-      name: "All Jobs",
-      count: "54",
-      footerText: "Show all pipelines",
-      change: 20,
-      changeType: "number",
-      pathName: "/jobs",
-      // footerIcon: InsightsOutlinedIcon,
-    },
-    {
-      name: "Code Coverage",
-      count: "80%",
-      footerText: "Show all jobs",
-      change: 25,
-      changeType: "percent",
-      pathName: "/jobs",
-      // footerIcon: CodeOffOutlinedIcon,
-    },
-    {
-      name: "Test Status",
-      count: "70%",
-      footerText: "View details",
-      change: -25,
-      changeType: "percent",
-      pathName: "/jobs",
-      // footerIcon: EngineeringOutlinedIcon,
-    },
-  ],
-  chartWidgets: [
-    {
-      name: "Teams",
-      count: 54,
-      footerText: "Show all teams",
-      pathName: "/teams",
-
-      // footerIcon: GroupsOutlinedIcon,
-    },
-    {
-      name: "Jobs Trends",
-      count: 54,
-      footerText: "Show all pipelines",
-      pathName: "/jobs",
-
-      // footerIcon: InsightsOutlinedIcon,
-    },
-  ],
-};
-
 interface IGeneralDashboardPageProps {
   // tableData: TeamsOverview[];
   aggReportData: any;
   startDate: string;
   endDate: string;
-  pdfDwldCart: string[];
+  pdfDwldCart: any;
 }
 
 export const GeneralDashboardPage = ({
@@ -87,6 +28,69 @@ export const GeneralDashboardPage = ({
   endDate,
   pdfDwldCart,
 }: IGeneralDashboardPageProps) => {
+  const configdata = {
+    miniwidgets: [
+      {
+        name: "Teams",
+        count: "54",
+        footerText: "Show all teams",
+        change: 2,
+        changeType: "number",
+        pathName: "/teams",
+        startDate,
+        endDate,
+      },
+      {
+        name: "All Jobs",
+        count: "54",
+        footerText: "Show all pipelines",
+        change: 20,
+        changeType: "number",
+        pathName: "/jobs",
+        startDate,
+        endDate,
+      },
+      {
+        name: "Code Coverage",
+        count: "80%",
+        footerText: "Show all jobs",
+        change: 25,
+        changeType: "percent",
+        pathName: "/jobs",
+        startDate,
+        endDate,
+      },
+      {
+        name: "Test Status",
+        count: "70%",
+        footerText: "View details",
+        change: -25,
+        changeType: "percent",
+        pathName: "/jobs",
+        startDate,
+        endDate,
+      },
+    ],
+    chartWidgets: [
+      {
+        name: "Teams",
+        count: 54,
+        footerText: "Show all teams",
+        pathName: "/teams",
+
+        // footerIcon: GroupsOutlinedIcon,
+      },
+      {
+        name: "Jobs Trends",
+        count: 54,
+        footerText: "Show all pipelines",
+        pathName: "/jobs",
+
+        // footerIcon: InsightsOutlinedIcon,
+      },
+    ],
+  };
+
   return aggReportData === undefined ? (
     <Spinner show={aggReportData === undefined} />
   ) : (

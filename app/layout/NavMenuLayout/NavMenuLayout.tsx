@@ -8,7 +8,7 @@ import { NavBar } from "~/components/NavBar";
 
 interface INavMenuLayoutProps extends React.HTMLAttributes<Element> {
   children: ReactNode;
-  pdfDwldCart: string[];
+  pdfDwldCart: any;
 }
 
 export const NavMenuLayout = ({

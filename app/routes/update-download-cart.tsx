@@ -13,6 +13,9 @@ export async function action({ request }: ActionArgs) {
   const redirectUrl = formData.get("redirectUrl");
   const widgetName = formData.get("widgetName");
   const actionType = formData.get("actionType");
+  const startDate = formData.get("widgetStartDate");
+  const endDate = formData.get("widgetEndDate");
+
   const cookieHeader = request.headers.get("Cookie");
   const cookie = await reportDwldCartCookie.parse(cookieHeader);
 
@@ -23,13 +26,15 @@ export async function action({ request }: ActionArgs) {
   const cartValue = clickHandlerAddWidgetToCart(
     cookie.pdfDwldCart,
     typeof widgetName === "string" ? widgetName : null,
-    typeof actionType === "string" ? actionType : null
+    typeof actionType === "string" ? actionType : null,
+    typeof startDate === "string" ? startDate : null,
+    typeof endDate === "string" ? endDate : null
   );
 
   return redirect(typeof redirectUrl === "string" ? redirectUrl : "/", {
     headers: {
       "Set-Cookie": await reportDwldCartCookie.serialize({
-        pdfDwldCart: cartValue,
+        pdfDwldCart: { ...cartValue },
       }),
     },
   });

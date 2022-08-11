@@ -73,7 +73,7 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
       }
     );
   }
-  const pdfDwldCart: string[] = [];
+  const pdfDwldCart: any = {};
 
   return json(
     { pdfDwldCart },

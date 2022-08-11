@@ -1,3 +1,4 @@
+import moment from "moment";
 import { DEFUALTTIMERANGE } from "~/data/constants/timeranges";
 
 export const getPaginatedRows = (
@@ -116,21 +117,39 @@ export const crypt = (salt: string, text: string) => {
     .join("");
 };
 
+export const formatTimestampStrToDateStr = (timestamp: string) => {
+  return moment(new Date(timestamp)).format("MM-DD-YYYY");
+};
 export const clickHandlerAddWidgetToCart = (
   cartVal: string[],
   id: string | null,
-  type: string | null
+  type: string | null,
+  startDate: string | null,
+  endDate: string | null
 ) => {
-  if (!id || !type) {
+  if (!id || !type || !startDate || !endDate) {
     return cartVal;
   }
 
   if (type === "add") {
-    return [...cartVal, id];
+    return {
+      ...cartVal,
+      [id]: {
+        id,
+        range: `${formatTimestampStrToDateStr(
+          startDate
+        )} to ${formatTimestampStrToDateStr(endDate)}`,
+      },
+    };
   } else {
-    let index = cartVal.indexOf(id);
-    let modifiedCart = [...cartVal];
-    modifiedCart.splice(index, 1);
-    return [...modifiedCart];
+    // let index = cartVal.indexOf(id);
+    // let modifiedCart = [...cartVal];
+    // modifiedCart.splice(index, 1);
+    let modifiedCart = { ...cartVal };
+    if ((modifiedCart as any)[id]) {
+      delete (modifiedCart as any)[id];
+    }
+
+    return modifiedCart;
   }
 };

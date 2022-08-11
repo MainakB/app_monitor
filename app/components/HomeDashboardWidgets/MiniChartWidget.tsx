@@ -21,8 +21,10 @@ interface IMiniWidgetProps {
     pathName: string;
     change: number;
     changeType: string;
+    startDate: string;
+    endDate: string;
   };
-  pdfDwldCart: string[];
+  pdfDwldCart: any;
   // cart: string[];
   // setCart: Function;
 }
@@ -68,12 +70,28 @@ export const MiniChartWidget = ({
             <input hidden name="widgetName" value={widget.name} readOnly />
             <input
               hidden
+              name="widgetStartDate"
+              value={widget.startDate}
+              readOnly
+            />
+            <input
+              hidden
+              name="widgetEndDate"
+              value={widget.endDate}
+              readOnly
+            />
+            <input
+              hidden
               name="actionType"
-              value={pdfDwldCart.includes(widget.name) ? "remove" : "add"}
+              value={
+                Object.keys(pdfDwldCart).includes(widget.name)
+                  ? "remove"
+                  : "add"
+              }
               readOnly
             />
             <IconButton type="submit">
-              {pdfDwldCart.includes(widget.name) ? (
+              {Object.keys(pdfDwldCart).includes(widget.name) ? (
                 <StyledAddTaskOutlinedIcon
                   id={widget.name}
                   // onClick={(event: React.MouseEvent<SVGSVGElement>) =>

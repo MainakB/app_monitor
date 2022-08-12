@@ -125,6 +125,8 @@ export const downloadPdfHandler = async (
 
   let twoDimWidgetList: IWidgetType[][] = get2DWidgetList(widgetList);
   console.log("twoDimWidgetList", twoDimWidgetList);
+  let olWidth = 0;
+  let olHeight = 0;
 
   for (let i = 0; i < twoDimWidgetList.length; i++) {
     const innerList = twoDimWidgetList[i];
@@ -151,12 +153,21 @@ export const downloadPdfHandler = async (
         await creatPdf({
           pdf,
           el,
-          padding,
-          top,
+          padding:
+            innerList.length === 2 && j === 1 ? olWidth + padding * 2 : padding,
+          top: innerList.length === 2 && j === 1 ? top - olHeight - 20 : top,
           elWidth,
           elHeight,
           imageName: `image${i}`,
         });
+      }
+
+      if (innerList.length === 2 && j === 0) {
+        olHeight = elHeight;
+        olWidth = elWidth;
+      } else if (innerList.length === 2 && j === 1) {
+        olHeight = 0;
+        olWidth = 0;
       }
 
       top += elHeight + 20;

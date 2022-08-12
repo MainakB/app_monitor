@@ -52,9 +52,9 @@ async function creatPdf({
 }) {
   const imgData = await htmlToImage.toPng(el);
 
-  // pdf.setLineWidth(0.5);
+  pdf.setLineWidth(0.5);
 
-  pdf.rect(padding, top, elWidth, elHeight, "F");
+  pdf.rect(padding, top, elWidth, elHeight, "S");
 
   pdf.addImage(imgData, "PNG", padding, top, elWidth, elHeight, imageName);
 }
@@ -110,7 +110,7 @@ export const downloadPdfHandler = async (
   const widgetList = Object.values(pdfDwldCart);
   const pdf = new jsPDF("p", "pt", "A4");
 
-  let padding = 20,
+  let padding = 40,
     startY = 60;
 
   const pageWidth = pdf.internal.pageSize.getWidth();
@@ -134,8 +134,8 @@ export const downloadPdfHandler = async (
 
       if (!el) continue;
 
-      let elHeight = el.offsetHeight;
-      let elWidth = el.offsetWidth;
+      let elHeight = el.offsetHeight - 0.05 * el.offsetHeight;
+      let elWidth = el.offsetWidth - 0.05 * el.offsetWidth;
 
       if (elWidth > pageWidth) {
         const ratio = pageWidth / elWidth;
@@ -144,7 +144,7 @@ export const downloadPdfHandler = async (
       }
 
       padding =
-        innerList.length === 2 && j === 1 ? olWidth + padding * 2 : padding;
+        innerList.length === 2 && j === 1 ? olWidth + padding + 20 : padding;
       top = innerList.length === 2 && j === 1 ? top - olHeight - 20 : top;
 
       top = addNewPage(pdf, top, elHeight, pageHeight);
@@ -170,7 +170,7 @@ export const downloadPdfHandler = async (
         olHeight = 0;
         olWidth = 0;
       }
-      padding = 20;
+      padding = 40;
       top += elHeight + 20;
     }
   }

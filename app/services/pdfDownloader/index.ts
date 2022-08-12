@@ -110,9 +110,7 @@ export const downloadPdfHandler = async (
   const widgetList = Object.values(pdfDwldCart);
   const pdf = new jsPDF("p", "pt", "A4");
 
-  let oldElHeight = 0,
-    oldElWidth = 0,
-    padding = 20,
+  let padding = 20,
     startY = 60;
 
   const pageWidth = pdf.internal.pageSize.getWidth();
@@ -124,7 +122,7 @@ export const downloadPdfHandler = async (
   let top = startY + 80;
 
   let twoDimWidgetList: IWidgetType[][] = get2DWidgetList(widgetList);
-  console.log("twoDimWidgetList", twoDimWidgetList);
+
   let olWidth = 0;
   let olHeight = 0;
 
@@ -139,13 +137,17 @@ export const downloadPdfHandler = async (
       let elHeight = el.offsetHeight;
       let elWidth = el.offsetWidth;
 
-      top = addNewPage(pdf, top, elHeight, pageHeight);
-
       if (elWidth > pageWidth) {
         const ratio = pageWidth / elWidth;
         elHeight = elHeight * ratio - padding;
         elWidth = elWidth * ratio - padding;
       }
+
+      padding =
+        innerList.length === 2 && j === 1 ? olWidth + padding * 2 : padding;
+      top = innerList.length === 2 && j === 1 ? top - olHeight - 20 : top;
+
+      top = addNewPage(pdf, top, elHeight, pageHeight);
 
       if (innerList[j].widgetType.startsWith("table_")) {
         await handleTables(pdf, innerList[j].id, top);
@@ -153,12 +155,11 @@ export const downloadPdfHandler = async (
         await creatPdf({
           pdf,
           el,
-          padding:
-            innerList.length === 2 && j === 1 ? olWidth + padding * 2 : padding,
-          top: innerList.length === 2 && j === 1 ? top - olHeight - 20 : top,
+          padding,
+          top,
           elWidth,
           elHeight,
-          imageName: `image${i}`,
+          imageName: `image${i}${j}`,
         });
       }
 
@@ -169,7 +170,7 @@ export const downloadPdfHandler = async (
         olHeight = 0;
         olWidth = 0;
       }
-
+      padding = 20;
       top += elHeight + 20;
     }
   }
@@ -183,6 +184,7 @@ const get2DWidgetList = (widgetList: IWidgetType[]) => {
 
   for (let i = 0; i < widgetList.length; i++) {
     innerList.push(widgetList[i]);
+
     const spliceValue = widgetList[i].widgetType.startsWith("table_") ? 1 : 2;
     if (
       innerList.length === 2 ||
@@ -197,5 +199,6 @@ const get2DWidgetList = (widgetList: IWidgetType[]) => {
     }
   }
 
+  if (innerList.length) result.push(innerList.splice(0, innerList.length));
   return result;
 };

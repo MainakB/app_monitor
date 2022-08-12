@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useFetcher, useLocation } from "@remix-run/react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { styled } from "@mui/material";
@@ -7,14 +6,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
+import moment from "moment";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
-import IconButton from "@mui/material/IconButton";
 
 import { FONT_COLORS } from "~/data/constants/colors";
 import { TeamsAggregateReportTable } from "./teamsAggregateReportTable";
-import moment from "moment";
+import { WidgetAddToCartFetcher } from "~/components/Fetchers";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -59,8 +58,6 @@ interface ITabsPanelProps {
 export const TabsPanel = (props: ITabsPanelProps) => {
   const [value, setValue] = React.useState(0);
   const tableEl = React.useRef(null);
-  const { pathname, search } = useLocation();
-  const fetcher = useFetcher();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -80,7 +77,7 @@ export const TabsPanel = (props: ITabsPanelProps) => {
     // const pdf = new jsPDF("l", "mm", [305, 250]);
     const pdf = new jsPDF();
     autoTable(pdf, {
-      html: "#table",
+      html: "#statusByDate",
       theme: "grid",
       startY: 40,
 
@@ -136,59 +133,21 @@ export const TabsPanel = (props: ITabsPanelProps) => {
               <Tooltip title="Download as a report">
                 <StyledFileDownloadOutlinedIcon onClick={downloadPdfHandler} />
               </Tooltip>
-              <Tooltip title="Add to downloadable report">
-                <fetcher.Form method="post" action="/update-download-cart">
-                  <input
-                    hidden
-                    name="redirectUrl"
-                    value={pathname + search}
-                    readOnly
-                  />
-                  <input
-                    hidden
-                    name="widgetName"
-                    value="Status by date"
-                    readOnly
-                  />
-                  <input
-                    hidden
-                    name="widgetStartDate"
-                    value={props.startDate}
-                    readOnly
-                  />
-                  <input
-                    hidden
-                    name="widgetEndDate"
-                    value={props.endDate}
-                    readOnly
-                  />
-                  <input
-                    hidden
-                    name="actionType"
-                    value={
-                      Object.keys(props.pdfDwldCart).includes("Status by date")
-                        ? "remove"
-                        : "add"
-                    }
-                    readOnly
-                  />
-                  <input
-                    hidden
-                    name="widgetType"
-                    value="square_mini"
-                    readOnly
-                  />
-                  <IconButton type="submit">
-                    {Object.keys(props.pdfDwldCart).includes(
-                      "Status by date"
-                    ) ? (
-                      <StyledAddTaskOutlinedIcon id={"Status by date"} />
-                    ) : (
-                      <StyledAddToDownloadIcon id={"Status by date"} />
-                    )}
-                  </IconButton>
-                </fetcher.Form>
-              </Tooltip>
+              <WidgetAddToCartFetcher
+                startDate={props.startDate}
+                endDate={props.endDate}
+                pdfDwldCart={props.pdfDwldCart}
+                redirectPath="/update-download-cart"
+                widgetId="statusByDate"
+                widgetName="Status by date"
+                widgetType="table_square_mini"
+              >
+                {Object.keys(props.pdfDwldCart).includes("statusByDate") ? (
+                  <StyledAddTaskOutlinedIcon />
+                ) : (
+                  <StyledAddToDownloadIcon />
+                )}
+              </WidgetAddToCartFetcher>
             </StyledRangeWrapper>
           </StyledDateRangeFilter>
         </StyledGenericTitleDateRangeWrapper>
@@ -200,6 +159,7 @@ export const TabsPanel = (props: ITabsPanelProps) => {
           index={idx}
         >
           <TeamsAggregateReportTable
+            idValue="statusByDate"
             tableData={props.data[tenantsList[value]]}
             tenant={tenantsList[value]}
             tenantList={tenantsList}

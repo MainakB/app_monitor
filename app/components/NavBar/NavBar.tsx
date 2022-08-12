@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useFetcher, useLocation } from "@remix-run/react";
 import { styled } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,7 +9,6 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
@@ -23,10 +23,23 @@ import TableRow from "@mui/material/TableRow";
 
 import ShoppingCartCheckoutOutlinedIcon from "@mui/icons-material/ShoppingCartCheckoutOutlined";
 
+import { downloadPdfHandler } from "~/services/pdfDownloader";
+
 const drawerWidth = 240;
 
+interface IWidgetType {
+  id: string;
+  range: string;
+  widgetType: string;
+  name: string;
+}
+
+type IPdfDwldCartList<K extends string> = {
+  [k in K]: IWidgetType;
+};
+
 interface INavBarProps {
-  pdfDwldCart: any;
+  pdfDwldCart: IPdfDwldCartList<string>;
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -34,14 +47,10 @@ interface INavBarProps {
   // window?: () => Window;
 }
 
-interface IWidgetType {
-  id: string;
-  range: string;
-  widgetType: string;
-}
-
 export const NavBar = (props: INavBarProps) => {
   // const { window } = props;
+  const fetcher = useFetcher();
+  const { pathname, search } = useLocation();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -69,6 +78,11 @@ export const NavBar = (props: INavBarProps) => {
   );
 
   const rows: IWidgetType[] = Object.values(props.pdfDwldCart);
+
+  const handlePdfDownload = async (cart: typeof props.pdfDwldCart) => {
+    handleCloseUserMenu();
+    await downloadPdfHandler(cart);
+  };
 
   // const container =
   //   window !== undefined ? () => window().document.body : undefined;
@@ -132,7 +146,10 @@ export const NavBar = (props: INavBarProps) => {
                 vertical: "top",
                 horizontal: "right",
               }}
-              open={Boolean(anchorElUser)}
+              open={
+                Boolean(anchorElUser) &&
+                Object.values(props.pdfDwldCart).length > 0
+              }
               onClose={handleCloseUserMenu}
             >
               <TableContainer component={Box}>
@@ -157,7 +174,7 @@ export const NavBar = (props: INavBarProps) => {
                         }}
                       >
                         <StyledTableCell component="th" scope="row">
-                          {row.id}
+                          {row.name}
                         </StyledTableCell>
                         <StyledTableCell align="center">
                           {row.range}
@@ -166,7 +183,26 @@ export const NavBar = (props: INavBarProps) => {
                     ))}
                     <TableRow>
                       <StyledTableCell rowSpan={2} colSpan={2} align="right">
-                        <Button variant="contained"> Download</Button>
+                        <fetcher.Form
+                          method="post"
+                          action={"/clear-download-cart"}
+                        >
+                          <input
+                            hidden
+                            name="redirectUrl"
+                            value={pathname + search}
+                            readOnly
+                          />
+                          <Button
+                            variant="contained"
+                            type="submit"
+                            onClick={async () =>
+                              await handlePdfDownload(props.pdfDwldCart)
+                            }
+                          >
+                            Download
+                          </Button>
+                        </fetcher.Form>
                       </StyledTableCell>
                     </TableRow>
                   </TableBody>

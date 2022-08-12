@@ -4,10 +4,13 @@ import Box from "@mui/material/Box";
 import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 interface IBoxWidgetsLayoutProps {
   children: ReactNode;
+  id: string;
 }
 
-export const BoxWidgetsLayout = ({ children }: IBoxWidgetsLayoutProps) => {
-  return <StyledMiniWidgetWrapperBox>{children}</StyledMiniWidgetWrapperBox>;
+export const BoxWidgetsLayout = ({ id, children }: IBoxWidgetsLayoutProps) => {
+  return (
+    <StyledMiniWidgetWrapperBox id={id}>{children}</StyledMiniWidgetWrapperBox>
+  );
 };
 
 const StyledMiniWidgetWrapperBox = styled(Box)(({ theme }) => ({

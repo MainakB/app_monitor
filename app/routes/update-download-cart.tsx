@@ -11,6 +11,7 @@ export async function loader() {
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
   const redirectUrl = formData.get("redirectUrl");
+  const widgetId = formData.get("widgetId");
   const widgetName = formData.get("widgetName");
   const actionType = formData.get("actionType");
   const startDate = formData.get("widgetStartDate");
@@ -26,6 +27,7 @@ export async function action({ request }: ActionArgs) {
 
   const cartValue = clickHandlerAddWidgetToCart(
     cookie.pdfDwldCart,
+    typeof widgetId === "string" ? widgetId : null,
     typeof widgetName === "string" ? widgetName : null,
     typeof actionType === "string" ? actionType : null,
     typeof startDate === "string" ? startDate : null,

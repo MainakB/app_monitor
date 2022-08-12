@@ -13,6 +13,7 @@ import { GLOBALBOXSHADOW } from "~/data/constants/colors";
 import { trimJobUrl } from "~/lib";
 
 interface IJobsTableByTeamProps {
+  idValue: string;
   tableData: any;
   tenant: string;
   tenantList: string[];
@@ -79,7 +80,7 @@ export const TeamsAggregateReportTable = (props: IJobsTableByTeamProps) => {
       <StyledTable
         aria-label="custom pagination table"
         ref={props.tableRef}
-        id="table"
+        id={props.idValue}
       >
         <AggregateTableHeaders
           headers={TEAMS_AGGREGATE_REPORT}

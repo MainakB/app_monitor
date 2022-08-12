@@ -77,6 +77,7 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
     id: string;
     range: string;
     widgetType: string;
+    name: string;
   }
 
   type IPdfDwldCartList<K extends string> = {

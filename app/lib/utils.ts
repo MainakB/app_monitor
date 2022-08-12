@@ -123,6 +123,7 @@ export const formatTimestampStrToDateStr = (timestamp: string) => {
 export const clickHandlerAddWidgetToCart = (
   cartVal: string[],
   id: string | null,
+  name: string | null,
   type: string | null,
   startDate: string | null,
   endDate: string | null,
@@ -140,6 +141,7 @@ export const clickHandlerAddWidgetToCart = (
         range: `${formatTimestampStrToDateStr(
           startDate
         )} to ${formatTimestampStrToDateStr(endDate)}`,
+        name,
         widgetType,
       },
     };

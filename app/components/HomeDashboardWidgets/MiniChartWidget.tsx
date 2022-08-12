@@ -1,19 +1,15 @@
-// import { useEffect, useState } from "react";
 import { Link } from "@remix-run/react";
 import { styled } from "@mui/material";
-import { useFetcher, useLocation } from "@remix-run/react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
-import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
-import Tooltip from "@mui/material/Tooltip";
 
 import Typography from "@mui/material/Typography";
 import { FONT_COLORS } from "~/data/constants/colors";
 import { BoxWidgetsLayout } from "~/layout/WidgetsLayout";
-
+import { WidgetAddToCartFetcher } from "~/components/Fetchers";
 interface IMiniWidgetProps {
   widget: {
     name: string;
@@ -26,21 +22,11 @@ interface IMiniWidgetProps {
     endDate: string;
   };
   pdfDwldCart: any;
-  // cart: string[];
-  // setCart: Function;
 }
 
-export const MiniChartWidget = ({
-  widget,
-  // cart,
-  // setCart,
-  pdfDwldCart,
-}: IMiniWidgetProps) => {
-  const { pathname, search } = useLocation();
-  const fetcher = useFetcher();
-
+export const MiniChartWidget = ({ widget, pdfDwldCart }: IMiniWidgetProps) => {
   return (
-    <BoxWidgetsLayout>
+    <BoxWidgetsLayout id={widget.name.split(" ").join("_")}>
       <StyledBoxContentWrapper>
         <StyledTitle>{widget.name}</StyledTitle>
         <StyledCounter>{widget.count}</StyledCounter>
@@ -61,62 +47,22 @@ export const MiniChartWidget = ({
           {widget.changeType === "percent" ? "%" : ""}
         </StyledPercentage>
         <StyledFooterIcon>
-          <Tooltip title="Add to downloadable report">
-            <fetcher.Form method="post" action="/update-download-cart">
-              <input
-                hidden
-                name="redirectUrl"
-                value={pathname + search}
-                readOnly
-              />
-              <input hidden name="widgetName" value={widget.name} readOnly />
-              <input
-                hidden
-                name="widgetStartDate"
-                value={widget.startDate}
-                readOnly
-              />
-              <input
-                hidden
-                name="widgetEndDate"
-                value={widget.endDate}
-                readOnly
-              />
-              <input
-                hidden
-                name="actionType"
-                value={
-                  Object.keys(pdfDwldCart).includes(widget.name)
-                    ? "remove"
-                    : "add"
-                }
-                readOnly
-              />
-              <input hidden name="widgetType" value="square_mini" readOnly />
-              <IconButton type="submit">
-                {Object.keys(pdfDwldCart).includes(widget.name) ? (
-                  <StyledAddTaskOutlinedIcon
-                    id={widget.name}
-                    // onClick={(event: React.MouseEvent<SVGSVGElement>) =>
-                    //   clickHandlerAddWidgetToCart(
-                    //     cart,
-                    //     widget.name,
-                    //     "remove",
-                    //     setCart
-                    //   )
-                    // }
-                  />
-                ) : (
-                  <AddCircleOutlineOutlinedIcon
-                    id={widget.name}
-                    // onClick={(event: React.MouseEvent<SVGSVGElement>) =>
-                    //   clickHandlerAddWidgetToCart(cart, widget.name, "add", setCart)
-                    // }
-                  />
-                )}
-              </IconButton>
-            </fetcher.Form>
-          </Tooltip>
+          <WidgetAddToCartFetcher
+            startDate={widget.startDate}
+            endDate={widget.endDate}
+            pdfDwldCart={pdfDwldCart}
+            widgetId={widget.name.split(" ").join("_")}
+            widgetName={widget.name}
+            widgetType="chart_square_mini"
+          >
+            {Object.keys(pdfDwldCart).includes(
+              widget.name.split(" ").join("_")
+            ) ? (
+              <StyledAddTaskOutlinedIcon />
+            ) : (
+              <AddCircleOutlineOutlinedIcon />
+            )}
+          </WidgetAddToCartFetcher>
         </StyledFooterIcon>
         {/* {widget.footerIcon} */}
       </StyledBoxContentWrapper>

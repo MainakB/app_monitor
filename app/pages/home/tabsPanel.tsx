@@ -138,11 +138,13 @@ export const TabsPanel = (props: ITabsPanelProps) => {
                 endDate={props.endDate}
                 pdfDwldCart={props.pdfDwldCart}
                 redirectPath="/update-download-cart"
-                widgetId="statusByDate"
+                widgetId={`statusByDate${tenantsList[value]}`}
                 widgetName="Status by date"
                 widgetType="table_square_mini"
               >
-                {Object.keys(props.pdfDwldCart).includes("statusByDate") ? (
+                {Object.keys(props.pdfDwldCart).includes(
+                  `statusByDate${tenantsList[value]}`
+                ) ? (
                   <StyledAddTaskOutlinedIcon />
                 ) : (
                   <StyledAddToDownloadIcon />
@@ -159,7 +161,7 @@ export const TabsPanel = (props: ITabsPanelProps) => {
           index={idx}
         >
           <TeamsAggregateReportTable
-            idValue="statusByDate"
+            idValue={`statusByDate${tenantsList[value]}`}
             tableData={props.data[tenantsList[value]]}
             tenant={tenantsList[value]}
             tenantList={tenantsList}

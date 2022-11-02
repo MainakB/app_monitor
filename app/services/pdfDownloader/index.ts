@@ -200,5 +200,6 @@ const get2DWidgetList = (widgetList: IWidgetType[]) => {
   }
 
   if (innerList.length) result.push(innerList.splice(0, innerList.length));
+  console.log("resulkts", result);
   return result;
 };
